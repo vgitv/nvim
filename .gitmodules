@@ -1,0 +1,6 @@
+[submodule "pack/vgitv/start/gruvbox"]
+	path = pack/bundle/start/gruvbox
+	url = git@github.com:morhetz/gruvbox.git
+[submodule "pack/vgitv/start/nerdtree"]
+	path = pack/bundle/start/nerdtree
+	url = git@github.com:preservim/nerdtree.git

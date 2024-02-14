@@ -17,8 +17,8 @@ augroup END
 
 
 " Option settings {{{
-syntax on                   " syntax highlighting
-filetype plugin indent on   " allows auto-indenting depending on file type
+syntax on                        " syntax highlighting
+filetype plugin indent on        " allows auto-indenting depending on file type
 
 set nocompatible                 " disable compatibility to old-time vi
 set showmatch                    " show matching brackets.
@@ -36,12 +36,12 @@ set textwidth=0                  " 0 => dont break long line automatically
 set colorcolumn=120              " set a 120 column border for good coding style
 set wrap                         " wrap long lines
 set clipboard+=unnamedplus       " default clipboard is the system clipboard
-set shiftround
+set shiftround                   " round indent to multiple of shiftwidth
+set termguicolors                " uses gui :highlight attributes instead of cterm attributes
+set cursorline                   " highlight cursor line
+set background=dark              " dark background
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-set termguicolors
-set cursorline
-set bg=dark
 " }}}
 
 
@@ -50,10 +50,10 @@ augroup templates
     autocmd!
     autocmd BufNewFile *.cpp  0read ~/.config/nvim/templates/skeleton.cpp
     " insert template before the first line and go to the end of file
-    autocmd BufNewFile *.sh   0read ~/.config/nvim/templates/skeleton.sh|norm G
+    autocmd BufNewFile *.sh   0read ~/.config/nvim/templates/skeleton.sh | norm G
     autocmd BufNewFile *.html 0read ~/.config/nvim/templates/skeleton.html
     " insert template after the first line and delete first blank line
-    autocmd BufNewFile *.py   1read ~/.config/nvim/templates/skeleton.py|norm ggdd
+    autocmd BufNewFile *.py   1read ~/.config/nvim/templates/skeleton.py | norm ggdd
     autocmd BufNewFile *.md   0read ~/.config/nvim/templates/skeleton.md
 augroup END
 
@@ -66,18 +66,16 @@ augroup END
 
 " Packages {{{
 " Colorscheme
-let black = "#000000"
-let grey = "#3a3a3a"
-
 let g:gruvbox_contrast_dark = "hard"
 let g:gruvbox_italic = 1
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_italicize_strings = 1
-
 colorscheme gruvbox
 
-highlight ColorColumn guibg=black
-highlight CursorLine guibg=black
+" Force black cursor line and column border.
+" Needs to be after loading the colorscheme!
+highlight ColorColumn ctermbg=232 guibg=#000000
+highlight CursorLine ctermbg=232 guibg=#000000
 
 " Start NERDTree and put the cursor back in the other window.
 " autocmd VimEnter * NERDTree | wincmd p

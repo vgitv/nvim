@@ -40,6 +40,8 @@ set shiftround                   " round indent to multiple of shiftwidth
 set termguicolors                " uses gui :highlight attributes instead of cterm attributes
 set cursorline                   " highlight cursor line
 set background=dark              " dark background
+set scrolloff=2
+set sidescrolloff=6
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " }}}

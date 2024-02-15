@@ -8,7 +8,7 @@ let g:status_sep = "\u2022"
 
 
 function TotBuf()
-    return len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+    return len(getbufinfo({'buflisted': 1}))
 endfunction
 
 

@@ -67,17 +67,21 @@ augroup END
 
 
 " Packages {{{
-" Colorscheme
-let g:gruvbox_contrast_dark = "hard"
-let g:gruvbox_italic = 1
-let g:gruvbox_invert_selection = 0
-let g:gruvbox_italicize_strings = 1
-colorscheme gruvbox
+function SetGruvboxColorscheme()
+    let g:gruvbox_contrast_dark = "hard"
+    let g:gruvbox_italic = 1
+    let g:gruvbox_invert_selection = 0
+    let g:gruvbox_italicize_strings = 1
+    colorscheme gruvbox
 
-" Force black cursor line and column border.
-" Needs to be after loading the colorscheme!
-highlight ColorColumn ctermbg=232 guibg=#000000
-highlight CursorLine ctermbg=232 guibg=#000000
+    " Force black cursor line and column border.
+    " Needs to be after loading the colorscheme!
+    highlight ColorColumn ctermbg=232 guibg=#000000
+    highlight CursorLine ctermbg=232 guibg=#000000
+endfunction
+
+" Colorscheme
+call SetGruvboxColorscheme()
 
 " Start NERDTree and put the cursor back in the other window.
 " autocmd VimEnter * NERDTree | wincmd p

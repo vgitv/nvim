@@ -4,3 +4,6 @@
 [submodule "pack/vgitv/start/nerdtree"]
 	path = pack/bundle/start/nerdtree
 	url = git@github.com:preservim/nerdtree.git
+[submodule "pack/bundle/opt/indent-blankline.nvim"]
+	path = pack/bundle/opt/indent-blankline.nvim
+	url = git@github.com:lukas-reineke/indent-blankline.nvim.git

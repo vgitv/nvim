@@ -96,6 +96,11 @@ augroup END
 
 " remove help message in nerdtree
 let NERDTreeMinimalUI=1
+
+function IndentGuide()
+    packadd indent-blankline.nvim
+    lua require("ibl").setup()
+endfunction
 " }}}
 
 

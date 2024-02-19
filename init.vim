@@ -85,18 +85,6 @@ endfunction
 " Colorscheme
 call SetGruvboxColorscheme()
 
-" Start NERDTree and put the cursor back in the other window.
-" autocmd VimEnter * NERDTree | wincmd p
-
-" Exit Vim if NERDTree is the only window left.
-augroup nerdtree_group
-    autocmd!
-    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-augroup END
-
-" remove help message in nerdtree
-let NERDTreeMinimalUI=1
-
 function IndentGuide()
     packadd indent-blankline.nvim
     lua require("ibl").setup()

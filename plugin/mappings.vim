@@ -157,17 +157,11 @@ nnoremap <Leader>k ddkP==
 " load MYVIMRC
 nnoremap <Leader>l :source $MYVIMRC<CR>
 
-" NerdTree focus
-nnoremap <leader>n :NERDTreeFocus<CR>
-
 " toggle quick fix window
 nnoremap <Leader>q :call QuickfixToggle()<CR>
 
 " toggle hlsearch
 nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
-
-" toggle NerdTree
-nnoremap <Leader>t :NERDTreeToggle<CR>
 
 " chercher le mot sous le curseur
 nnoremap <Leader>w mzviwy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>

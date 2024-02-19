@@ -34,11 +34,11 @@ set number                       " add line numbers
 set wildmode=longest:full,full   " get bash-like tab completions
 set textwidth=0                  " 0 => dont break long line automatically
 set colorcolumn=120              " set a 120 column border for good coding style
-set wrap                         " wrap long lines
+set nowrap                       " dont wrap long lines
 set clipboard+=unnamedplus       " default clipboard is the system clipboard
 set shiftround                   " round indent to multiple of shiftwidth
 set termguicolors                " uses gui :highlight attributes instead of cterm attributes
-set cursorline                   " highlight cursor line
+set nocursorline                 " highlight cursor line
 set background=dark              " dark background
 set scrolloff=2
 set sidescrolloff=6
@@ -76,17 +76,29 @@ function SetGruvboxColorscheme()
 
     " Override some highlight groups.
     " Needs to be after loading the colorscheme!
-    " highlight ColorColumn ctermbg=232 guibg=#000000
-    " highlight CursorLine ctermbg=232 guibg=#000000
+    highlight ColorColumn ctermbg=232 guibg=#000000
+    highlight CursorLine ctermbg=232 guibg=#000000
     " highlight StatusLine cterm=reverse ctermfg=239 ctermbg=223 gui=reverse guifg=#458588 guibg=#000000
     " highlight StatusLineNC cterm=reverse ctermfg=237 ctermbg=246 gui=reverse guifg=#7c6f63 guibg=#000000
 endfunction
 
-" Colorscheme
-call SetGruvboxColorscheme()
+function SetTokyoColorscheme()
+    colorscheme tokyonight-moon
 
+    " Override some highlight groups.
+    " Needs to be after loading the colorscheme!
+    highlight LineNr guifg=#545b7c
+endfunction
+
+" Colorscheme
+call SetTokyoColorscheme()
+
+let g:loaded_indent_blankline = 0
 function IndentGuide()
-    packadd indent-blankline.nvim
+    if !g:loaded_indent_blankline
+        packadd indent-blankline.nvim
+        let g:loaded_indent_blankline = 1
+    endif
     lua require("ibl").setup()
 endfunction
 " }}}

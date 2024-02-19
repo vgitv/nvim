@@ -4,3 +4,6 @@
 [submodule "pack/bundle/opt/indent-blankline.nvim"]
 	path = pack/bundle/opt/indent-blankline.nvim
 	url = git@github.com:lukas-reineke/indent-blankline.nvim.git
+[submodule "pack/bundle/start/tokyonight.nvim"]
+	path = pack/bundle/start/tokyonight.nvim
+	url = git@github.com:folke/tokyonight.nvim.git

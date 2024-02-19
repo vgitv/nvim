@@ -76,10 +76,10 @@ function SetGruvboxColorscheme()
 
     " Override some highlight groups.
     " Needs to be after loading the colorscheme!
-    highlight ColorColumn ctermbg=232 guibg=#000000
-    highlight CursorLine ctermbg=232 guibg=#000000
-    highlight StatusLine cterm=reverse ctermfg=239 ctermbg=223 gui=reverse guifg=#458588 guibg=#000000
-    highlight StatusLineNC cterm=reverse ctermfg=237 ctermbg=246 gui=reverse guifg=#7c6f63 guibg=#000000
+    " highlight ColorColumn ctermbg=232 guibg=#000000
+    " highlight CursorLine ctermbg=232 guibg=#000000
+    " highlight StatusLine cterm=reverse ctermfg=239 ctermbg=223 gui=reverse guifg=#458588 guibg=#000000
+    " highlight StatusLineNC cterm=reverse ctermfg=237 ctermbg=246 gui=reverse guifg=#7c6f63 guibg=#000000
 endfunction
 
 " Colorscheme

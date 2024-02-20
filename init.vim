@@ -38,7 +38,7 @@ set nowrap                       " dont wrap long lines
 set clipboard+=unnamedplus       " default clipboard is the system clipboard
 set shiftround                   " round indent to multiple of shiftwidth
 set termguicolors                " uses gui :highlight attributes instead of cterm attributes
-set nocursorline                 " highlight cursor line
+set cursorline                   " highlight cursor line
 set background=dark              " dark background
 set scrolloff=2
 set sidescrolloff=6
@@ -82,16 +82,39 @@ function SetGruvboxColorscheme()
     " highlight StatusLineNC cterm=reverse ctermfg=237 ctermbg=246 gui=reverse guifg=#7c6f63 guibg=#000000
 endfunction
 
-function SetTokyoColorscheme()
+function SetTokyonightMoonColorscheme()
     colorscheme tokyonight-moon
 
     " Override some highlight groups.
     " Needs to be after loading the colorscheme!
     highlight LineNr guifg=#545b7c
+    highlight CursorLine guibg=#1b1d2b
+endfunction
+
+function SetTokyonightNightColorscheme()
+    colorscheme tokyonight-night
+
+    " Override some highlight groups.
+    " Needs to be after loading the colorscheme!
+    highlight CursorLine guibg=#15161e
+endfunction
+
+function SetDoomoneColorscheme()
+    " Add color to cursor
+    let g:doom_one_cursor_coloring = 1
+    " Set :terminal colors
+    let g:doom_one_terminal_colors = 1
+    " Enable italic comments
+    let g:doom_one_italic_comments = 1
+    " Enable TS support
+    let g:doom_one_enable_treesitter = 1
+    " Color whole diagnostic text or only underline
+    let g:doom_one_diagnostics_text_color = 1
+    colorscheme doom-one
 endfunction
 
 " Colorscheme
-call SetTokyoColorscheme()
+call SetTokyonightMoonColorscheme()
 
 let g:loaded_indent_blankline = 0
 function IndentGuide()

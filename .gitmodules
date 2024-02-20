@@ -7,3 +7,6 @@
 [submodule "pack/bundle/start/tokyonight.nvim"]
 	path = pack/bundle/start/tokyonight.nvim
 	url = git@github.com:folke/tokyonight.nvim.git
+[submodule "pack/bundle/start/doom-one.nvim"]
+	path = pack/bundle/start/doom-one.nvim
+	url = git@github.com:NTBBloodbath/doom-one.nvim.git

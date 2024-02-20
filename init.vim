@@ -89,6 +89,9 @@ function SetTokyonightMoonColorscheme()
     " Needs to be after loading the colorscheme!
     highlight LineNr guifg=#545b7c
     highlight CursorLine guibg=#1b1d2b
+    " highlight groups 'Identifier' and 'Statement' are the same by default.
+    " Override Identifier to make a difference.
+    highlight Identifier guifg=#ff79c6
 endfunction
 
 function SetTokyonightNightColorscheme()
@@ -97,6 +100,9 @@ function SetTokyonightNightColorscheme()
     " Override some highlight groups.
     " Needs to be after loading the colorscheme!
     highlight CursorLine guibg=#15161e
+    " highlight groups 'Identifier' and 'Statement' are the same by default.
+    " Override Identifier to make a difference.
+    highlight Identifier guifg=#ff79c6
 endfunction
 
 function SetDoomoneColorscheme()

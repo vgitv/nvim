@@ -1,8 +1,3 @@
-setlocal wrap              " wrap long lines
-setlocal linebreak         " wrap on a word rather than on the last char display in window
-setlocal textwidth=79      " break long line automatically
-setlocal colorcolumn=+1    " column border
-
 inoreabbrev <buffer> _sql ```sql<CR>```<Esc>kA
 inoreabbrev <buffer> _sh ```bash<CR>```<Esc>kA
 inoreabbrev <buffer> _txt ```txt<CR>```<Esc>kA

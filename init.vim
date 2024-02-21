@@ -11,6 +11,8 @@
 " Vimscript file settings {{{
 augroup filetype_vim
     autocmd!
+    " Set marker fold method only for vim filetype, because it is unlikely
+    " that vimscripts will be open with another editor than vim.
     autocmd FileType vim setlocal foldmethod=marker | setlocal foldlevelstart=0
 augroup END
 " }}}
@@ -59,9 +61,19 @@ augroup templates
     autocmd BufNewFile *.md   0read ~/.config/nvim/templates/skeleton.md
 augroup END
 
-augroup filetypes
+augroup set_specific_filetypes
     autocmd!
     autocmd BufNewFile,BufRead *.groff set filetype=groff
+augroup END
+
+" Join actions for all word processing filetypes
+augroup word_processing_specific
+    autocmd!
+    autocmd Filetype markdown,plaintex,text setlocal formatoptions+=a
+    autocmd Filetype markdown,plaintex,text setlocal wrap
+    autocmd Filetype markdown,plaintex,text setlocal linebreak
+    autocmd Filetype markdown,plaintex,text setlocal textwidth=79
+    autocmd Filetype markdown,plaintex,text setlocal colorcolumn=+1
 augroup END
 " }}}
 

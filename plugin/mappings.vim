@@ -163,6 +163,9 @@ nnoremap <Leader>q :call QuickfixToggle()<CR>
 " toggle hlsearch
 nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
 
+" tree
+nnoremap <Leader>t :Lexplore<cr>
+
 " chercher le mot sous le curseur
 nnoremap <Leader>w mzviwy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
 vnoremap <Leader>w mzy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>

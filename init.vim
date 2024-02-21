@@ -69,11 +69,11 @@ augroup END
 " Join actions for all word processing filetypes
 augroup word_processing_specific
     autocmd!
-    autocmd Filetype markdown,plaintex,text setlocal formatoptions+=a
-    autocmd Filetype markdown,plaintex,text setlocal wrap
-    autocmd Filetype markdown,plaintex,text setlocal linebreak
-    autocmd Filetype markdown,plaintex,text setlocal textwidth=79
-    autocmd Filetype markdown,plaintex,text setlocal colorcolumn=+1
+    autocmd Filetype markdown,plaintex setlocal formatoptions+=a
+    autocmd Filetype markdown,plaintex setlocal wrap
+    autocmd Filetype markdown,plaintex setlocal linebreak
+    autocmd Filetype markdown,plaintex setlocal textwidth=79
+    autocmd Filetype markdown,plaintex setlocal colorcolumn=+1
 augroup END
 " }}}
 
@@ -100,7 +100,10 @@ function SetTokyonightMoonColorscheme()
     " Override some highlight groups.
     " Needs to be after loading the colorscheme!
     highlight LineNr guifg=#545b7c
+    highlight CursorLineNr guifg=#9ca2c1
     highlight CursorLine guibg=#1b1d2b
+    highlight StatusLine guibg=#525886 guifg=#bbc2fe
+    highlight StatusLineNc guibg=#43486e guifg=#727abd
     " highlight groups 'Identifier' and 'Statement' are the same by default.
     " Override Identifier to make a difference.
     highlight Identifier guifg=#ff79c6

@@ -69,11 +69,11 @@ augroup END
 " Join actions for all word processing filetypes
 augroup word_processing_specific
     autocmd!
-    autocmd Filetype markdown,plaintex,text setlocal formatoptions+=a
-    autocmd Filetype markdown,plaintex,text setlocal wrap
-    autocmd Filetype markdown,plaintex,text setlocal linebreak
-    autocmd Filetype markdown,plaintex,text setlocal textwidth=79
-    autocmd Filetype markdown,plaintex,text setlocal colorcolumn=+1
+    autocmd Filetype markdown,plaintex setlocal formatoptions+=a
+    autocmd Filetype markdown,plaintex setlocal wrap
+    autocmd Filetype markdown,plaintex setlocal linebreak
+    autocmd Filetype markdown,plaintex setlocal textwidth=79
+    autocmd Filetype markdown,plaintex setlocal colorcolumn=+1
 augroup END
 " }}}
 

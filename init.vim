@@ -100,7 +100,7 @@ function SetTokyonightMoonColorscheme()
     " Override some highlight groups.
     " Needs to be after loading the colorscheme!
     highlight LineNr guifg=#545b7c
-    highlight CursorLineNr guifg=#9ca2c1
+    highlight CursorLineNr guifg=#bbc2fe
     highlight CursorLine guibg=#1b1d2b
     highlight StatusLine guibg=#525886 guifg=#bbc2fe
     highlight StatusLineNc guibg=#43486e guifg=#727abd

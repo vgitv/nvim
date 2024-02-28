@@ -46,6 +46,10 @@ set scrolloff=2
 set sidescrolloff=6
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+" leader variables
+let mapleader = " "
+let localleader = "\\"
 " }}}
 
 
@@ -77,6 +81,39 @@ augroup END
 " }}}
 
 
+" Netrw {{{
+nnoremap - :Explore<cr>
+
+function ToggleNetrw()
+    if &filetype ==# "netrw"
+        let l:command = "normal! :buffer " . g:last_buffer_number . "\r"
+        execute l:command
+    else
+        let g:last_buffer_number = bufnr('%')
+        Explore
+    endif
+endfunction
+
+nnoremap <Leader>t :call ToggleNetrw()<cr>
+
+function NetrwMappings()
+    " make netrw more ranger-like
+    " cant use nnoremap here
+
+    " go up a dir
+    nmap <buffer> h -
+
+    " enter directory / open file
+    nmap <buffer> l <cr>
+endfunction
+
+augroup netrw_autocmd
+    autocmd!
+    autocmd filetype netrw call NetrwMappings()
+augroup END
+" }}}
+
+
 " Packages {{{
 function SetGruvboxColorscheme()
     let g:gruvbox_contrast_dark = "hard"
@@ -89,8 +126,7 @@ function SetGruvboxColorscheme()
     " Needs to be after loading the colorscheme!
     highlight ColorColumn ctermbg=232 guibg=#000000
     highlight CursorLine ctermbg=232 guibg=#000000
-    " highlight StatusLine cterm=reverse ctermfg=239 ctermbg=223 gui=reverse guifg=#458588 guibg=#000000
-    " highlight StatusLineNC cterm=reverse ctermfg=237 ctermbg=246 gui=reverse guifg=#7c6f63 guibg=#000000
+    highlight CursorLineNr guibg=#000000
 endfunction
 
 function SetTokyonightMoonColorscheme()
@@ -134,7 +170,7 @@ function SetDoomoneColorscheme()
 endfunction
 
 " Colorscheme
-call SetTokyonightMoonColorscheme()
+call SetGruvboxColorscheme()
 
 let g:loaded_indent_blankline = 0
 function IndentGuide()

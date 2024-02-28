@@ -3,10 +3,6 @@ if exists("g:loaded_mappings")
 endif
 let g:loaded_mappings = 1
 
-" leader variables
-let mapleader = " "
-let localleader = "\\"
-
 inoremap <tab> <esc>
 inoremap <esc> <nop>
 
@@ -162,9 +158,6 @@ nnoremap <Leader>q :call QuickfixToggle()<CR>
 
 " toggle hlsearch
 nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
-
-" tree
-nnoremap <Leader>t :Lexplore<cr>
 
 " chercher le mot sous le curseur
 nnoremap <Leader>w mzviwy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>

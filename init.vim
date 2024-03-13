@@ -114,6 +114,11 @@ augroup END
 " }}}
 
 
+" Terminal mode {{{
+tnoremap <esc> <C-\><C-n>
+" }}}
+
+
 " Packages {{{
 function SetGruvboxColorscheme()
     let g:gruvbox_contrast_dark = "hard"

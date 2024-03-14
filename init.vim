@@ -172,10 +172,25 @@ function SetDoomoneColorscheme()
     " Color whole diagnostic text or only underline
     let g:doom_one_diagnostics_text_color = 1
     colorscheme doom-one
+
+    " more contrast
+    highlight Normal guibg=#15181e
+    highlight ColorColumn guibg=#000000
+    highlight CursorLine guibg=#000000
+    highlight CursorLineNr guibg=#000000
+endfunction
+
+function SetKanagawaColorscheme()
+    colorscheme kanagawa
+
+    " invert status line and cursor line colors
+    highlight StatusLine guibg=#363646
+    highlight CursorLine guibg=#16161d
+    highlight ColorColumn guibg=#16161d
 endfunction
 
 " Colorscheme
-call SetGruvboxColorscheme()
+call SetKanagawaColorscheme()
 
 let g:loaded_indent_blankline = 0
 function IndentGuide()

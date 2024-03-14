@@ -10,3 +10,6 @@
 [submodule "pack/bundle/start/doom-one.nvim"]
 	path = pack/bundle/start/doom-one.nvim
 	url = git@github.com:NTBBloodbath/doom-one.nvim.git
+[submodule "pack/bundle/start/kanagawa.nvim"]
+	path = pack/bundle/start/kanagawa.nvim
+	url = git@github.com:rebelot/kanagawa.nvim.git

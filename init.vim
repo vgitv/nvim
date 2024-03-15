@@ -184,7 +184,8 @@ function SetKanagawaColorscheme()
     colorscheme kanagawa
 
     " invert status line and cursor line colors
-    highlight StatusLine guibg=#363646
+    highlight StatusLine guibg=#363646 guifg=#d8d7ba
+    highlight StatusLineNc guibg=#363646 guifg=#75746b
     highlight CursorLine guibg=#16161d
     highlight ColorColumn guibg=#16161d
 endfunction

@@ -188,6 +188,9 @@ function SetKanagawaColorscheme()
     highlight StatusLineNc guibg=#363646 guifg=#75746b
     highlight CursorLine guibg=#16161d
     highlight ColorColumn guibg=#16161d
+
+    " more visible errors
+    highlight Error gui=bold,reverse
 endfunction
 
 " Colorscheme

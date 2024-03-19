@@ -4,12 +4,6 @@
 [submodule "pack/bundle/opt/indent-blankline.nvim"]
 	path = pack/bundle/opt/indent-blankline.nvim
 	url = git@github.com:lukas-reineke/indent-blankline.nvim.git
-[submodule "pack/bundle/start/tokyonight.nvim"]
-	path = pack/bundle/start/tokyonight.nvim
-	url = git@github.com:folke/tokyonight.nvim.git
-[submodule "pack/bundle/start/doom-one.nvim"]
-	path = pack/bundle/start/doom-one.nvim
-	url = git@github.com:NTBBloodbath/doom-one.nvim.git
 [submodule "pack/bundle/start/kanagawa.nvim"]
 	path = pack/bundle/start/kanagawa.nvim
 	url = git@github.com:rebelot/kanagawa.nvim.git

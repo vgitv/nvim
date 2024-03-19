@@ -120,6 +120,18 @@ tnoremap <esc> <C-\><C-n>
 
 
 " Packages {{{
+let g:loaded_indent_blankline = 0
+
+
+function IndentGuide()
+    if !g:loaded_indent_blankline
+        packadd indent-blankline.nvim
+        let g:loaded_indent_blankline = 1
+    endif
+    lua require("ibl").setup()
+endfunction
+
+
 function SetGruvboxColorscheme()
     let g:gruvbox_contrast_dark = "hard"
     let g:gruvbox_italic = 1
@@ -134,51 +146,6 @@ function SetGruvboxColorscheme()
     highlight CursorLineNr guibg=#000000
 endfunction
 
-function SetTokyonightMoonColorscheme()
-    colorscheme tokyonight-moon
-
-    " Override some highlight groups.
-    " Needs to be after loading the colorscheme!
-    highlight LineNr guifg=#545b7c
-    highlight CursorLineNr guifg=#bbc2fe
-    highlight CursorLine guibg=#1b1d2b
-    highlight StatusLine guibg=#525886 guifg=#bbc2fe
-    highlight StatusLineNc guibg=#43486e guifg=#727abd
-    " highlight groups 'Identifier' and 'Statement' are the same by default.
-    " Override Identifier to make a difference.
-    highlight Identifier guifg=#ff79c6
-endfunction
-
-function SetTokyonightNightColorscheme()
-    colorscheme tokyonight-night
-
-    " Override some highlight groups.
-    " Needs to be after loading the colorscheme!
-    highlight CursorLine guibg=#15161e
-    " highlight groups 'Identifier' and 'Statement' are the same by default.
-    " Override Identifier to make a difference.
-    highlight Identifier guifg=#ff79c6
-endfunction
-
-function SetDoomoneColorscheme()
-    " Add color to cursor
-    let g:doom_one_cursor_coloring = 1
-    " Set :terminal colors
-    let g:doom_one_terminal_colors = 1
-    " Enable italic comments
-    let g:doom_one_italic_comments = 1
-    " Enable TS support
-    let g:doom_one_enable_treesitter = 1
-    " Color whole diagnostic text or only underline
-    let g:doom_one_diagnostics_text_color = 1
-    colorscheme doom-one
-
-    " more contrast
-    highlight Normal guibg=#15181e
-    highlight ColorColumn guibg=#000000
-    highlight CursorLine guibg=#000000
-    highlight CursorLineNr guibg=#000000
-endfunction
 
 function SetKanagawaColorscheme()
     colorscheme kanagawa
@@ -196,17 +163,9 @@ function SetKanagawaColorscheme()
     highlight Function gui=bold
 endfunction
 
+
 " Colorscheme
 call SetKanagawaColorscheme()
-
-let g:loaded_indent_blankline = 0
-function IndentGuide()
-    if !g:loaded_indent_blankline
-        packadd indent-blankline.nvim
-        let g:loaded_indent_blankline = 1
-    endif
-    lua require("ibl").setup()
-endfunction
 " }}}
 
 

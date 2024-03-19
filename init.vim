@@ -192,11 +192,8 @@ function SetKanagawaColorscheme()
     " more visible errors
     highlight Error gui=bold,reverse
 
-    " more visible function
+    " more visible function for bash scripts
     highlight Function gui=bold
-
-    " keep ~ visible at the buffer end (after last line)
-    highlight clear EndOfBuffer
 endfunction
 
 " Colorscheme

@@ -116,6 +116,8 @@ augroup END
 
 " Terminal mode {{{
 tnoremap <esc> <C-\><C-n>
+
+autocmd TermOpen * setlocal nonumber norelativenumber
 " }}}
 
 

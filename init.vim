@@ -3,9 +3,8 @@
 " | '_ \ / _ \/ _ \ \ / / | '_ ` _ \
 " | | | |  __/ (_) \ V /| | | | | | |
 " |_| |_|\___|\___/ \_/ |_|_| |_| |_|
-"
 
-" za to unfold
+" (za to unfold)
 
 
 " Vimscript file settings {{{

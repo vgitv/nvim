@@ -5,4 +5,4 @@ set expandtab                    " converts tabs to white space
 set shiftwidth=2                 " width for autoindents
 
 " yaml linter
-nnoremap <buffer> <F3> <ESC>:!yamllint %<CR>
+nnoremap <buffer> <F3> <esc>:!yamllint "%"<cr>

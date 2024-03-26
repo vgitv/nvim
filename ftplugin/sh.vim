@@ -1,2 +1,2 @@
 " shellcheck
-nnoremap <buffer> <F3> <ESC>:!shellcheck -x %<CR>
+nnoremap <buffer> <F3> <esc>:!shellcheck -x "%"<cr>

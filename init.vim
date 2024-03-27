@@ -146,7 +146,7 @@ nnoremap <Leader>b :ls<CR>:buffer<Space>
 nnoremap <Leader>d :bnext<CR>:bdelete #<CR>
 
 " edit init file
-nnoremap <Leader>e :vsplit $MYVIMRC<CR>
+nnoremap <Leader>e :edit $MYVIMRC<CR>
 
 " next git conflict (git go)
 nnoremap <Leader>gg /<<<<<<< HEAD<CR>

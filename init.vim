@@ -45,10 +45,151 @@ set scrolloff=2
 set sidescrolloff=6
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" }}}
 
-" leader variables
+
+" Mappings {{{
 let mapleader = " "
 let localleader = "\\"
+
+" use tab instead of escape, it's nearer
+inoremap <tab> <esc>
+inoremap <esc> <nop>
+vnoremap <tab> <esc>
+vnoremap <esc> <nop>
+" for rare cases you need tab, use this key instead
+inoremap <c-space> <tab>
+
+
+" build - based on an external script, see https://github.com/vgitv/zenscript/blob/master/bin/xbuild
+nnoremap <F4> :!xbuild %<CR>
+" F6 reindent all file and come back
+nnoremap <F6> mzgg=G`zzz
+" add ; at the end of the current line
+nnoremap <F7> mzA;<ESC>`z
+" did you forget the ; in the previous line ?
+inoremap <F7> <ESC>kA;<ESC>j==A
+" gnuplot
+nnoremap <F9> :!gnuplot -p "%"<CR>
+" remove carriage return
+nnoremap <F12> mz:%s/\r//g<CR>`z
+
+
+" next/previous buffer
+nnoremap <CR> :bnext<CR>
+nnoremap <BS> :bprevious<CR>
+
+
+" resize window with arrow keys
+nnoremap <Up> :resize +1<CR>
+nnoremap <Down> :resize -1<CR>
+nnoremap <Right> :vertical resize +1<CR>
+nnoremap <Left> :vertical resize -1<CR>
+
+
+" Next replace
+inoremap <buffer> <c-b> <Esc>/<++><CR>"_c4l
+
+" switch case of all word
+inoremap <C-_> <ESC>mzbviw~`za
+nnoremap <C-_> mzviw~`z
+
+" insert blank line without entering insert mode
+nnoremap <C-N> o<Esc>
+
+
+" switch window
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+" search / replace
+" replace in all file (in normal mode, S is same as cc so it can be used)
+nnoremap S :%s/
+
+
+" visual inside word
+nnoremap <Leader><space> viw
+
+" enclose current word
+nnoremap <Leader>" mzviw<Esc>a"<Esc>bi"<Esc>`zl
+nnoremap <Leader>' mzviw<Esc>a'<Esc>bi'<Esc>`zl
+nnoremap <Leader>( mzviw<Esc>a)<Esc>bi(<Esc>`zl
+nnoremap <Leader>[ mzviw<Esc>a]<Esc>bi[<Esc>`zl
+nnoremap <Leader>{ mzviw<Esc>a}<Esc>bi{<Esc>`zl
+nnoremap <Leader>_ mzviw<Esc>a_<Esc>bi_<Esc>`zl
+nnoremap <Leader>* mzviw<Esc>a*<Esc>bi*<Esc>`zl
+nnoremap <Leader>` mzviw<Esc>a`<Esc>bi`<Esc>`zl
+
+" enclose visual selection
+vnoremap <Leader>" <Esc>`<i"<Esc>`>la"<Esc>
+vnoremap <Leader>' <Esc>`<i'<Esc>`>la'<Esc>
+vnoremap <Leader>( <Esc>`<i(<Esc>`>la)<Esc>
+vnoremap <Leader>[ <Esc>`<i[<Esc>`>la]<Esc>
+vnoremap <Leader>{ <Esc>`<i{<Esc>`>la}<Esc>
+vnoremap <Leader>_ <Esc>`<i_<Esc>`>la_<Esc>
+vnoremap <Leader>* <Esc>`<i*<Esc>`>la*<Esc>
+vnoremap <Leader>` <Esc>`<i`<Esc>`>la`<Esc>
+
+" switch to last opened buffer
+nnoremap <Leader># :buffer #<CR>
+
+
+" select all file
+nnoremap <Leader>a ggVG
+
+" choose a buffer
+nnoremap <Leader>b :ls<CR>:buffer<Space>
+
+" Delete buffer
+nnoremap <Leader>d :bnext<CR>:bdelete #<CR>
+
+" edit init file
+nnoremap <Leader>e :vsplit $MYVIMRC<CR>
+
+" next git conflict (git go)
+nnoremap <Leader>gg /<<<<<<< HEAD<CR>
+" git accept ours (git ours)
+nnoremap <Leader>go "_dd/=======<CR>V/>>>>>>><CR>"_d
+" git accept theirs (git theirs)
+nnoremap <Leader>gt V/=======<CR>"_d/>>>>>>><CR>"_dd
+
+" syntax from start in case of wrong colors
+nnoremap <Leader>h :syntax sync fromstart<CR>
+
+" line down
+nnoremap <Leader>j ddp==
+
+" line up
+nnoremap <Leader>k ddkP==
+
+" load MYVIMRC
+nnoremap <Leader>l :source $MYVIMRC<CR>
+
+" toggle hlsearch
+nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
+
+" find word
+nnoremap <Leader>w mzviwy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
+vnoremap <Leader>w mzy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
+
+" paste in visual mode without overwriting global register
+" gv<Esc> at the end in order to replace cursor at the end of pasted text
+vnoremap p pgvygv<Esc>
+
+" make file executable
+nnoremap <Leader>x :!chmod u+x %<CR>
+
+
+" inside next (
+onoremap in( :<C-U>normal! f(vi(<CR>
+" inside previous (last) (
+" Not using ip because it would shadow paragraph movement
+onoremap il( :<C-U>normal! F)vi(<CR>
+
+" in next email adress
+onoremap in@ :<c-u>normal! f@viW<cr>
 " }}}
 
 

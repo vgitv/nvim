@@ -174,6 +174,9 @@ nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
 nnoremap <Leader>w mzviwy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
 vnoremap <Leader>w mzy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
 
+" toggle wrap
+nnoremap <Leader>z :set wrap!<CR>
+
 " paste in visual mode without overwriting global register
 " gv<Esc> at the end in order to replace cursor at the end of pasted text
 vnoremap p pgvygv<Esc>

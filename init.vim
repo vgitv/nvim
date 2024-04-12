@@ -210,7 +210,7 @@ augroup END
 
 augroup set_specific_filetypes
     autocmd!
-    autocmd BufNewFile,BufRead *.groff set filetype=groff
+    autocmd BufNewFile,BufRead *.groff setlocal filetype=groff
 augroup END
 
 " Join actions for all word processing filetypes
@@ -224,9 +224,9 @@ augroup END
 
 augroup small_shiftwidth
     autocmd!
-    autocmd Filetype yaml,html,json setlocal tabstop=2
-    autocmd Filetype yaml,html,json setlocal softtabstop=2
-    autocmd Filetype yaml,html,json setlocal shiftwidth=2
+    autocmd Filetype yaml,html,json,xml setlocal tabstop=2
+    autocmd Filetype yaml,html,json,xml setlocal softtabstop=2
+    autocmd Filetype yaml,html,json,xml setlocal shiftwidth=2
 augroup END
 " }}}
 

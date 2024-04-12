@@ -221,6 +221,13 @@ augroup word_processing_specific
     autocmd Filetype markdown,plaintex setlocal textwidth=79
     autocmd Filetype markdown,plaintex setlocal colorcolumn=+1
 augroup END
+
+augroup small_shiftwidth
+    autocmd!
+    autocmd Filetype yaml,html,json setlocal tabstop=2
+    autocmd Filetype yaml,html,json setlocal softtabstop=2
+    autocmd Filetype yaml,html,json setlocal shiftwidth=2
+augroup END
 " }}}
 
 

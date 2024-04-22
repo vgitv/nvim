@@ -12,7 +12,7 @@ augroup filetype_vim
     autocmd!
     " Set marker fold method only for vim filetype, because it is unlikely
     " that vimscripts will be open with another editor than vim.
-    autocmd FileType vim setlocal foldmethod=marker | setlocal foldlevelstart=0
+    autocmd FileType vim setlocal foldmethod=marker | setlocal foldlevelstart=0 | setlocal foldcolumn=auto
 augroup END
 " }}}
 
@@ -43,6 +43,7 @@ set cursorline                   " highlight cursor line
 set background=dark              " dark background
 set scrolloff=2
 set sidescrolloff=6
+set foldcolumn=auto
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " }}}

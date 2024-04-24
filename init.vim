@@ -64,7 +64,7 @@ inoremap <c-space> <tab>
 
 " build - based on an external script, see https://github.com/vgitv/zenscript/blob/master/bin/xbuild
 nnoremap <F4> :!xbuild %<CR>
-" F6 reindent all file and come back
+" reindent all file
 nnoremap <F6> mzgg=G`zzz
 " add ; at the end of the current line
 nnoremap <F7> mzA;<ESC>`z
@@ -280,7 +280,10 @@ augroup END
 " Terminal mode {{{
 tnoremap <esc> <C-\><C-n>
 
-autocmd TermOpen * setlocal nonumber norelativenumber
+augroup term_specific
+    autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber
+augroup END
 " }}}
 
 

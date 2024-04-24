@@ -1,6 +1,7 @@
 inoreabbrev <buffer> _sql ```sql<CR>```<Esc>kA
 inoreabbrev <buffer> _sh ```bash<CR>```<Esc>kA
-inoreabbrev <buffer> _txt ```txt<CR>```<Esc>kA
+inoreabbrev <buffer> _json ```json<CR>```<Esc>kA
+inoreabbrev <buffer> _yml ```yml<CR>```<Esc>kA
 inoreabbrev <buffer> _ ```<CR>```<Esc>kA
 
 " image

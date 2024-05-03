@@ -185,6 +185,9 @@ vnoremap p pgvygv<Esc>
 " make file executable
 nnoremap <Leader>x :!chmod u+x %<CR>
 
+" insert {} set
+inoremap <C-j> {<CR>}<esc>O
+
 
 " inside next (
 onoremap in( :<C-U>normal! f(vi(<CR>

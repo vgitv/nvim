@@ -6,7 +6,7 @@ let g:loaded_statusln = 1
 
 let g:status_sep = "\u2022"
 
-highlight User1 gui=bold,reverse
+highlight User1 gui=reverse
 
 
 function TotBuf()

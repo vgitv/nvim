@@ -21,7 +21,7 @@ function SetGitInfo()
         let l:git_repo_path = systemlist(['git', '-C', expand('%:h'), 'rev-parse', '--show-toplevel'])[0]
         let l:git_repo = split(l:git_repo_path, '/')[-1]
         let l:git_branch = systemlist(['git', '-C', expand('%:h'), 'branch', '--show-current'])[0]
-        let b:git_info = "  " . l:git_repo . " \U279C " . l:git_branch . " "
+        let b:git_info = "  \ue0a0 " . l:git_repo . " \U279C " . l:git_branch . " "
     else
         let b:git_info = ''
     endif

@@ -290,7 +290,7 @@ augroup END
 " }}}
 
 
-" Packages {{{
+" Packages and colorscheme {{{
 let g:loaded_indent_blankline = 0
 
 
@@ -402,6 +402,3 @@ set statusline=%!MyStatusLine()
 " always display status line
 set laststatus=2
 " }}}
-
-
-echom 'Welcome to nvim'

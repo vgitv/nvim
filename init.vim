@@ -404,7 +404,7 @@ augroup pre_statusline
     " BufReadPre will use fewer ressources than BufEnter, but if another
     " branch is checked out while editing a file, we need to do :e<cr> to
     " refresh status line (re-entering the buffer will not be sufficient)
-    autocmd BufNewFile,BufReadPre * call SetGitInfo()
+    autocmd VimEnter,BufNewFile,BufReadPre * call SetGitInfo()
 augroup END
 
 

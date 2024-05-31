@@ -315,6 +315,9 @@ function SetGruvboxColorscheme()
     highlight ColorColumn ctermbg=232 guibg=#000000
     highlight CursorLine ctermbg=232 guibg=#000000
     highlight CursorLineNr guibg=#000000
+
+    highlight User1 guibg=#ebdbb2 guifg=#504945
+    highlight User2 guibg=#ebdbb2 guifg=#504945 gui=reverse
 endfunction
 
 
@@ -332,6 +335,14 @@ function SetKanagawaColorscheme()
 
     " more visible function for bash scripts
     highlight Function gui=bold
+
+    " User{N} highlights are defined for the statusline purpose. When the
+    " guibg and guifg colors match exactly the StatusLine highlight group
+    " colors, they will change for the window loosing focus. That's why if one
+    " must want to reverse colors for example, one must use the 'reverse'
+    " attribute, and not switch guibg and guifg values.
+    highlight User1 guibg=#363646 guifg=#d8d7ba gui=reverse
+    highlight User2 guibg=#363646 guifg=#d8d7ba
 endfunction
 
 
@@ -342,9 +353,6 @@ call SetKanagawaColorscheme()
 
 " Status line {{{
 let g:status_sep = "\u2022"
-
-highlight User1 gui=reverse
-
 
 function TotBuf()
     return len(getbufinfo({'buflisted': 1}))
@@ -359,14 +367,16 @@ function SetGitInfo()
         let l:git_repo = split(l:git_repo_path, '/')[-1]
         let l:git_branch = systemlist(['git', '-C', expand('%:h'), 'branch', '--show-current'])[0]
         let b:git_info = "  \ue0a0 " . l:git_repo . " \U279C " . l:git_branch . " "
+        let b:git_sep = "\ue0b0"
     else
-        let b:git_info = ''
+        let b:git_info = '  nvim '
+        let b:git_sep = "\ue0b0"
     endif
 endfunction
 
 
 function MyStatusLine()
-    let line = '%1*%{get(b:, "git_info", "")}%*'
+    let line = '%1*%{get(b:, "git_info", "")}%*%2*%{get(b:, "git_sep", "")}%*'
     " modified flag & path to file
     let line = line . ' %M%<%f '
     " branch

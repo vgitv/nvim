@@ -324,9 +324,22 @@ endfunction
 function SetKanagawaColorscheme()
     colorscheme kanagawa
 
-    " invert status line and cursor line colors
-    highlight StatusLine guibg=#363646 guifg=#d8d7ba
-    highlight StatusLineNc guibg=#363646 guifg=#75746b
+    " STATUS LINE
+    " using execute seems the only way to use variables inside a highlight
+    " command
+    let l:status_line_bg = '#363646'
+    let l:status_line_fg = '#d8d7ba'
+    execute 'highlight StatusLine guibg=' . l:status_line_bg . ' guifg=' . l:status_line_fg
+    " User{N} highlights are defined for the statusline purpose. When the
+    " guibg and guifg colors match exactly the StatusLine highlight group
+    " colors, they will change for the window loosing focus. That's why if one
+    " must want to reverse colors for example, one must use the 'reverse'
+    " attribute, and not switch guibg and guifg values.
+    execute 'highlight User1 guibg=' . l:status_line_bg . ' guifg=' . l:status_line_fg . ' gui=reverse'
+    execute 'highlight User2 guibg=' . l:status_line_bg . ' guifg=' . l:status_line_fg
+    execute 'highlight StatusLineNc guibg=' . l:status_line_bg . ' guifg=#75746b'
+
+    " CURSOR LINE
     highlight CursorLine guibg=#16161d
     highlight ColorColumn guibg=#16161d
 
@@ -336,13 +349,6 @@ function SetKanagawaColorscheme()
     " more visible function for bash scripts
     highlight Function gui=bold
 
-    " User{N} highlights are defined for the statusline purpose. When the
-    " guibg and guifg colors match exactly the StatusLine highlight group
-    " colors, they will change for the window loosing focus. That's why if one
-    " must want to reverse colors for example, one must use the 'reverse'
-    " attribute, and not switch guibg and guifg values.
-    highlight User1 guibg=#363646 guifg=#d8d7ba gui=reverse
-    highlight User2 guibg=#363646 guifg=#d8d7ba
 endfunction
 
 

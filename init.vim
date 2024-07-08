@@ -418,3 +418,15 @@ set statusline=%!MyStatusLine()
 " always display status line
 set laststatus=2
 " }}}
+
+
+" Override - local config - should be last if called {{{
+function LoadLocalVimConfig()
+    let l:local_vim_config = findfile(".local.vim", ".;")
+
+    if filereadable(l:local_vim_config)
+        execute "source " . l:local_vim_config
+        echom "Local vim configuration detected: " . l:local_vim_config
+    endif
+endfunction
+" }}}

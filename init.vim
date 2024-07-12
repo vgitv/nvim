@@ -89,7 +89,7 @@ nnoremap <Left> :vertical resize -1<CR>
 
 
 " Next replace
-inoremap <buffer> <c-b> <Esc>/<++><CR>"_c4l
+inoremap <c-b> <Esc>/<++><CR>"_c4l
 
 " switch case of all word
 inoremap <C-_> <ESC>mzbviw~`za

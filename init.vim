@@ -168,6 +168,16 @@ nnoremap <Leader>k ddkP==
 " load MYVIMRC
 nnoremap <Leader>l :source $MYVIMRC<CR>
 
+" read command but insert next to the cursor instead of in a new line
+function ReadNextToCursor()
+    let l:command = input('Command: ')
+    let l:command_output = system(l:command)
+    " remove trailing newline
+    let l:command_output = substitute(l:command_output, '\n$', '', '')
+    execute "normal! i" . l:command_output
+endfunction
+nnoremap <Leader>r :call ReadNextToCursor()<CR>
+
 " toggle hlsearch
 nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
 

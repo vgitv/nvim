@@ -214,13 +214,11 @@ onoremap in@ :<c-u>normal! f@viW<cr>
 augroup templates
     " Read template when opening a new file.
     autocmd!
-    autocmd BufNewFile *.cpp  0read ~/.config/nvim/templates/skeleton.cpp
-    " insert template before the first line and go to the end of file
+    autocmd BufNewFile *.cpp  1read ~/.config/nvim/templates/skeleton.cpp | 1delete
     autocmd BufNewFile *.sh   0read ~/.config/nvim/templates/skeleton.sh | norm G
-    autocmd BufNewFile *.html 0read ~/.config/nvim/templates/skeleton.html
-    " insert template after the first line and delete first blank line
-    autocmd BufNewFile *.py   1read ~/.config/nvim/templates/skeleton.py | norm ggdd
-    autocmd BufNewFile *.md   0read ~/.config/nvim/templates/skeleton.md
+    autocmd BufNewFile *.html 1read ~/.config/nvim/templates/skeleton.html | 1delete
+    autocmd BufNewFile *.py   1read ~/.config/nvim/templates/skeleton.py | 1delete
+    autocmd BufNewFile *.md   0read ~/.config/nvim/templates/skeleton.md | norm G
 augroup END
 
 augroup set_specific_filetypes

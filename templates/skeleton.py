@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-import argparse
+import click
 import logging
 import sys
+
+CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 
 class StreamLogFormatter(logging.Formatter):
@@ -24,8 +26,8 @@ class StreamLogFormatter(logging.Formatter):
         return formatter.format(record)
 
 
-def create_logger(log_level, name=None) -> logging.Logger:
-    logger = logging.getLogger()
+def create_logger(name=None, log_level="INFO") -> logging.Logger:
+    logger = logging.getLogger(name)
     logger.setLevel(log_level)
     handler = logging.StreamHandler(sys.stdout)
     handler.setFormatter(StreamLogFormatter())
@@ -33,28 +35,15 @@ def create_logger(log_level, name=None) -> logging.Logger:
     return logger
 
 
-def get_arguments():
-    args = {
-        "--log": {
-            "help": "Log level",
-            "choices": ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
-            "default": "INFO",
-        },
-    }
-    parser = argparse.ArgumentParser(description="Main script argument parser.")
-    for key, value in args.items():
-        parser.add_argument(key, **value)
-    return parser.parse_args()
+@click.command(context_settings=CONTEXT_SETTINGS)
+@click.argument("name", default="world")
+@click.option("--log", default="INFO")
+def main(**kwargs):
+    # Create root logger. In modules, the following line will inherit this root logger:
+    # logger = logging.getLogger(__name__)
+    logger = create_logger(log_level=kwargs["log"])
 
-
-def main():
-    # parse arguments
-    args = get_arguments()
-
-    # Create root logger. In modules: logger = logging.getLogger(__name__) will inherit this root logger.
-    logger = create_logger(args.log)
-
-    logger.info("Hello world!")
+    logger.info("Hello, {}!".format(kwargs["name"]))
 
 
 if __name__ == "__main__":

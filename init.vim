@@ -225,6 +225,9 @@ augroup set_specific_filetypes
     " Force filetypes detection.
     autocmd!
     autocmd BufNewFile,BufRead *.groff setlocal filetype=groff
+    autocmd BufNewFile,BufRead *.schema setlocal filetype=json
+    autocmd BufNewFile,BufRead .yamllint setlocal filetype=yaml
+    autocmd BufNewFile,BufRead .ansible-lint setlocal filetype=yaml
 augroup END
 
 " Join actions for all word processing filetypes

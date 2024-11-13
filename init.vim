@@ -360,6 +360,8 @@ function SetKanagawaColorscheme()
     " more visible function for bash scripts
     highlight Function gui=bold
 
+    " highlight self keyword for Python
+    autocmd FileType python highlight link SelfKeyword Keyword | syntax match SelfKeyword /\<self\>/
 endfunction
 
 

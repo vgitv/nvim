@@ -228,6 +228,7 @@ augroup set_specific_filetypes
     autocmd BufNewFile,BufRead *.schema setlocal filetype=json
     autocmd BufNewFile,BufRead .yamllint setlocal filetype=yaml
     autocmd BufNewFile,BufRead .ansible-lint setlocal filetype=yaml
+    autocmd BufNewFile,BufRead poetry.lock setlocal filetype=toml
 augroup END
 
 " Join actions for all word processing filetypes
@@ -362,6 +363,9 @@ function SetKanagawaColorscheme()
 
     " highlight self keyword for Python
     autocmd FileType python highlight link SelfKeyword Keyword | syntax match SelfKeyword /\<self\>/
+
+    " highlight AssignEquals guifg=#ffa066
+    " syntax match AssignEquals /\w\+\s*=\s*\w\+/
 endfunction
 
 

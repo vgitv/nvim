@@ -229,6 +229,7 @@ augroup set_specific_filetypes
     autocmd BufNewFile,BufRead .yamllint setlocal filetype=yaml
     autocmd BufNewFile,BufRead .ansible-lint setlocal filetype=yaml
     autocmd BufNewFile,BufRead poetry.lock setlocal filetype=toml
+    autocmd BufNewFile,BufRead dir_colors,.dir_colors setlocal filetype=dircolors
 augroup END
 
 " Join actions for all word processing filetypes

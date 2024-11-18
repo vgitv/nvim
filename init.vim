@@ -386,7 +386,7 @@ endfunction
 function SetGitInfo()
     " systemlist(...)[0] instead of system(...) to avoid \n at the end of the command return
     let b:is_git = systemlist(['git', '-C', expand('%:h'), 'rev-parse', '--is-inside-work-tree'])[0]
-    if b:is_git == 'true'
+    if b:is_git == 'true' && &filetype != 'gitcommit'
         let l:git_repo_path = systemlist(['git', '-C', expand('%:h'), 'rev-parse', '--show-toplevel'])[0]
         let l:git_repo = split(l:git_repo_path, '/')[-1]
         let l:git_branch = systemlist(['git', '-C', expand('%:h'), 'branch', '--show-current'])[0]

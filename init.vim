@@ -7,6 +7,23 @@
 " (za to unfold)
 
 
+" Plugins {{{
+" Follow vim-plug installation instructions here: https://github.com/junegunn/vim-plug
+call plug#begin()
+
+" List your plugins here
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'rebelot/kanagawa.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'hashivim/vim-terraform'
+
+call plug#end()
+
+lua require("setup")
+" }}}
+
+
 " Vimscript file settings {{{
 augroup filetype_vim
     autocmd!
@@ -181,6 +198,9 @@ nnoremap <Leader>r :call ReadNextToCursor()<CR>
 " toggle hlsearch
 nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
 
+" nvim-tree.lua
+nnoremap <Leader>t :NvimTreeToggle<CR>
+
 " find word
 nnoremap <Leader>w mzviwy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
 vnoremap <Leader>w mzy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
@@ -257,38 +277,19 @@ augroup data_filetypes
     autocmd!
     autocmd Filetype csv,json,xml setlocal colorcolumn=
 augroup END
-" }}}
 
-
-" Netrw {{{
-nnoremap - :Explore<cr>
-
-function ToggleNetrw()
-    if &filetype ==# "netrw"
-        let l:command = "normal! :buffer " . g:last_buffer_number . "\r"
-        execute l:command
-    else
-        let g:last_buffer_number = bufnr('%')
-        Explore
-    endif
-endfunction
-
-nnoremap <Leader>t :call ToggleNetrw()<cr>
-
-function NetrwMappings()
-    " make netrw more ranger-like
-    " cant use nnoremap here
-
-    " go up a dir
-    nmap <buffer> h -
-
-    " enter directory / open file
-    nmap <buffer> l <cr>
-endfunction
-
-augroup netrw_autocmd
-    autocmd!
-    autocmd filetype netrw call NetrwMappings()
+" function OpenNvimTree()
+"     if &filetype != "man"
+"         NvimTreeOpen
+"     endif
+" endfunction
+" 
+augroup nvimtree_related
+    " autocmd VimEnter,BufNewFile * call OpenNvimTree()
+    " For some reason, defining status line this way will not impact vim-tree
+    " window. It seems that opening a vim-tree window does not trigger a
+    " BufNewFile / BufRead event.
+    autocmd BufNewFile,BufRead * setlocal statusline=%!MyStatusLine()
 augroup END
 " }}}
 
@@ -367,6 +368,7 @@ function SetKanagawaColorscheme()
 
     " highlight AssignEquals guifg=#ffa066
     " syntax match AssignEquals /\w\+\s*=\s*\w\+/
+    " highlight LineNr guibg=#000000
 endfunction
 
 
@@ -432,7 +434,6 @@ augroup pre_statusline
 augroup END
 
 
-set statusline=%!MyStatusLine()
 " always display status line
 set laststatus=2
 " }}}

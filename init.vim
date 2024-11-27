@@ -17,6 +17,7 @@ Plug 'nvim-tree/nvim-tree.lua'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'hashivim/vim-terraform'
+Plug 'nvim-lualine/lualine.nvim'
 
 call plug#end()
 " }}}
@@ -59,6 +60,7 @@ set background=dark              " dark background
 set scrolloff=2
 set sidescrolloff=6
 set foldcolumn=auto
+" set laststatus=3
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " }}}
@@ -278,10 +280,6 @@ augroup nvimtree_related
     autocmd VimEnter * NvimTreeToggle
     " move cursor to editor windows after opening nvim-tree
     autocmd UIEnter * wincmd l
-    " For some reason, defining status line this way will not impact vim-tree
-    " window. It seems that opening a vim-tree window does not trigger a
-    " BufNewFile / BufRead event.
-    autocmd BufNewFile,BufRead * setlocal statusline=%!MyStatusLine()
 augroup END
 " }}}
 
@@ -318,18 +316,6 @@ tnoremap <esc> <C-\><C-n>
 
 
 " Packages and colorscheme {{{
-let g:loaded_indent_blankline = 0
-
-
-function IndentGuide()
-    if !g:loaded_indent_blankline
-        packadd indent-blankline.nvim
-        let g:loaded_indent_blankline = 1
-    endif
-    lua require("ibl").setup()
-endfunction
-
-
 function SetGruvboxColorscheme()
     let g:gruvbox_contrast_dark = "hard"
     let g:gruvbox_italic = 1
@@ -351,21 +337,6 @@ endfunction
 function SetKanagawaColorscheme()
     colorscheme kanagawa
 
-    " STATUS LINE
-    " using execute seems the only way to use variables inside a highlight
-    " command
-    let l:status_line_bg = '#363646'
-    let l:status_line_fg = '#d8d7ba'
-    execute 'highlight StatusLine guibg=' . l:status_line_bg . ' guifg=' . l:status_line_fg
-    " User{N} highlights are defined for the statusline purpose. When the
-    " guibg and guifg colors match exactly the StatusLine highlight group
-    " colors, they will change for the window loosing focus. That's why if one
-    " must want to reverse colors for example, one must use the 'reverse'
-    " attribute, and not switch guibg and guifg values.
-    execute 'highlight User1 guibg=' . l:status_line_bg . ' guifg=' . l:status_line_fg . ' gui=reverse'
-    execute 'highlight User2 guibg=' . l:status_line_bg . ' guifg=' . l:status_line_fg
-    execute 'highlight StatusLineNc guibg=' . l:status_line_bg . ' guifg=#75746b'
-
     " CURSOR LINE
     highlight CursorLine guibg=#16161d
     highlight ColorColumn guibg=#16161d
@@ -378,9 +349,6 @@ function SetKanagawaColorscheme()
 
     " highlight self keyword for Python
     autocmd FileType python highlight link SelfKeyword Keyword | syntax match SelfKeyword /\<self\>/
-
-    " highlight AssignEquals guifg=#ffa066
-    " syntax match AssignEquals /\w\+\s*=\s*\w\+/
 
     " line nr
     highlight LineNr guibg=NONE
@@ -395,65 +363,10 @@ call SetKanagawaColorscheme()
 " }}}
 
 
-" Status line {{{
-let g:status_sep = "\u2022"
-
-function TotBuf()
-    return len(getbufinfo({'buflisted': 1}))
-endfunction
-
-
-function SetGitInfo()
-    " systemlist(...)[0] instead of system(...) to avoid \n at the end of the command return
-    let b:is_git = systemlist(['git', '-C', expand('%:h'), 'rev-parse', '--is-inside-work-tree'])[0]
-    if b:is_git == 'true' && &filetype != 'gitcommit'
-        let l:git_repo_path = systemlist(['git', '-C', expand('%:h'), 'rev-parse', '--show-toplevel'])[0]
-        let l:git_repo = split(l:git_repo_path, '/')[-1]
-        let l:git_branch = systemlist(['git', '-C', expand('%:h'), 'branch', '--show-current'])[0]
-        let b:git_info = "  \ue0a0 " . l:git_repo . " \U279C " . l:git_branch . " "
-        let b:git_sep = "\ue0b0"
-    else
-        let b:git_info = '  nvim '
-        let b:git_sep = "\ue0b0"
-    endif
-endfunction
-
-
-function MyStatusLine()
-    let line = '%1*%{get(b:, "git_info", "")}%*%2*%{get(b:, "git_sep", "")}%*'
-    " modified flag & path to file
-    let line = line . ' %M%<%f '
-    " branch
-    " empty default value is needed for opening directory
-
-    " all the way through, up to the right side
-    let line = line . '%='
-    " buffer number / total buffers & modified flag
-    let line = line . ' %n/%{TotBuf()} ' . g:status_sep
-    " file type
-    let line = line . ' c.%v '
-    if &fileencoding != ''
-        let line = line . g:status_sep . ' %{&fileencoding} '
-    endif
-    if &filetype != ''
-        let line = line . g:status_sep . ' %Y '
-    endif
-
-    return line
-endfunction
-
-
-augroup pre_statusline
-    autocmd!
-    " BufReadPre will use fewer ressources than BufEnter, but if another
-    " branch is checked out while editing a file, we need to do :e<cr> to
-    " refresh status line (re-entering the buffer will not be sufficient)
-    autocmd VimEnter,BufNewFile,BufReadPre * call SetGitInfo()
-augroup END
-
-
-" always display status line
-set laststatus=2
+" Lua config {{{
+" should be last because some plugins depends on previous highlight group
+" definitions
+lua require("setup")
 " }}}
 
 
@@ -467,7 +380,3 @@ function LoadLocalVimConfig()
     endif
 endfunction
 " }}}
-
-" should be last because some plugins depends on previous highlight group
-" definitions
-lua require("setup")

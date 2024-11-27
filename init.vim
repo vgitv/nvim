@@ -19,8 +19,6 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'hashivim/vim-terraform'
 
 call plug#end()
-
-lua require("setup")
 " }}}
 
 
@@ -294,6 +292,7 @@ function TerminalToggle()
         " buffer __terminal__ already exists
         if !empty(win_findbuf(bufnr('__terminal__')))
             " buffer__terminal__ is open in a window, so quit it
+            " FIXME: cursor needs to be in the terminal window, it should not
             buffer __terminal__
             quit
         else
@@ -385,6 +384,7 @@ function SetKanagawaColorscheme()
     highlight LineNr guibg=NONE
     highlight CursorLineNr guibg=None
     highlight FoldColumn guibg=None
+    highlight IblIndent guifg=#2a2a37
 endfunction
 
 
@@ -465,3 +465,7 @@ function LoadLocalVimConfig()
     endif
 endfunction
 " }}}
+
+" should be last because some plugins depends on previous highlight group
+" definitions
+lua require("setup")

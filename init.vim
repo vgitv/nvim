@@ -146,14 +146,11 @@ vnoremap <Leader>* <Esc>`<i*<Esc>`>la*<Esc>
 vnoremap <Leader>` <Esc>`<i`<Esc>`>la`<Esc>
 
 " switch to last opened buffer
-nnoremap <Leader># :buffer #<CR>
+nnoremap <Leader>b :buffer #<CR>
 
 
 " select all file
 nnoremap <Leader>a ggVG
-
-" choose a buffer
-nnoremap <Leader>b :ls<CR>:buffer<Space>
 
 " Delete buffer
 nnoremap <Leader>d :bnext<CR>:bdelete #<CR>

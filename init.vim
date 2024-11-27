@@ -70,11 +70,6 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let mapleader = " "
 let localleader = "\\"
 
-" use tab instead of escape, it's nearer
-inoremap <tab> <esc>
-inoremap <esc> <nop>
-vnoremap <tab> <esc>
-vnoremap <esc> <nop>
 " for rare cases you need tab, use this key instead
 inoremap <c-space> <tab>
 
@@ -176,11 +171,8 @@ nnoremap <Leader>gt V/=======<CR>"_d/>>>>>>><CR>"_dd
 " syntax from start in case of wrong colors
 nnoremap <Leader>h :syntax sync fromstart<CR>
 
-" line down
-nnoremap <Leader>j ddp==
-
-" line up
-nnoremap <Leader>k ddkP==
+" toggle terminal
+nnoremap <Leader>k :call TerminalToggle()<CR>
 
 " load MYVIMRC
 nnoremap <Leader>l :source $MYVIMRC<CR>
@@ -278,14 +270,16 @@ augroup data_filetypes
     autocmd Filetype csv,json,xml setlocal colorcolumn=
 augroup END
 
-" function OpenNvimTree()
-"     if &filetype != "man"
-"         NvimTreeOpen
-"     endif
-" endfunction
-" 
+augroup term_specific
+    autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber | startinsert
+augroup END
+
 augroup nvimtree_related
-    " autocmd VimEnter,BufNewFile * call OpenNvimTree()
+    " open nvimtree at startup
+    autocmd VimEnter * NvimTreeToggle
+    " move cursor to editor windows after opening nvim-tree
+    autocmd UIEnter * wincmd l
     " For some reason, defining status line this way will not impact vim-tree
     " window. It seems that opening a vim-tree window does not trigger a
     " BufNewFile / BufRead event.
@@ -295,12 +289,30 @@ augroup END
 
 
 " Terminal mode {{{
+function TerminalToggle()
+    if bufnr('__terminal__') != -1
+        " buffer __terminal__ already exists
+        if !empty(win_findbuf(bufnr('__terminal__')))
+            " buffer__terminal__ is open in a window, so quit it
+            buffer __terminal__
+            quit
+        else
+            " buffer __terminal__ is not open in any window, so open it
+            belowright 20split __terminal__
+            if mode() == 'n'
+                startinsert
+            endif
+        endif
+    else
+        " create a new buffer named __terminal__
+        belowright 20split
+        terminal
+        file __terminal__
+    endif
+endfunction
+
 tnoremap <esc> <C-\><C-n>
 
-augroup term_specific
-    autocmd!
-    autocmd TermOpen * setlocal nonumber norelativenumber
-augroup END
 " }}}
 
 
@@ -368,7 +380,11 @@ function SetKanagawaColorscheme()
 
     " highlight AssignEquals guifg=#ffa066
     " syntax match AssignEquals /\w\+\s*=\s*\w\+/
-    " highlight LineNr guibg=#000000
+
+    " line nr
+    highlight LineNr guibg=NONE
+    highlight CursorLineNr guibg=None
+    highlight FoldColumn guibg=None
 endfunction
 
 

@@ -293,6 +293,7 @@ function TerminalToggle()
         if !empty(win_findbuf(bufnr('__terminal__')))
             " buffer__terminal__ is open in a window, so quit it
             " FIXME: cursor needs to be in the terminal window, it should not
+            wincmd j
             buffer __terminal__
             quit
         else
@@ -304,6 +305,7 @@ function TerminalToggle()
         endif
     else
         " create a new buffer named __terminal__
+        " TODO: make a hidden buffer
         belowright 20split
         terminal
         file __terminal__

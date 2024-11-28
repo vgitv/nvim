@@ -19,6 +19,10 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'hashivim/vim-terraform'
 Plug 'nvim-lualine/lualine.nvim'
 
+" autocompletion
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'hrsh7th/nvim-cmp'
+
 call plug#end()
 " }}}
 
@@ -70,10 +74,6 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let mapleader = " "
 let localleader = "\\"
 
-" for rare cases you need tab, use this key instead
-inoremap <c-space> <tab>
-
-
 " build - based on an external script, see https://github.com/vgitv/zenscript/blob/master/bin/xbuild
 nnoremap <F4> :!xbuild %<CR>
 " reindent all file
@@ -94,8 +94,8 @@ nnoremap <BS> :bprevious<CR>
 
 
 " resize window with arrow keys
-nnoremap <Up> :resize +1<CR>
-nnoremap <Down> :resize -1<CR>
+nnoremap + :resize +1<CR>
+nnoremap - :resize -1<CR>
 nnoremap <Right> :vertical resize +1<CR>
 nnoremap <Left> :vertical resize -1<CR>
 
@@ -270,13 +270,6 @@ augroup END
 augroup term_specific
     autocmd!
     autocmd TermOpen * setlocal nonumber norelativenumber | startinsert
-augroup END
-
-augroup nvimtree_related
-    " open nvimtree at startup
-    autocmd VimEnter * NvimTreeToggle
-    " move cursor to editor windows after opening nvim-tree
-    autocmd UIEnter * wincmd l
 augroup END
 " }}}
 

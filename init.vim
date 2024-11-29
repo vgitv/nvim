@@ -20,8 +20,12 @@ Plug 'hashivim/vim-terraform'
 Plug 'nvim-lualine/lualine.nvim'
 
 " autocompletion
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'hrsh7th/nvim-cmp'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-cmp'
+" For vsnip users.
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 call plug#end()
 " }}}
@@ -340,10 +344,20 @@ function SetKanagawaColorscheme()
     " highlight self keyword for Python
     autocmd FileType python highlight link SelfKeyword Keyword | syntax match SelfKeyword /\<self\>/
 
-    " line nr
+    " Column with line numbers
     highlight LineNr guibg=NONE
+    " Column with current line number
     highlight CursorLineNr guibg=None
+    " Column with + / - symbol for folds
     highlight FoldColumn guibg=None
+    " Column with LSP indicators (for nvim-cmp plugin => code autocompletion / warnings / errors...)
+    highlight SignColumn guibg=None
+    highligh DiagnosticSignError guibg=None
+    highligh DiagnosticSignWarn guibg=None
+    highligh DiagnosticSignInfo guibg=None
+    highligh DiagnosticSignHint guibg=None
+
+    " Indent char color for the indent-blankline plugin
     highlight IblIndent guifg=#2a2a37
 endfunction
 
@@ -370,3 +384,10 @@ function LoadLocalVimConfig()
     endif
 endfunction
 " }}}
+
+
+lua require("nvim-cmp-config")
+augroup diagnostic
+    autocmd!
+    autocmd FileType python setlocal signcolumn=yes
+augroup END

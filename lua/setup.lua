@@ -51,5 +51,3 @@ require('lualine').setup {
     inactive_winbar = {},
     extensions = {}
 }
-
--- require('lspconfig').pyright.setup{}

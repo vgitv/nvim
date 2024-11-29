@@ -2,23 +2,18 @@
 
 ## Installation
 
-```bash
-git clone --recurse-submodules git@github.com:vgitv/nvim.git ~/.config/nvim
-```
+Pour l'autocomplétion Python, installer le paquet `npm` puis :
 
-Or
+```bash
+sudo npm i -g pyright
+```
 
 ```bash
 git clone git@github.com:vgitv/nvim.git ~/.config/nvim
 ```
 
-```bash
-git -C ~/.config/nvim submodule update --init
+Ouvrir neovim et installer les plugins :
+
 ```
-
-
-## Update submodules
-
-```bash
-git -C ~/.config/nvim submodule update --remote --merge
+:PlugInstall
 ```

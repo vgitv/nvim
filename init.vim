@@ -7,30 +7,6 @@
 " (za to unfold)
 
 
-" Plugins {{{
-" Follow vim-plug installation instructions here: https://github.com/junegunn/vim-plug
-call plug#begin()
-
-" List your plugins here
-Plug 'nvim-tree/nvim-web-devicons'
-Plug 'nvim-tree/nvim-tree.lua'
-Plug 'rebelot/kanagawa.nvim'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'hashivim/vim-terraform'
-Plug 'nvim-lualine/lualine.nvim'
-
-" autocompletion
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/nvim-cmp'
-" For vsnip users.
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-
-call plug#end()
-" }}}
-
-
 " Vimscript file settings {{{
 augroup filetype_vim
     autocmd!
@@ -201,10 +177,6 @@ vnoremap <Leader>w mzy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
 " toggle wrap
 nnoremap <Leader>z :set wrap!<CR>
 
-" paste in visual mode without overwriting global register
-" gv<Esc> at the end in order to replace cursor at the end of pasted text
-vnoremap p pgvygv<Esc>
-
 " make file executable
 nnoremap <Leader>x :!chmod u+x %<CR>
 
@@ -273,7 +245,15 @@ augroup END
 
 augroup term_specific
     autocmd!
-    autocmd TermOpen * setlocal nonumber norelativenumber | startinsert
+    autocmd TermOpen * setlocal nonumber norelativenumber nocursorline | startinsert
+augroup END
+
+augroup python_specific
+    autocmd!
+    " Highlight 'self' keyword in Python. This cannot be in the ftplugin
+    " directory because it needs to be executed before setting the
+    " colorscheme.
+    autocmd Filetype python highlight link PythonSelfKeyword Keyword | syntax match PythonSelfKeyword /\<self\>/
 augroup END
 " }}}
 
@@ -309,85 +289,35 @@ tnoremap <esc> <C-\><C-n>
 " }}}
 
 
-" Packages and colorscheme {{{
-function SetGruvboxColorscheme()
-    let g:gruvbox_contrast_dark = "hard"
-    let g:gruvbox_italic = 1
-    let g:gruvbox_invert_selection = 0
-    let g:gruvbox_italicize_strings = 1
-    colorscheme gruvbox
+" Plugins setup - SHOULD BE LAST {{{
+" Follow vim-plug installation instructions here: https://github.com/junegunn/vim-plug
+call plug#begin()
 
-    " Override some highlight groups.
-    " Needs to be after loading the colorscheme!
-    highlight ColorColumn ctermbg=232 guibg=#000000
-    highlight CursorLine ctermbg=232 guibg=#000000
-    highlight CursorLineNr guibg=#000000
+" List your plugins here
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'rebelot/kanagawa.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'hashivim/vim-terraform'
+Plug 'nvim-lualine/lualine.nvim'
 
-    highlight User1 guibg=#ebdbb2 guifg=#504945
-    highlight User2 guibg=#ebdbb2 guifg=#504945 gui=reverse
-endfunction
+" autocompletion
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-cmp'
+" For vsnip users.
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
+call plug#end()
 
-function SetKanagawaColorscheme()
-    colorscheme kanagawa
-
-    " CURSOR LINE
-    highlight CursorLine guibg=#16161d
-    highlight ColorColumn guibg=#16161d
-
-    " more visible errors
-    highlight Error gui=bold,reverse
-
-    " more visible function for bash scripts
-    highlight Function gui=bold
-
-    " highlight self keyword for Python
-    autocmd FileType python highlight link SelfKeyword Keyword | syntax match SelfKeyword /\<self\>/
-
-    " Column with line numbers
-    highlight LineNr guibg=NONE
-    " Column with current line number
-    highlight CursorLineNr guibg=None
-    " Column with + / - symbol for folds
-    highlight FoldColumn guibg=None
-    " Column with LSP indicators (for nvim-cmp plugin => code autocompletion / warnings / errors...)
-    highlight SignColumn guibg=None
-    highligh DiagnosticSignError guibg=None
-    highligh DiagnosticSignWarn guibg=None
-    highligh DiagnosticSignInfo guibg=None
-    highligh DiagnosticSignHint guibg=None
-
-    " Indent char color for the indent-blankline plugin
-    highlight IblIndent guifg=#2a2a37
-endfunction
-
-
-" Colorscheme
-call SetKanagawaColorscheme()
+" Colorscheme should be the first plugin to be loaded because it can define
+" colors for some highlights groups that will be used by another plugin. For
+" instance IblIndent for indent-blankline plugin.
+lua require("kanagawa-setup")
+lua require("lualine-setup")
+lua require("nvim-web-devicons-setup")
+lua require("nvim-tree-setup")
+lua require("indent-blankline-setup")
+lua require("nvim-cmp-setup")
 " }}}
-
-
-" Lua config {{{
-" should be last because some plugins depends on previous highlight group
-" definitions
-lua require("setup")
-" }}}
-
-
-" Override - local config - should be last if called {{{
-function LoadLocalVimConfig()
-    let l:local_vim_config = findfile(".local.vim", ".;")
-
-    if filereadable(l:local_vim_config)
-        execute "source " . l:local_vim_config
-        echom "Local vim configuration detected: " . l:local_vim_config
-    endif
-endfunction
-" }}}
-
-
-lua require("nvim-cmp-config")
-augroup diagnostic
-    autocmd!
-    autocmd FileType python setlocal signcolumn=yes
-augroup END

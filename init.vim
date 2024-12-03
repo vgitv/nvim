@@ -263,11 +263,16 @@ function TerminalToggle()
     if bufnr('__terminal__') != -1
         " buffer __terminal__ already exists
         if !empty(win_findbuf(bufnr('__terminal__')))
-            " buffer__terminal__ is open in a window, so quit it
-            " FIXME: cursor needs to be in the terminal window, it should not
-            wincmd j
-            buffer __terminal__
+            " buffer__terminal__ is open in a window
+            let l:current_winid = win_getid()
+            while bufname() != '__terminal__'
+                " find in which window the term buffer is open
+                wincmd w
+            endwhile
+            " cursor is in the terminal, so quit it
             quit
+            " go back to previous window
+            call win_gotoid(l:current_winid)
         else
             " buffer __terminal__ is not open in any window, so open it
             belowright 20split __terminal__
@@ -277,7 +282,6 @@ function TerminalToggle()
         endif
     else
         " create a new buffer named __terminal__
-        " TODO: make a hidden buffer
         belowright 20split
         terminal
         file __terminal__
@@ -294,12 +298,13 @@ tnoremap <esc> <C-\><C-n>
 call plug#begin()
 
 " List your plugins here
-Plug 'nvim-tree/nvim-web-devicons'
-Plug 'nvim-tree/nvim-tree.lua'
-Plug 'rebelot/kanagawa.nvim'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'hashivim/vim-terraform'
-Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-tree/nvim-web-devicons'  " icons used by nvim-tree plugin
+Plug 'nvim-tree/nvim-tree.lua'  " file tree
+Plug 'rebelot/kanagawa.nvim'  " colorscheme
+Plug 'lukas-reineke/indent-blankline.nvim'  " indentation guides
+Plug 'hashivim/vim-terraform'  " terraform syntax
+Plug 'nvim-lualine/lualine.nvim'  " statusline
+Plug 'goolord/alpha-nvim'  " greeter
 
 " autocompletion
 Plug 'neovim/nvim-lspconfig'
@@ -320,4 +325,5 @@ lua require("nvim-web-devicons-setup")
 lua require("nvim-tree-setup")
 lua require("indent-blankline-setup")
 lua require("nvim-cmp-setup")
+lua require("alpha-nvim-setup")
 " }}}

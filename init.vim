@@ -161,7 +161,8 @@ function ToggleTermMap()
     endif
 endfunction
 " toggle terminal
-nnoremap <Leader>k :call ToggleTermMap()<CR>
+" nnoremap <Leader>k :call ToggleTermMap()<CR>
+nnoremap <Leader>k :call TerminalToggle()<CR>
 
 " load MYVIMRC
 nnoremap <Leader>l :source $MYVIMRC<CR>
@@ -256,8 +257,9 @@ augroup data_filetypes
 augroup END
 
 augroup term_specific
+    " FIXME needed only for toggle terminal without plugin
     autocmd!
-    autocmd TermOpen * setlocal nonumber norelativenumber nocursorline | startinsert
+    autocmd TermOpen * setlocal nonumber norelativenumber nocursorline
 augroup END
 
 augroup python_specific
@@ -271,6 +273,8 @@ augroup END
 
 
 " Terminal mode {{{
+highlight TerminalNormal guibg=#16161d
+
 function TerminalToggle()
     if bufnr('__terminal__') != -1
         " buffer __terminal__ already exists
@@ -298,7 +302,9 @@ function TerminalToggle()
         " create a new buffer named __terminal__
         belowright 20split
         terminal
+        set winhighlight=Normal:TerminalNormal
         file __terminal__
+        startinsert
     endif
 endfunction
 

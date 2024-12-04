@@ -148,8 +148,20 @@ nnoremap <Leader>gt V/=======<CR>"_d/>>>>>>><CR>"_dd
 " syntax from start in case of wrong colors
 nnoremap <Leader>h :syntax sync fromstart<CR>
 
+function ToggleTermMap()
+    let l:tree_is_open = luaeval('require("nvim-tree.api").tree.is_visible()')
+    if l:tree_is_open
+        NvimTreeClose
+        ToggleTerm size=20
+        let l:current_winid = win_getid()
+        NvimTreeOpen
+        call win_gotoid(l:current_winid)
+    else
+        ToggleTerm
+    endif
+endfunction
 " toggle terminal
-nnoremap <Leader>k :call TerminalToggle()<CR>
+nnoremap <Leader>k :call ToggleTermMap()<CR>
 
 " load MYVIMRC
 nnoremap <Leader>l :source $MYVIMRC<CR>
@@ -265,6 +277,8 @@ function TerminalToggle()
         if !empty(win_findbuf(bufnr('__terminal__')))
             " buffer__terminal__ is open in a window
             let l:current_winid = win_getid()
+            " TODO avoid this while loop by setting a global var with the
+            " terminal window id
             while bufname() != '__terminal__'
                 " find in which window the term buffer is open
                 wincmd w
@@ -305,6 +319,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'  " indentation guides
 Plug 'hashivim/vim-terraform'  " terraform syntax
 Plug 'nvim-lualine/lualine.nvim'  " statusline
 Plug 'goolord/alpha-nvim'  " greeter
+Plug 'akinsho/toggleterm.nvim'  " terminal in a buffer
 
 " autocompletion
 Plug 'neovim/nvim-lspconfig'
@@ -312,7 +327,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/nvim-cmp'
 " For vsnip users.
 Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip', {'tag' : '*'}
 
 call plug#end()
 
@@ -326,4 +341,5 @@ lua require("nvim-tree-setup")
 lua require("indent-blankline-setup")
 lua require("nvim-cmp-setup")
 lua require("alpha-nvim-setup")
+lua require("toggleterm-setup")
 " }}}

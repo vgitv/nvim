@@ -148,20 +148,7 @@ nnoremap <Leader>gt V/=======<CR>"_d/>>>>>>><CR>"_dd
 " syntax from start in case of wrong colors
 nnoremap <Leader>h :syntax sync fromstart<CR>
 
-function ToggleTermMap()
-    let l:tree_is_open = luaeval('require("nvim-tree.api").tree.is_visible()')
-    if l:tree_is_open
-        NvimTreeClose
-        ToggleTerm size=20
-        let l:current_winid = win_getid()
-        NvimTreeOpen
-        call win_gotoid(l:current_winid)
-    else
-        ToggleTerm
-    endif
-endfunction
 " toggle terminal
-" nnoremap <Leader>k :call ToggleTermMap()<CR>
 nnoremap <Leader>k :call TerminalToggle()<CR>
 
 " load MYVIMRC
@@ -273,38 +260,48 @@ augroup END
 
 
 " Terminal mode {{{
+" this background color is consistent with kanagawa colorscheme
 highlight TerminalNormal guibg=#16161d
 
+" at start, there is no main terminal buffer
+let g:main_terminal_buffer_name = 'none'
+" at start, there is no window with the main terminal
+let g:main_terminal_window_id = 0
+
 function TerminalToggle()
-    if bufnr('__terminal__') != -1
-        " buffer __terminal__ already exists
-        if !empty(win_findbuf(bufnr('__terminal__')))
+    if g:main_terminal_buffer_name == 'none'
+        " create the main terminal buffer
+        belowright 20split
+        terminal
+        " shade terminal background and hid it from :ls command
+        setlocal winhighlight=Normal:TerminalNormal
+        setlocal nobuflisted
+        " update global vars
+        let g:main_terminal_buffer_name = bufname()
+        let g:main_terminal_window_id = win_getid()
+        startinsert
+    else
+        " main terminal buffer already exists
+        if g:main_terminal_window_id
             " buffer__terminal__ is open in a window
             let l:current_winid = win_getid()
-            " TODO avoid this while loop by setting a global var with the
-            " terminal window id
-            while bufname() != '__terminal__'
-                " find in which window the term buffer is open
-                wincmd w
-            endwhile
-            " cursor is in the terminal, so quit it
+            " go to window with the terminal and quit it
+            call win_gotoid(g:main_terminal_window_id)
             quit
             " go back to previous window
             call win_gotoid(l:current_winid)
+            " terminal window is now closed, so update the global var
+            let g:main_terminal_window_id = 0
         else
             " buffer __terminal__ is not open in any window, so open it
-            belowright 20split __terminal__
+            execute 'belowright 20split ' . g:main_terminal_buffer_name
+            setlocal nobuflisted
+            " each time the terminal is open in a window, it has a new window id
+            let g:main_terminal_window_id = win_getid()
             if mode() == 'n'
                 startinsert
             endif
         endif
-    else
-        " create a new buffer named __terminal__
-        belowright 20split
-        terminal
-        set winhighlight=Normal:TerminalNormal
-        file __terminal__
-        startinsert
     endif
 endfunction
 
@@ -325,7 +322,6 @@ Plug 'lukas-reineke/indent-blankline.nvim'  " indentation guides
 Plug 'hashivim/vim-terraform'  " terraform syntax
 Plug 'nvim-lualine/lualine.nvim'  " statusline
 Plug 'goolord/alpha-nvim'  " greeter
-Plug 'akinsho/toggleterm.nvim'  " terminal in a buffer
 
 " autocompletion
 Plug 'neovim/nvim-lspconfig'
@@ -347,5 +343,4 @@ lua require("nvim-tree-setup")
 lua require("indent-blankline-setup")
 lua require("nvim-cmp-setup")
 lua require("alpha-nvim-setup")
-lua require("toggleterm-setup")
 " }}}

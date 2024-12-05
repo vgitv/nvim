@@ -322,6 +322,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'  " indentation guides
 Plug 'hashivim/vim-terraform'  " terraform syntax
 Plug 'nvim-lualine/lualine.nvim'  " statusline
 Plug 'goolord/alpha-nvim'  " greeter
+Plug 'tpope/vim-commentary'  " comment lines
 
 " autocompletion
 Plug 'neovim/nvim-lspconfig'

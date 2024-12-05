@@ -282,8 +282,12 @@ function TerminalToggle()
         startinsert
     else
         " main terminal buffer already exists
-        if g:main_terminal_window_id
+        if !empty(win_findbuf(bufnr(g:main_terminal_buffer_name)))
             " buffer__terminal__ is open in a window
+            " If the main terminal was closed last time using :q and not the
+            " toggle function, the global var containing the main terminal
+            " window id is not up to date and thus cannot be trusted
+            " completely. That's why we use this win_findbuf function.
             let l:current_winid = win_getid()
             " go to window with the terminal and quit it
             call win_gotoid(g:main_terminal_window_id)

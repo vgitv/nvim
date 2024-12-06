@@ -325,7 +325,6 @@ Plug 'rebelot/kanagawa.nvim'  " colorscheme
 Plug 'lukas-reineke/indent-blankline.nvim'  " indentation guides
 Plug 'hashivim/vim-terraform'  " terraform syntax
 Plug 'nvim-lualine/lualine.nvim'  " statusline
-Plug 'goolord/alpha-nvim'  " greeter
 Plug 'tpope/vim-commentary'  " comment lines
 
 " autocompletion
@@ -347,5 +346,4 @@ lua require("nvim-web-devicons-setup")
 lua require("nvim-tree-setup")
 lua require("indent-blankline-setup")
 lua require("nvim-cmp-setup")
-lua require("alpha-nvim-setup")
 " }}}

@@ -41,10 +41,14 @@ set shiftround                   " round indent to multiple of shiftwidth
 set termguicolors                " uses gui :highlight attributes instead of cterm attributes
 set cursorline                   " highlight cursor line
 set background=dark              " dark background
-set scrolloff=2
-set sidescrolloff=6
-set foldcolumn=auto
-" set laststatus=3
+set scrolloff=2                  " minimal number of screen lines to keep above and below the cursor
+set sidescrolloff=6              " minimal number of screen columns to keep to the left / right of the cursor
+set foldcolumn=auto              " when and how to draw the foldcolumn
+
+" 3 to have only one status line at the bottom of the screen (and not a status
+" line for each window). This option will be potentially overriden by the
+" 'globalstatus' option of the plugin lualine.nvim
+set laststatus=3
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " }}}

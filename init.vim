@@ -260,6 +260,13 @@ augroup python_specific
     " colorscheme.
     autocmd Filetype python highlight link PythonSelfKeyword Keyword | syntax match PythonSelfKeyword /\<self\>/
 augroup END
+
+augroup misc_group
+    autocmd!
+    " When running some command like yip it could be difficult to be sure what
+    " text is actually yank. This autocmd briefly highlight the yanked text.
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup='Visual', timeout=500}
+augroup END
 " }}}
 
 

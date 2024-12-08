@@ -51,6 +51,10 @@ set foldcolumn=auto              " when and how to draw the foldcolumn
 set laststatus=3
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+let g:have_nerd_font = 1
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
 " }}}
 
 
@@ -172,7 +176,7 @@ nnoremap <Leader>r :call ReadNextToCursor()<CR>
 nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
 
 " nvim-tree.lua
-nnoremap <Leader>t :NvimTreeToggle<CR>
+nnoremap <Leader>t :Neotree toggle<CR>
 
 " find word
 nnoremap <Leader>w mzviwy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
@@ -325,36 +329,4 @@ tnoremap <esc> <C-\><C-n>
 " }}}
 
 
-" Plugins setup - SHOULD BE LAST {{{
-" Follow vim-plug installation instructions here: https://github.com/junegunn/vim-plug
-call plug#begin()
-
-" List your plugins here
-Plug 'nvim-tree/nvim-web-devicons'  " icons used by nvim-tree plugin
-Plug 'nvim-tree/nvim-tree.lua'  " file tree
-Plug 'rebelot/kanagawa.nvim'  " colorscheme
-Plug 'lukas-reineke/indent-blankline.nvim'  " indentation guides
-Plug 'hashivim/vim-terraform'  " terraform syntax
-Plug 'nvim-lualine/lualine.nvim'  " statusline
-Plug 'tpope/vim-commentary'  " comment lines
-
-" autocompletion
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/nvim-cmp'
-" For vsnip users.
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip', {'tag' : '*'}
-
-call plug#end()
-
-" Colorscheme should be the first plugin to be loaded because it can define
-" colors for some highlights groups that will be used by another plugin. For
-" instance IblIndent for indent-blankline plugin.
-lua require("kanagawa-setup")
-lua require("lualine-setup")
-lua require("nvim-web-devicons-setup")
-lua require("nvim-tree-setup")
-lua require("indent-blankline-setup")
-lua require("nvim-cmp-setup")
-" }}}
+lua require("config.lazy-setup")

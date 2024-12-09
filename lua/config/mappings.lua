@@ -57,3 +57,7 @@ vim.keymap.set('n', '<Leader>x', function() vim.cmd('!chmod u+x %') end, { desc 
 -- toggle neotree
 -- TODO move this into plugin config
 vim.keymap.set('n', '<Leader>t', function() vim.cmd.Neotree('toggle') end, { desc = 'Toggle Neotree' })
+
+
+-- Escape in terminal
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })

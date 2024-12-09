@@ -16,61 +16,6 @@ augroup filetype_vim
 augroup END
 " }}}
 
-" Functions to rewrite in lua/config/utils.lua {{{
-" May be used by mammings.lua
-
-" this background color is consistent with kanagawa colorscheme
-highlight TerminalNormal guibg=#16161d
-
-" at start, there is no main terminal buffer
-let g:main_terminal_buffer_name = 'none'
-" at start, there is no window with the main terminal
-let g:main_terminal_window_id = 0
-
-function TerminalToggle()
-    if g:main_terminal_buffer_name == 'none'
-        " create the main terminal buffer
-        belowright 20split
-        terminal
-        " shade terminal background and hid it from :ls command
-        setlocal winhighlight=Normal:TerminalNormal
-        setlocal nobuflisted
-        " update global vars
-        let g:main_terminal_buffer_name = bufname()
-        let g:main_terminal_window_id = win_getid()
-        startinsert
-    else
-        " main terminal buffer already exists
-        if !empty(win_findbuf(bufnr(g:main_terminal_buffer_name)))
-            " buffer__terminal__ is open in a window
-            " If the main terminal was closed last time using :q and not the
-            " toggle function, the global var containing the main terminal
-            " window id is not up to date and thus cannot be trusted
-            " completely. That's why we use this win_findbuf function.
-            let l:current_winid = win_getid()
-            " go to window with the terminal and quit it
-            call win_gotoid(g:main_terminal_window_id)
-            quit
-            " go back to previous window
-            call win_gotoid(l:current_winid)
-            " terminal window is now closed, so update the global var
-            let g:main_terminal_window_id = 0
-        else
-            " buffer __terminal__ is not open in any window, so open it
-            execute 'belowright 20split ' . g:main_terminal_buffer_name
-            setlocal nobuflisted
-            " each time the terminal is open in a window, it has a new window id
-            let g:main_terminal_window_id = win_getid()
-            if mode() == 'n'
-                startinsert
-            endif
-        endif
-    endif
-endfunction
-
-tnoremap <esc> <C-\><C-n>
-
-" }}}
 
 " Vim options
 lua require("config.options")
@@ -98,7 +43,7 @@ nnoremap <Leader>gt V/=======<CR>"_d/>>>>>>><CR>"_dd
 nnoremap <Leader>h :syntax sync fromstart<CR>
 
 " toggle terminal
-nnoremap <Leader>k :call TerminalToggle()<CR>
+nnoremap <Leader>k :lua TerminalToggle()<CR>
 
 " load MYVIMRC
 " nnoremap <Leader>l :source $MYVIMRC<CR>

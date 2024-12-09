@@ -5,7 +5,7 @@ vim.opt.showmatch = true
 vim.opt.ignorecase = true
 
 -- mouse in all modes - middle-click paste with mouse
-vim.opt.mouse = "a"
+vim.opt.mouse = 'a'
 
 -- highlight search results
 vim.opt.hlsearch = true
@@ -29,7 +29,7 @@ vim.opt.autoindent = true
 vim.opt.number = true
 
 -- get bash-like tab completions
-vim.opt.wildmode = "longest:full,full"
+vim.opt.wildmode = {'longest:full', 'full'}
 
 -- 0 => dont break long line automatically
 vim.opt.textwidth = 0
@@ -58,7 +58,7 @@ vim.opt.termguicolors = true
 vim.opt.cursorline = true
 
 -- dark background
-vim.opt.background = "dark"
+vim.opt.background = 'dark'
 
 -- minimal number of screen lines to keep above and below the cursor
 vim.opt.scrolloff = 2
@@ -67,7 +67,7 @@ vim.opt.scrolloff = 2
 vim.opt.sidescrolloff = 6
 
 -- when and how to draw the foldcolumn
-vim.opt.foldcolumn = "auto"
+vim.opt.foldcolumn = 'auto'
 
 
 -- 3 to have only one status line at the bottom of the screen (and not a status

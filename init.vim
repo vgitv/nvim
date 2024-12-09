@@ -16,135 +16,76 @@ augroup filetype_vim
 augroup END
 " }}}
 
+" Functions to rewrite in lua/config/utils.lua {{{
+" May be used by mammings.lua
 
-" Option settings {{{
-syntax on                        " syntax highlighting
-filetype plugin indent on        " allows auto-indenting depending on file type
+" this background color is consistent with kanagawa colorscheme
+highlight TerminalNormal guibg=#16161d
 
-set nocompatible                 " disable compatibility to old-time vi
-set showmatch                    " show matching brackets.
-set ignorecase                   " case insensitive matching
-set mouse=a                      " mouse in all modes - middle-click paste with mouse
-set hlsearch                     " highlight search results
-set tabstop=4                    " number of columns occupied by a tab character
-set softtabstop=4                " see multiple spaces as tabstops so <BS> does the right thing
-set expandtab                    " converts tabs to white space
-set shiftwidth=4                 " width for autoindents
-set autoindent                   " indent a new line the same amount as the line just typed
-set number                       " add line numbers
-set wildmode=longest:full,full   " get bash-like tab completions
-set textwidth=0                  " 0 => dont break long line automatically
-set colorcolumn=120              " set a 120 column border for good coding style
-set nowrap                       " dont wrap long lines
-set clipboard+=unnamedplus       " default clipboard is the system clipboard
-set shiftround                   " round indent to multiple of shiftwidth
-set termguicolors                " uses gui :highlight attributes instead of cterm attributes
-set cursorline                   " highlight cursor line
-set background=dark              " dark background
-set scrolloff=2                  " minimal number of screen lines to keep above and below the cursor
-set sidescrolloff=6              " minimal number of screen columns to keep to the left / right of the cursor
-set foldcolumn=auto              " when and how to draw the foldcolumn
+" at start, there is no main terminal buffer
+let g:main_terminal_buffer_name = 'none'
+" at start, there is no window with the main terminal
+let g:main_terminal_window_id = 0
 
-" 3 to have only one status line at the bottom of the screen (and not a status
-" line for each window). This option will be potentially overriden by the
-" 'globalstatus' option of the plugin lualine.nvim
-set laststatus=3
+function TerminalToggle()
+    if g:main_terminal_buffer_name == 'none'
+        " create the main terminal buffer
+        belowright 20split
+        terminal
+        " shade terminal background and hid it from :ls command
+        setlocal winhighlight=Normal:TerminalNormal
+        setlocal nobuflisted
+        " update global vars
+        let g:main_terminal_buffer_name = bufname()
+        let g:main_terminal_window_id = win_getid()
+        startinsert
+    else
+        " main terminal buffer already exists
+        if !empty(win_findbuf(bufnr(g:main_terminal_buffer_name)))
+            " buffer__terminal__ is open in a window
+            " If the main terminal was closed last time using :q and not the
+            " toggle function, the global var containing the main terminal
+            " window id is not up to date and thus cannot be trusted
+            " completely. That's why we use this win_findbuf function.
+            let l:current_winid = win_getid()
+            " go to window with the terminal and quit it
+            call win_gotoid(g:main_terminal_window_id)
+            quit
+            " go back to previous window
+            call win_gotoid(l:current_winid)
+            " terminal window is now closed, so update the global var
+            let g:main_terminal_window_id = 0
+        else
+            " buffer __terminal__ is not open in any window, so open it
+            execute 'belowright 20split ' . g:main_terminal_buffer_name
+            setlocal nobuflisted
+            " each time the terminal is open in a window, it has a new window id
+            let g:main_terminal_window_id = win_getid()
+            if mode() == 'n'
+                startinsert
+            endif
+        endif
+    endif
+endfunction
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+tnoremap <esc> <C-\><C-n>
 
-let g:have_nerd_font = 1
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
 " }}}
+
+" Vim options
+lua require("config.options")
+
+" User functions
+lua require("config.utils")
+
+" Keymap
+lua require("config.mappings")
+
+" Autocommands
+lua require("config.autocommands")
 
 
 " Mappings {{{
-let mapleader = " "
-let localleader = "\\"
-
-" build - based on an external script, see https://github.com/vgitv/zenscript/blob/master/bin/xbuild
-nnoremap <F4> :!xbuild %<CR>
-" reindent all file
-nnoremap <F6> mzgg=G`zzz
-" add ; at the end of the current line
-nnoremap <F7> mzA;<ESC>`z
-" did you forget the ; in the previous line ?
-inoremap <F7> <ESC>kA;<ESC>j==A
-" gnuplot
-nnoremap <F9> :!gnuplot -p "%"<CR>
-" remove carriage return
-nnoremap <F12> mz:%s/\r//g<CR>`z
-
-
-" next/previous buffer
-nnoremap <CR> :bnext<CR>
-nnoremap <BS> :bprevious<CR>
-
-
-" resize window with arrow keys
-nnoremap + :resize +1<CR>
-nnoremap - :resize -1<CR>
-nnoremap <Right> :vertical resize +1<CR>
-nnoremap <Left> :vertical resize -1<CR>
-
-
-" Next replace
-inoremap <c-b> <Esc>/<++><CR>"_c4l
-
-" switch case of all word
-inoremap <C-_> <ESC>mzbviw~`za
-nnoremap <C-_> mzviw~`z
-
-" insert blank line without entering insert mode
-nnoremap <C-N> o<Esc>
-
-
-" switch window
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-
-" search / replace
-" replace in all file (in normal mode, S is same as cc so it can be used)
-nnoremap S :%s/
-
-
-" visual inside word
-nnoremap <Leader><space> viw
-
-" enclose current word
-nnoremap <Leader>" mzviw<Esc>a"<Esc>bi"<Esc>`zl
-nnoremap <Leader>' mzviw<Esc>a'<Esc>bi'<Esc>`zl
-nnoremap <Leader>( mzviw<Esc>a)<Esc>bi(<Esc>`zl
-nnoremap <Leader>[ mzviw<Esc>a]<Esc>bi[<Esc>`zl
-nnoremap <Leader>{ mzviw<Esc>a}<Esc>bi{<Esc>`zl
-nnoremap <Leader>_ mzviw<Esc>a_<Esc>bi_<Esc>`zl
-nnoremap <Leader>* mzviw<Esc>a*<Esc>bi*<Esc>`zl
-nnoremap <Leader>` mzviw<Esc>a`<Esc>bi`<Esc>`zl
-
-" enclose visual selection
-vnoremap <Leader>" <Esc>`<i"<Esc>`>la"<Esc>
-vnoremap <Leader>' <Esc>`<i'<Esc>`>la'<Esc>
-vnoremap <Leader>( <Esc>`<i(<Esc>`>la)<Esc>
-vnoremap <Leader>[ <Esc>`<i[<Esc>`>la]<Esc>
-vnoremap <Leader>{ <Esc>`<i{<Esc>`>la}<Esc>
-vnoremap <Leader>_ <Esc>`<i_<Esc>`>la_<Esc>
-vnoremap <Leader>* <Esc>`<i*<Esc>`>la*<Esc>
-vnoremap <Leader>` <Esc>`<i`<Esc>`>la`<Esc>
-
-" switch to last opened buffer
-nnoremap <Leader>b :buffer #<CR>
-
-
-" select all file
-nnoremap <Leader>a ggVG
-
-" Delete buffer
-nnoremap <Leader>d :bnext<CR>:bdelete #<CR>
-
-" edit init file
-nnoremap <Leader>e :edit $MYVIMRC<CR>
 
 " next git conflict (git go)
 nnoremap <Leader>gg /<<<<<<< HEAD<CR>
@@ -160,17 +101,7 @@ nnoremap <Leader>h :syntax sync fromstart<CR>
 nnoremap <Leader>k :call TerminalToggle()<CR>
 
 " load MYVIMRC
-nnoremap <Leader>l :source $MYVIMRC<CR>
-
-" read command but insert next to the cursor instead of in a new line
-function ReadNextToCursor()
-    let l:command = input('Command: ')
-    let l:command_output = system(l:command)
-    " remove trailing newline
-    let l:command_output = substitute(l:command_output, '\n$', '', '')
-    execute "normal! i" . l:command_output
-endfunction
-nnoremap <Leader>r :call ReadNextToCursor()<CR>
+" nnoremap <Leader>l :source $MYVIMRC<CR>
 
 " toggle hlsearch
 nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
@@ -264,69 +195,10 @@ augroup python_specific
     " colorscheme.
     autocmd Filetype python highlight link PythonSelfKeyword Keyword | syntax match PythonSelfKeyword /\<self\>/
 augroup END
-
-augroup misc_group
-    autocmd!
-    " When running some command like yip it could be difficult to be sure what
-    " text is actually yank. This autocmd briefly highlight the yanked text.
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup='Visual', timeout=500}
-augroup END
 " }}}
 
 
-" Terminal mode {{{
-" this background color is consistent with kanagawa colorscheme
-highlight TerminalNormal guibg=#16161d
-
-" at start, there is no main terminal buffer
-let g:main_terminal_buffer_name = 'none'
-" at start, there is no window with the main terminal
-let g:main_terminal_window_id = 0
-
-function TerminalToggle()
-    if g:main_terminal_buffer_name == 'none'
-        " create the main terminal buffer
-        belowright 20split
-        terminal
-        " shade terminal background and hid it from :ls command
-        setlocal winhighlight=Normal:TerminalNormal
-        setlocal nobuflisted
-        " update global vars
-        let g:main_terminal_buffer_name = bufname()
-        let g:main_terminal_window_id = win_getid()
-        startinsert
-    else
-        " main terminal buffer already exists
-        if !empty(win_findbuf(bufnr(g:main_terminal_buffer_name)))
-            " buffer__terminal__ is open in a window
-            " If the main terminal was closed last time using :q and not the
-            " toggle function, the global var containing the main terminal
-            " window id is not up to date and thus cannot be trusted
-            " completely. That's why we use this win_findbuf function.
-            let l:current_winid = win_getid()
-            " go to window with the terminal and quit it
-            call win_gotoid(g:main_terminal_window_id)
-            quit
-            " go back to previous window
-            call win_gotoid(l:current_winid)
-            " terminal window is now closed, so update the global var
-            let g:main_terminal_window_id = 0
-        else
-            " buffer __terminal__ is not open in any window, so open it
-            execute 'belowright 20split ' . g:main_terminal_buffer_name
-            setlocal nobuflisted
-            " each time the terminal is open in a window, it has a new window id
-            let g:main_terminal_window_id = win_getid()
-            if mode() == 'n'
-                startinsert
-            endif
-        endif
-    endif
-endfunction
-
-tnoremap <esc> <C-\><C-n>
-
-" }}}
 
 
+" Lazy plugins
 lua require("config.lazy-setup")

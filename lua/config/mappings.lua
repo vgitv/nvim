@@ -43,3 +43,17 @@ vim.keymap.set('n', '<Leader>a', 'ggVG', { desc = 'Select all file' })
 vim.keymap.set('n', '<Leader>e', function() vim.fn.EditVimrc() end)
 
 vim.keymap.set('n', '<Leader>e', function() EditNvimInitFile() end)
+
+-- find word under cursor / selected
+vim.keymap.set('n', '<Leader>w', 'yiw/<C-r>"<CR><CR>n', { desc = 'Search [W]ord under cursor' })
+vim.keymap.set('v', '<Leader>w', 'y<Esc>/<C-r>"<CR><CR>n', { desc = 'Search [W]ord under cursor' })
+
+-- toggle wrap
+vim.keymap.set('n', '<Leader>z', ':set wrap!<CR>', { desc = 'Toggle line wrap' })
+
+-- make file executable
+vim.keymap.set('n', '<Leader>x', function() vim.cmd('!chmod u+x %') end, { desc = 'Make file executable' })
+
+-- toggle neotree
+-- TODO move this into plugin config
+vim.keymap.set('n', '<Leader>t', function() vim.cmd.Neotree('toggle') end, { desc = 'Toggle Neotree' })

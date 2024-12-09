@@ -106,22 +106,8 @@ nnoremap <Leader>k :call TerminalToggle()<CR>
 " toggle hlsearch
 nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
 
-" nvim-tree.lua
-nnoremap <Leader>t :Neotree toggle<CR>
-
-" find word
-nnoremap <Leader>w mzviwy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
-vnoremap <Leader>w mzy<Esc>_/<C-R>"<CR><CR>`z:set hlsearch<CR>
-
-" toggle wrap
-nnoremap <Leader>z :set wrap!<CR>
-
-" make file executable
-nnoremap <Leader>x :!chmod u+x %<CR>
-
 " insert {} set
 inoremap <C-j> {<CR>}<esc>O
-
 
 " inside next (
 onoremap in( :<C-U>normal! f(vi(<CR>

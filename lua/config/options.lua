@@ -69,6 +69,9 @@ vim.opt.sidescrolloff = 6
 -- when and how to draw the foldcolumn
 vim.opt.foldcolumn = 'auto'
 
+-- displaying the diagnostics in the line number column will prevent the text to shift distractingly
+vim.opt.signcolumn = 'number'
+
 
 -- 3 to have only one status line at the bottom of the screen (and not a status
 -- line for each window). This option will be potentially overriden by the

@@ -19,8 +19,6 @@ vim.g.main_terminal_window_id = nil
 
 
 function TerminalToggle()
-    local i
-    local window_id
     if not vim.g.main_terminal_buffer_name then
         -- create the main terminal buffer
         vim.cmd([[belowright 20split]])

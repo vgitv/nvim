@@ -61,3 +61,24 @@ vim.keymap.set('n', '<Leader>t', function() vim.cmd.Neotree('toggle') end, { des
 
 -- Escape in terminal
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+
+-- Git conflicts
+vim.keymap.set('n', '<Leader>gg', '/<<<<<<< HEAD<CR>', { desc = '[G]it [G]o to next conflict' })
+vim.keymap.set('n', '<Leader>go', '"_dd/=======<CR>V/>>>>>>><CR>"_d', { desc = 'Accept [G]it [O]urs' })
+vim.keymap.set('n', '<Leader>gt', 'V/=======<CR>"_d/>>>>>>><CR>"_dd', { desc = 'Accept [G]it [T]eirs' })
+
+
+
+vim.keymap.set('n', '<Leader>h', ':syntax sync fromstart<CR>', { desc = 'Fix syntax problems' })
+vim.keymap.set('n', '<Leader>k', function() TerminalToggle() end, { desc = 'Toggle main terminal' })
+vim.keymap.set('n', '<Leader>s', ':set hlsearch!<CR>:set hlsearch?<CR>', { desc = 'Toggle hlsearch' })
+vim.keymap.set('i', '<C-j>', '{<CR>}<Esc>O', { desc = 'Insert a pair of {}' })
+
+
+-- operator mappings
+vim.keymap.set('o', 'in(', ':<C-U>normal! f(vi(<CR>', { desc = '[I]n [N]ext parenthesis' })
+-- inside previous (last) (
+-- Not using ip because it would shadow paragraph movement
+vim.keymap.set('o', 'il(', ':<C-U>normal! F)vi(<CR>', { desc = '[I]n [L]ast parenthesis' })
+vim.keymap.set('o', 'in@', ':<c-u>normal! f@viW<cr>', { desc = '[I]n [N]ext email address' })

@@ -4,18 +4,6 @@
 " | | | |  __/ (_) \ V /| | | | | | |
 " |_| |_|\___|\___/ \_/ |_|_| |_| |_|
 
-" (za to unfold)
-
-
-" Vimscript file settings {{{
-augroup filetype_vim
-    autocmd!
-    " Set marker fold method only for vim filetype, because it is unlikely
-    " that vimscripts will be open with another editor than vim.
-    autocmd FileType vim setlocal foldmethod=marker | setlocal foldlevelstart=0 | setlocal foldcolumn=auto
-augroup END
-" }}}
-
 
 " Vim options
 lua require("config.options")
@@ -28,41 +16,6 @@ lua require("config.mappings")
 
 " Autocommands
 lua require("config.autocommands")
-
-
-" Mappings {{{
-
-" next git conflict (git go)
-nnoremap <Leader>gg /<<<<<<< HEAD<CR>
-" git accept ours (git ours)
-nnoremap <Leader>go "_dd/=======<CR>V/>>>>>>><CR>"_d
-" git accept theirs (git theirs)
-nnoremap <Leader>gt V/=======<CR>"_d/>>>>>>><CR>"_dd
-
-" syntax from start in case of wrong colors
-nnoremap <Leader>h :syntax sync fromstart<CR>
-
-" toggle terminal
-nnoremap <Leader>k :lua TerminalToggle()<CR>
-
-" load MYVIMRC
-" nnoremap <Leader>l :source $MYVIMRC<CR>
-
-" toggle hlsearch
-nnoremap <Leader>s :set hlsearch!<CR>:set hlsearch?<CR>
-
-" insert {} set
-inoremap <C-j> {<CR>}<esc>O
-
-" inside next (
-onoremap in( :<C-U>normal! f(vi(<CR>
-" inside previous (last) (
-" Not using ip because it would shadow paragraph movement
-onoremap il( :<C-U>normal! F)vi(<CR>
-
-" in next email adress
-onoremap in@ :<c-u>normal! f@viW<cr>
-" }}}
 
 
 " Autocommands {{{

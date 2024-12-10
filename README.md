@@ -17,19 +17,28 @@ fc-cache -rv
 ```
 
 
-## Pyright
+## Language server
+
+### Introduction
 
 For Python autocompletion features (used by
 [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) plugin).
 
-### Arch-based
+Install the following language server:
+
+* [pyright](https://github.com/microsoft/pyright)
+* [lua-language-server](https://luals.github.io/#neovim-install)
+
+### Exemples
+
+#### Arch-based
 
 ```bash
-sudo pacman -S pyright
+sudo pacman -S pyright lua-language-server
 ```
 
 
-### Debian-based
+#### Debian-based
 
 ```bash
 sudo apt install npm

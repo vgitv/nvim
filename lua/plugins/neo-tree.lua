@@ -11,9 +11,11 @@ return {
     },
     cmd = 'Neotree',
     keys = {
-        { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+        { '<Leader>t', ':Neotree toggle<CR>', desc = 'NeoTree toggle', silent = true },
+        { '<Leader>b', ':Neotree toggle show buffers right<CR>', desc = 'NeoTree toggle', silent = true },
     },
     opts = {
+        close_if_last_window = true,
         filesystem = {
             window = {
                 mappings = {

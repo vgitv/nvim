@@ -35,7 +35,8 @@ vim.keymap.set('n', '<C-_>', 'mzviw~`z', { desc = 'Switch case of all word' })
 vim.keymap.set('n', '<C-n>', 'o<Esc>', { desc = 'Insert empty line above' })
 
 -- switch to last opened buffer
-vim.keymap.set('n', '<Leader>b', ':buffer #<CR>', { desc = 'Switch to previous buffer' })
+-- FIXME to remove
+-- vim.keymap.set('n', '<Leader>b', ':buffer #<CR>', { desc = 'Switch to previous buffer' })
 
 -- select all file
 vim.keymap.set('n', '<Leader>a', 'ggVG', { desc = 'Select all file' })
@@ -53,11 +54,6 @@ vim.keymap.set('n', '<Leader>z', ':set wrap!<CR>', { desc = 'Toggle line wrap' }
 
 -- make file executable
 vim.keymap.set('n', '<Leader>x', function() vim.cmd('!chmod u+x %') end, { desc = 'Make file executable' })
-
--- toggle neotree
--- TODO move this into plugin config
-vim.keymap.set('n', '<Leader>t', function() vim.cmd.Neotree('toggle') end, { desc = 'Toggle Neotree' })
-
 
 -- Escape in terminal
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })

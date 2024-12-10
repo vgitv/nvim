@@ -18,17 +18,6 @@ lua require("config.mappings")
 lua require("config.autocommands")
 
 
-" Autocommands {{{
-augroup templates
-    " Read template when opening a new file.
-    autocmd!
-    autocmd BufNewFile *.cpp  1read ~/.config/nvim/templates/skeleton.cpp | 1delete
-    autocmd BufNewFile *.sh   0read ~/.config/nvim/templates/skeleton.sh | norm G
-    autocmd BufNewFile *.html 1read ~/.config/nvim/templates/skeleton.html | 1delete
-    autocmd BufNewFile *.py   1read ~/.config/nvim/templates/skeleton.py | 1delete
-    autocmd BufNewFile *.md   0read ~/.config/nvim/templates/skeleton.md | norm G
-augroup END
-
 augroup set_specific_filetypes
     " Force filetypes detection.
     autocmd!

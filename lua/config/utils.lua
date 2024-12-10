@@ -20,6 +20,7 @@ vim.g.main_terminal_window_id = nil
 
 function TerminalToggle()
     if not vim.g.main_terminal_buffer_name then
+        -- In this if, the main terminal buffer does not exists
         -- create the main terminal buffer
         vim.cmd([[belowright 20split]])
         vim.cmd.terminal()
@@ -31,19 +32,20 @@ function TerminalToggle()
         vim.g.main_terminal_window_id = vim.fn.win_getid()
         vim.cmd.startinsert()
     else
-        -- main terminal buffer already exists
+        -- In this else, the main terminal buffer already exists
+        -- If the main terminal was closed last time using :q and not the
+        -- toggle function, the global var containing the main terminal
+        -- window id is not up to date and thus cannot be trusted
+        -- completely. That's why we use this win_findbuf function.
         local terminal_windows_tab = vim.fn.win_findbuf(vim.fn.bufnr(vim.g.main_terminal_buffer_name))
         if terminal_windows_tab[1] then
-            -- Terminal buffer is open in a window.
-            -- If the main terminal was closed last time using :q and not the
-            -- toggle function, the global var containing the main terminal
-            -- window id is not up to date and thus cannot be trusted
-            -- completely. That's why we use this win_findbuf function.
+            -- In this if, the main terminal buffer is open in a window at least.
+            -- Remember the current window id to go back later
             local current_winid = vim.fn.win_getid()
-            -- Go to window with the main terminal and quit it
+            -- Go to each window with the main terminal and quit it
             -- NOTE: there could be multiple windows opened displaying the main
-            -- terminal, that's why we loop through this table
-            for i, window_id in pairs(terminal_windows_tab) do
+            -- terminal, that's why we loop through this table.
+            for _, window_id in pairs(terminal_windows_tab) do
                 vim.fn.win_gotoid(window_id)
                 vim.cmd.quit()
             end

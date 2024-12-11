@@ -18,14 +18,21 @@ vim.g.main_terminal_buffer_name = nil
 vim.g.main_terminal_window_id = nil
 
 
+-- TODO let's see if we could update the global vars more efficiently using autocommands on TermOpen, TermClose events
 function TerminalToggle()
-    if not vim.g.main_terminal_buffer_name then
+    -- We need to check two things here to know if the main terminal exists:
+    -- 1. at start the terminal buffer name variable is nil, so that's a condition to create main terminal
+    -- 2. if the main terminal was once created then exited with <C-d> then the terminal buffer name variable is not
+    --    nil, nevertheless the main terminal does not exists anymore, so we need to check if there is still a buffer
+    --    with that name or not (hence the call to bufnr function)
+    if not vim.g.main_terminal_buffer_name or vim.fn.bufnr(vim.g.main_terminal_buffer_name) == -1 then
+        print('Create new main terminal')
         -- In this if, the main terminal buffer does not exists
         -- create the main terminal buffer
         vim.cmd([[belowright 20split]])
         vim.cmd.terminal()
         -- shade terminal background and hid it from :ls command
-        vim.opt.winhighlight = 'Normal:LuaTerminalNormal'
+        vim.opt_local.winhighlight = 'Normal:LuaTerminalNormal'
         vim.opt.buflisted = false
         -- update global vars
         vim.g.main_terminal_buffer_name = vim.fn.bufname()
@@ -56,7 +63,6 @@ function TerminalToggle()
         else
             -- terminal buffer is not open in any window, so open it
             vim.cmd('belowright 20split ' .. vim.g.main_terminal_buffer_name)
-            vim.opt.buflisted = false
             -- each time the terminal is open in a window, it has a new window id
             vim.g.main_terminal_window_id = vim.fn.win_getid()
             if vim.fn.mode() == 'n' then

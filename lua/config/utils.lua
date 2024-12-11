@@ -14,18 +14,26 @@ vim.cmd([[highlight LuaTerminalNormal guibg=#16161d]])
 -- at start, there is no main terminal buffer
 vim.g.main_terminal_buffer_name = nil
 
--- at start, there is no window with the main terminal
-vim.g.main_terminal_window_id = nil
+-- This will update the global var if the terminal is exited using <C-d>
+vim.api.nvim_create_autocmd(
+    'TermClose',
+    {
+        desc = 'Unset main terminal buffer name variable if main terminal is closed',
+        group = vim.api.nvim_create_augroup('temp_terminal_group', { clear = true }),
+        callback = function()
+            if vim.g.main_terminal_buffer_name then
+                if vim.fn.bufnr(vim.g.main_terminal_buffer_name) == -1 then
+                    -- If the buffer doesn't exist, -1 is returned by bufnr function.
+                    vim.g.main_terminal_buffer_name = nil
+                end
+            end
+        end
+    }
+)
 
 
--- TODO let's see if we could update the global vars more efficiently using autocommands on TermOpen, TermClose events
 function TerminalToggle()
-    -- We need to check two things here to know if the main terminal exists:
-    -- 1. at start the terminal buffer name variable is nil, so that's a condition to create main terminal
-    -- 2. if the main terminal was once created then exited with <C-d> then the terminal buffer name variable is not
-    --    nil, nevertheless the main terminal does not exists anymore, so we need to check if there is still a buffer
-    --    with that name or not (hence the call to bufnr function)
-    if not vim.g.main_terminal_buffer_name or vim.fn.bufnr(vim.g.main_terminal_buffer_name) == -1 then
+    if not vim.g.main_terminal_buffer_name then
         print('Create new main terminal')
         -- In this if, the main terminal buffer does not exists
         -- create the main terminal buffer
@@ -33,20 +41,16 @@ function TerminalToggle()
         vim.cmd.terminal()
         -- shade terminal background and hid it from :ls command
         vim.opt_local.winhighlight = 'Normal:LuaTerminalNormal'
-        vim.opt.buflisted = false
+        vim.opt_local.buflisted = false
         -- update global vars
         vim.g.main_terminal_buffer_name = vim.fn.bufname()
-        vim.g.main_terminal_window_id = vim.fn.win_getid()
         vim.cmd.startinsert()
     else
-        -- In this else, the main terminal buffer already exists
-        -- If the main terminal was closed last time using :q and not the
-        -- toggle function, the global var containing the main terminal
-        -- window id is not up to date and thus cannot be trusted
-        -- completely. That's why we use this win_findbuf function.
+        -- In this else, the main terminal buffer already exists.
+        -- We need to find if it is already open in a window or not.
         local terminal_windows_tab = vim.fn.win_findbuf(vim.fn.bufnr(vim.g.main_terminal_buffer_name))
         if terminal_windows_tab[1] then
-            -- In this if, the main terminal buffer is open in a window at least.
+            -- In this if, the main terminal buffer is open in at least one window.
             -- Remember the current window id to go back later
             local current_winid = vim.fn.win_getid()
             -- Go to each window with the main terminal and quit it
@@ -58,13 +62,12 @@ function TerminalToggle()
             end
             -- go back to previous window
             vim.fn.win_gotoid(current_winid)
-            -- terminal window is now closed, so update the global var
-            vim.g.main_terminal_window_id = nil
         else
             -- terminal buffer is not open in any window, so open it
             vim.cmd('belowright 20split ' .. vim.g.main_terminal_buffer_name)
+            -- we need to reset the buflisted option here but winhighlight is not required, not sure why
+            vim.opt_local.buflisted = false
             -- each time the terminal is open in a window, it has a new window id
-            vim.g.main_terminal_window_id = vim.fn.win_getid()
             if vim.fn.mode() == 'n' then
                 vim.cmd.startinsert()
             end

@@ -74,3 +74,29 @@ function TerminalToggle()
         end
     end
 end
+
+
+-- Use a linter to check current file
+function LintCurrentFile()
+    if vim.bo.filetype == 'sh' then
+        vim.cmd([[!shellcheck -x "%"]])
+    elseif vim.bo.filetype == 'yaml' then
+        vim.cmd([[!yamllint "%"]])
+    elseif vim.bo.filetype == 'python' then
+        vim.cmd([[!flake8 --max-line-length=120 "%"]])
+    else
+        print('Linting command not implemeted yet')
+    end
+end
+
+
+-- Format current file
+function FormatCurrentFile()
+    if vim.bo.filetype == 'python' then
+        vim.cmd([[!black --line-length=120 "%"]])
+    elseif vim.bo.filetype == 'json' then
+        vim.cmd([[%!jq .]])
+    else
+        print('Format command not implemeted yet')
+    end
+end

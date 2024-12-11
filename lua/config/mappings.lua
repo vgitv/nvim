@@ -78,3 +78,8 @@ vim.keymap.set('o', 'in(', ':<C-U>normal! f(vi(<CR>', { desc = '[I]n [N]ext pare
 -- Not using ip because it would shadow paragraph movement
 vim.keymap.set('o', 'il(', ':<C-U>normal! F)vi(<CR>', { desc = '[I]n [L]ast parenthesis' })
 vim.keymap.set('o', 'in@', ':<c-u>normal! f@viW<cr>', { desc = '[I]n [N]ext email address' })
+
+
+-- Lint and format
+vim.keymap.set('n', '<F3>', function() LintCurrentFile() end, { desc = 'Lint current file' })
+vim.keymap.set('n', '<LocalLeader>f', function() FormatCurrentFile() end, { desc = 'Format current file' })

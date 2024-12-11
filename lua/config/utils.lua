@@ -41,7 +41,7 @@ function TerminalToggle()
         vim.cmd.terminal()
         -- shade terminal background and hid it from :ls command
         vim.opt_local.winhighlight = 'Normal:LuaTerminalNormal'
-        vim.opt_local.buflisted = false
+        vim.bo.buflisted = false
         -- update global vars
         vim.g.main_terminal_buffer_name = vim.fn.bufname()
         vim.cmd.startinsert()
@@ -66,7 +66,7 @@ function TerminalToggle()
             -- terminal buffer is not open in any window, so open it
             vim.cmd('belowright 20split ' .. vim.g.main_terminal_buffer_name)
             -- we need to reset the buflisted option here but winhighlight is not required, not sure why
-            vim.opt_local.buflisted = false
+            vim.bo.buflisted = false
             -- each time the terminal is open in a window, it has a new window id
             if vim.fn.mode() == 'n' then
                 vim.cmd.startinsert()

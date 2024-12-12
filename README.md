@@ -51,3 +51,9 @@ sudo npm i -g pyright
 ```bash
 git clone git@github.com:vgitv/nvim.git ~/.config/nvim
 ```
+
+Recommended inside neovim:
+
+```
+:checkhealth
+```

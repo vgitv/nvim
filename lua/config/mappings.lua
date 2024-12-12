@@ -41,9 +41,8 @@ vim.keymap.set('n', '<C-n>', 'o<Esc>', { desc = 'Insert empty line above' })
 -- select all file
 vim.keymap.set('n', '<Leader>a', 'ggVG', { desc = 'Select all file' })
 
-vim.keymap.set('n', '<Leader>e', function() vim.fn.EditVimrc() end)
-
-vim.keymap.set('n', '<Leader>e', function() EditNvimInitFile() end)
+-- edit $VIMRC
+vim.keymap.set('n', '<Leader>e', function() EditNvimInitFile() end, { desc = '[E]dit $VIMRC in a new tab' })
 
 -- find word under cursor / selected
 vim.keymap.set('n', '<Leader>w', 'yiw/<C-r>"<CR><CR>n', { desc = 'Search [W]ord under cursor' })

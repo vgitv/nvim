@@ -13,7 +13,7 @@ return {
     cmd = 'Neotree',
     keys = {
         { '<Leader>t', ':Neotree toggle<CR>', desc = 'NeoTree toggle', silent = true },
-        { '<Leader>b', ':Neotree toggle show buffers right<CR>', desc = 'NeoTree toggle', silent = true },
+        { '<Leader>b', ':Neotree toggle show buffers right<CR>', desc = 'NeoTree toggle show buffers', silent = true },
     },
     opts = {
         close_if_last_window = true,

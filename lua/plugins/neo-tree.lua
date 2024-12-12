@@ -9,6 +9,7 @@ return {
         'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
         'MunifTanjim/nui.nvim',
     },
+    -- only load this plugin when the Neotree command is fired
     cmd = 'Neotree',
     keys = {
         { '<Leader>t', ':Neotree toggle<CR>', desc = 'NeoTree toggle', silent = true },

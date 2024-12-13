@@ -1,5 +1,7 @@
+-- Buffer local keymaps
+
 -- Insert link
-vim.keymap.set('v', '<C-k>', '<Esc>`<i[<Esc>`>la]()<Esc>', { desc = 'Insert markdown link' })
+vim.keymap.set('v', '<C-k>', '<Esc>`<i[<Esc>`>la]()<Esc>h', { desc = 'Insert markdown link', buffer = true })
 
 -- insert tabular
 vim.keymap.set(
@@ -13,5 +15,5 @@ vim.keymap.set(
         vim.cmd('normal i| <++> | <++> |')
         vim.cmd('normal 2k0')
     end,
-    { desc = 'Insert markdown tabular' }
+    { desc = 'Insert markdown tabular', buffer = true }
 )

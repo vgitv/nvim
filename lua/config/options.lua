@@ -1,8 +1,9 @@
 -- show matching brackets.
 vim.opt.showmatch = true
 
--- case insensitive matching
+-- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 -- mouse in all modes - middle-click paste with mouse
 vim.opt.mouse = 'a'
@@ -59,7 +60,7 @@ vim.opt.cursorline = true
 vim.opt.background = 'dark'
 
 -- minimal number of screen lines to keep above and below the cursor
-vim.opt.scrolloff = 5
+vim.opt.scrolloff = 6
 
 -- minimal number of screen columns to keep to the left / right of the cursor
 vim.opt.sidescrolloff = 6
@@ -70,15 +71,20 @@ vim.opt.foldcolumn = 'auto'
 -- displaying the diagnostics in the line number column will prevent the text to shift distractingly
 vim.opt.signcolumn = 'number'
 
-
 -- 3 to have only one status line at the bottom of the screen (and not a status
 -- line for each window). This option will be potentially overriden by the
 -- 'globalstatus' option of the plugin lualine.nvim
 vim.opt.laststatus = 3
 
+-- Don't show the mode, since it's already in the status line
+vim.opt.showmode = false
+
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+
+-- Preview substitutions, shows partial off-screen results in a preview window
+vim.opt.inccommand = 'split'
 
 vim.g.have_nerd_font = 1
 vim.g.loaded_netrw = 1

@@ -2,6 +2,12 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Disable arrow keys in normal mode
+vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move left!"<CR>')
+vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move right!"<CR>')
+vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move up!"<CR>')
+vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move down!"<CR>')
+
 -- Run an external script to build current file.
 vim.keymap.set('n', '<F4>', function() vim.cmd('!xbuild %') end, { desc = 'Build current file using external script' })
 
@@ -12,17 +18,12 @@ vim.keymap.set('n', '<F6>', 'mzgg=G`zzz', { desc = 'Indent all file' })
 vim.keymap.set('n', '<F12>', 'mz:%s/\r//g<CR>`z', { desc = 'Indent all file' })
 
 -- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
+-- Use CTRL+<hjkl> to switch between windows
+-- See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
--- search / replace
--- replace in all file (in normal mode, S is same as cc so it can be used)
-vim.keymap.set('n', 'S', ':%s/', { desc = 'Replace in all file' })
 
 -- Next replace
 vim.keymap.set('i', '<C-b>', '<Esc>/<++><CR>"_c4l', { desc = 'Replace next <++>' })
@@ -33,10 +34,6 @@ vim.keymap.set('n', '<C-_>', 'mzviw~`z', { desc = 'Switch case of all word' })
 
 -- insert blank line without entering insert mode
 vim.keymap.set('n', '<C-n>', 'o<Esc>', { desc = 'Insert empty line above' })
-
--- switch to last opened buffer
--- FIXME to remove
--- vim.keymap.set('n', '<Leader>b', ':buffer #<CR>', { desc = 'Switch to previous buffer' })
 
 -- select all file
 vim.keymap.set('n', '<Leader>a', 'ggVG', { desc = 'Select all file' })
@@ -66,8 +63,14 @@ vim.keymap.set('n', '<Leader>gt', 'V/=======<CR>"_d/>>>>>>><CR>"_dd', { desc = '
 
 
 vim.keymap.set('n', '<Leader>h', ':syntax sync fromstart<CR>', { desc = 'Fix syntax problems' })
+
+-- Toggle main terminal
 vim.keymap.set('n', '<Leader>k', function() TerminalToggle() end, { desc = 'Toggle main terminal' })
+
+-- Toggle highlight search
 vim.keymap.set('n', '<Leader>s', ':set hlsearch!<CR>:set hlsearch?<CR>', { desc = 'Toggle hlsearch' })
+
+-- Insert a pair of {}
 vim.keymap.set('i', '<C-j>', '{<CR>}<Esc>O', { desc = 'Insert a pair of {}' })
 
 

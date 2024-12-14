@@ -3,7 +3,7 @@ return {
     "rebelot/kanagawa.nvim",
     lazy = false,  -- make sure we load this during startup if it is your main colorscheme
     priority = 1000,  -- make sure to load this before all the other start plugins
-    config = function(opts)
+    config = function()
         require('kanagawa').setup {
             compile = false,
             undercurl = true,
@@ -30,7 +30,7 @@ return {
                     all = {}
                 },
             },
-            overrides = function(colors)  -- add/modify highlights
+            overrides = function()  -- add/modify highlights
                 return {
                     IblIndent = { fg = "#2a2a37"},  -- Indent char for indent-blankline plugin
                 }

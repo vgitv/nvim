@@ -2,29 +2,29 @@
 
 ## Font
 
-Install and set an appropriate font, for instance from
+If needed, install and set an appropriate font from
 [nerdfonts.com](https://www.nerdfonts.com/).
 
-Exemple:
+For instance Hack font:
 
 ```bash
-# Download Hack Nerd Font
+# TODO: download Hack Nerd Font
 
-# Install font
+# Install
 mkdir -p "$XDG_DATA_HOME"/fonts
 unzip Hack.zip -d "$XDG_DATA_HOME"/fonts
 fc-cache -rv
 ```
+
+Set the font in the terminal emulator.
 
 
 ## Language server
 
 ### Introduction
 
-For Python autocompletion features (used by
-[nvim-cmp](https://github.com/hrsh7th/nvim-cmp) plugin).
-
-Install the following language server:
+For Lua and Python autocompletion features, install the following language
+server:
 
 * [pyright](https://github.com/microsoft/pyright)
 * [lua-language-server](https://luals.github.io/#neovim-install)
@@ -45,6 +45,8 @@ sudo apt install npm
 sudo npm i -g pyright
 ```
 
+lua\_ls can be installed manually from the release page.
+
 
 ## Neovim configuration
 
@@ -52,8 +54,5 @@ sudo npm i -g pyright
 git clone git@github.com:vgitv/nvim.git ~/.config/nvim
 ```
 
-Recommended inside neovim:
-
-```
-:checkhealth
-```
+Open Neovim, wait for Lazy to install the plugins. Then restart Neovim, and run
+`:checkhealth` command.

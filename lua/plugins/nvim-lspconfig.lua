@@ -4,7 +4,7 @@ return {
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/nvim-cmp'
     },
-    ft = { 'lua', 'python' },
+    ft = { 'lua', 'python', 'sh' },
     config = function()
         local cmp = require('cmp')
         cmp.setup {
@@ -30,7 +30,8 @@ return {
         -- See :help lspconfig-all to see the full list of lsp configurations.
         -- For instance install pyright for Python, lua_ls for lua etc.
         -- Exemple : sudo pacman -S pyright
-        require('lspconfig').pyright.setup {
+        local lspconfig = require('lspconfig')
+        lspconfig.pyright.setup {
             capabilities = capabilities
         }
 
@@ -41,7 +42,7 @@ return {
         -- Without this configuration, you get lot of warning due to the fact that scope like vim.g
         -- or vim.opt are unknown to lua_ls. Besides, you get way better syntax highlighting with
         -- this configuration.
-        require('lspconfig').lua_ls.setup{
+        lspconfig.lua_ls.setup{
             on_init = function(client)
                 if client.workspace_folders then
                     local path = client.workspace_folders[1].name
@@ -74,5 +75,7 @@ return {
                 Lua = {}
             }
         }
+
+        lspconfig.bashls.setup{}
     end
 }

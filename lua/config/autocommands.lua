@@ -241,3 +241,17 @@ vim.api.nvim_create_autocmd(
         command = [[highlight link PythonSelfKeyword Keyword | syntax match PythonSelfKeyword /\<self\>/]],
     }
 )
+
+
+vim.api.nvim_create_autocmd(
+    'BufEnter',
+    {
+        desc = 'Python self keyword highlight',
+        group = init_group,
+        pattern = "*.py",
+        callback = function()
+            vim.cmd([[highlight link SelfKeyword Keyword]])
+            vim.cmd([[syntax match SelfKeyword /\<self\>/]])
+        end,
+    }
+)

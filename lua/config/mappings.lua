@@ -68,7 +68,7 @@ vim.keymap.set('n', '<Leader>h', ':syntax sync fromstart<CR>', { desc = 'Fix syn
 vim.keymap.set('n', '<Leader>k', function() TerminalToggle() end, { desc = 'Toggle main terminal' })
 
 -- Toggle highlight search
-vim.keymap.set('n', '<Leader>s', ':set hlsearch!<CR>:set hlsearch?<CR>', { desc = 'Toggle hlsearch' })
+vim.keymap.set('n', '<Leader>ss', ':set hlsearch!<CR>:set hlsearch?<CR>', { desc = 'Toggle hlsearch' })
 
 -- Insert a pair of {}
 vim.keymap.set('i', '<C-j>', '{<CR>}<Esc>O', { desc = 'Insert a pair of {}' })

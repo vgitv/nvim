@@ -93,3 +93,8 @@ vim.keymap.set('n', 'grr', vim.lsp.buf.references, { desc = 'Go to references' }
 vim.keymap.set('n', 'gri', vim.lsp.buf.implementation, { desc = 'Go to implementation' })
 vim.keymap.set('n', 'g0', vim.lsp.buf.document_symbol, { desc = 'Document symbol' })
 vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help, { desc = 'Signature help' })
+
+-- Go to the source code of an underlying function
+-- Use different mecanics but result is similar to <C-]> See :help ctrl-]
+-- vim.lsp.buf.definition uses LSP functionnality whereas ctrl-] uses tags
+vim.keymap.set('n', 'grd', vim.lsp.buf.definition, { desc = 'Go to definition' })

@@ -31,35 +31,6 @@ function FormatCurrentFile()
 end
 
 
-local function create_floating_window(opts)
-    opts = opts or {}
-    local width = opts.width or math.floor(vim.o.columns * 0.8)
-    local height = opts.height or math.floor(vim.o.lines * 0.8)
-
-    -- Calculate the position to center the window
-    local col = math.floor((vim.o.columns - width) / 2)
-    local row = math.floor((vim.o.lines - height) / 2)
-
-    -- Create a buffer (no file, scratch buffer)
-    local buf = vim.api.nvim_create_buf(false, true)
-
-    -- Define window configuration
-    local win_config = {
-        relative = "editor",
-        width = width,
-        height = height,
-        col = col,
-        row = row,
-        style = "minimal",
-        border = "single",
-    }
-
-    local win = vim.api.nvim_open_win(buf, true, win_config)
-
-    return { buf = buf, win = win }
-end
-
-
 -- The main terminal background will be darker than the editor background
 -- this backgroune dolor is consistent with kanagawa colorscheme
 vim.cmd.highlight 'MainTerminalNormal guibg=#16161d'
@@ -116,5 +87,4 @@ local toggle_main_terminal = function()
 end
 
 
-vim.api.nvim_create_user_command('Floatwindow', create_floating_window, {})
 vim.api.nvim_create_user_command('Togglemainterminal', toggle_main_terminal, {})

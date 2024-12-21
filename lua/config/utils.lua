@@ -7,98 +7,27 @@ function EditNvimInitFile()
 end
 
 
--- The main terminal background will be darker than the editor background
--- this backgroune dolor is consistent with kanagawa colorscheme
-vim.cmd([[highlight LuaTerminalNormal guibg=#16161d]])
-
--- at start, there is no main terminal buffer
-vim.g.main_terminal_buffer_name = nil
-
--- This will update the global var if the terminal is exited using <C-d>
-vim.api.nvim_create_autocmd(
-    'TermClose',
-    {
-        desc = 'Unset main terminal buffer name variable if main terminal is closed',
-        group = vim.api.nvim_create_augroup('temp_terminal_group', { clear = true }),
-        callback = function()
-            if vim.g.main_terminal_buffer_name then
-                if vim.fn.bufnr(vim.g.main_terminal_buffer_name) == -1 then
-                    -- If the buffer doesn't exist, -1 is returned by bufnr function.
-                    vim.g.main_terminal_buffer_name = nil
-                end
-            end
-        end
-    }
-)
-
-
-function TerminalToggle()
-    if not vim.g.main_terminal_buffer_name then
-        print('Create new main terminal')
-        -- In this if, the main terminal buffer does not exists
-        -- create the main terminal buffer
-        vim.cmd([[belowright 20split]])
-        vim.cmd.terminal()
-        -- shade terminal background and hid it from :ls command
-        vim.opt_local.winhighlight = 'Normal:LuaTerminalNormal'
-        vim.bo.buflisted = false
-        -- update global vars
-        vim.g.main_terminal_buffer_name = vim.fn.bufname()
-        vim.cmd.startinsert()
-    else
-        -- In this else, the main terminal buffer already exists.
-        -- We need to find if it is already open in a window or not.
-        local terminal_windows_tab = vim.fn.win_findbuf(vim.fn.bufnr(vim.g.main_terminal_buffer_name))
-        if terminal_windows_tab[1] then
-            -- In this if, the main terminal buffer is open in at least one window.
-            -- Remember the current window id to go back later
-            local current_winid = vim.fn.win_getid()
-            -- Go to each window with the main terminal and quit it
-            -- NOTE: there could be multiple windows opened displaying the main
-            -- terminal, that's why we loop through this table.
-            for _, window_id in pairs(terminal_windows_tab) do
-                vim.fn.win_gotoid(window_id)
-                vim.cmd.quit()
-            end
-            -- go back to previous window
-            vim.fn.win_gotoid(current_winid)
-        else
-            -- terminal buffer is not open in any window, so open it
-            vim.cmd('belowright 20split ' .. vim.g.main_terminal_buffer_name)
-            -- we need to reset the buflisted option here but winhighlight is not required, not sure why
-            vim.bo.buflisted = false
-            -- each time the terminal is open in a window, it has a new window id
-            if vim.fn.mode() == 'n' then
-                vim.cmd.startinsert()
-            end
-        end
-    end
-end
-
+LintCommands = {
+    sh = '!shellcheck -x "%"',
+    python = '!flake8 --max-line-length=120 "%"',
+    yaml = '!yamllint "%"',
+}
 
 -- Use a linter to check current file
 function LintCurrentFile()
-    if vim.bo.filetype == 'sh' then
-        vim.cmd([[!shellcheck -x "%"]])
-    elseif vim.bo.filetype == 'yaml' then
-        vim.cmd([[!yamllint "%"]])
-    elseif vim.bo.filetype == 'python' then
-        vim.cmd([[!flake8 --max-line-length=120 "%"]])
-    else
-        print('Linting command not implemeted yet')
-    end
+    vim.cmd(LintCommands[vim.bo.filetype] or 'echom "Lint command not implement yet"')
 end
+
+
+FormatCommands = {
+    python = '!black --line-length=120 "%"',
+    json = '%!jq .',
+}
 
 
 -- Format current file
 function FormatCurrentFile()
-    if vim.bo.filetype == 'python' then
-        vim.cmd([[!black --line-length=120 "%"]])
-    elseif vim.bo.filetype == 'json' then
-        vim.cmd([[%!jq .]])
-    else
-        print('Format command not implemeted yet')
-    end
+    vim.cmd(FormatCommands[vim.bo.filetype] or 'echom "Format command not implement yet"')
 end
 
 
@@ -122,13 +51,19 @@ local function create_floating_window(opts)
         col = col,
         row = row,
         style = "minimal",
-        border = "rounded",
+        border = "single",
     }
 
     local win = vim.api.nvim_open_win(buf, true, win_config)
 
     return { buf = buf, win = win }
 end
+
+
+-- The main terminal background will be darker than the editor background
+-- this backgroune dolor is consistent with kanagawa colorscheme
+vim.cmd.highlight 'MainTerminalNormal guibg=#16161d'
+
 
 local state = {
     main_terminal = {
@@ -137,10 +72,14 @@ local state = {
     }
 }
 
+
 local create_window_below = function(opts)
     opts = opts or {}
+
+    -- Calculate window height
     local height = opts.height or math.floor(vim.o.lines * 0.35)
 
+    -- Get or create new buffer
     local buf = nil
     if vim.api.nvim_buf_is_valid(opts.buf) then
         buf = opts.buf
@@ -148,29 +87,34 @@ local create_window_below = function(opts)
         buf = vim.api.nvim_create_buf(false, true)
     end
 
+    -- Define window configuration
     local win_config = {
         split = 'below',
         win = 0,
         height = height,
     }
 
+    -- Open window
     local win = vim.api.nvim_open_win(buf, true, win_config)
 
     return { buf = buf, win = win }
 end
 
-local toggle_terminal = function()
+
+local toggle_main_terminal = function()
     if not vim.api.nvim_win_is_valid(state.main_terminal.win) then
         state.main_terminal = create_window_below { buf = state.main_terminal.buf }
         if vim.bo[state.main_terminal.buf].buftype ~= 'terminal' then
             vim.cmd.terminal()
             vim.bo.buflisted = false
-            vim.opt_local.winhighlight = 'Normal:LuaTerminalNormal'
+            vim.opt_local.winhighlight = 'Normal:MainTerminalNormal'
         end
+        vim.cmd.startinsert()
     else
         vim.api.nvim_win_hide(state.main_terminal.win)
     end
 end
 
+
 vim.api.nvim_create_user_command('Floatwindow', create_floating_window, {})
-vim.api.nvim_create_user_command('Toggleterminal', toggle_terminal, {})
+vim.api.nvim_create_user_command('Togglemainterminal', toggle_main_terminal, {})

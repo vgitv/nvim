@@ -23,18 +23,21 @@ Set the font in the terminal emulator.
 
 ### Introduction
 
-For Lua and Python autocompletion features, install the following language
+Read `:h lspconfig-all`!
+
+For diagnostics / autocompletion features, install the following language
 server:
 
 * [pyright](https://github.com/microsoft/pyright)
 * [lua-language-server](https://luals.github.io/#neovim-install)
+* [bashls](https://github.com/bash-lsp/bash-language-server)
 
 ### Exemples
 
 #### Arch-based
 
 ```bash
-sudo pacman -S pyright lua-language-server
+sudo pacman -S pyright lua-language-server bash-language-server
 ```
 
 
@@ -43,6 +46,7 @@ sudo pacman -S pyright lua-language-server
 ```bash
 sudo apt install npm
 sudo npm i -g pyright
+sudo npm i -g bash-language-server
 ```
 
 lua\_ls can be installed manually from the release page.
@@ -56,3 +60,7 @@ git clone git@github.com:vgitv/nvim.git ~/.config/nvim
 
 Open Neovim, wait for Lazy to install the plugins. Then restart Neovim, and run
 `:checkhealth` command.
+
+## Special thanks
+
+Special thanks to [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).

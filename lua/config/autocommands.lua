@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd(
     {
         desc = 'Python template',
         group = init_group,
-        pattern = '*.py',
+        pattern = { 'main.py', '__main__.py' },
         command = [[1read ~/.config/nvim/templates/skeleton.py | 1delete]]
     }
 )

@@ -32,7 +32,7 @@ end
 
 
 -- The main terminal background will be darker than the editor background
--- this backgroune dolor is consistent with kanagawa colorscheme
+-- this background color is consistent with kanagawa colorscheme
 vim.cmd.highlight 'MainTerminalNormal guibg=#16161d'
 
 

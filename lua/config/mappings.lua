@@ -64,9 +64,6 @@ vim.keymap.set('n', '<Leader>gt', 'V/=======<CR>"_d/>>>>>>><CR>"_dd', { desc = '
 
 vim.keymap.set('n', '<Leader>h', ':syntax sync fromstart<CR>', { desc = 'Fix syntax problems' })
 
--- Toggle main terminal
-vim.keymap.set('n', '<Leader>k', '<Cmd>Togglemainterminal<CR>', { desc = 'Toggle main terminal' })
-
 -- Toggle highlight search
 vim.keymap.set('n', '<Leader>ss', ':set hlsearch!<CR>:set hlsearch?<CR>', { desc = 'Toggle hlsearch' })
 

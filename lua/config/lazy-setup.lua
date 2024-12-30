@@ -25,5 +25,14 @@ require("lazy").setup({
     -- colorscheme that will be used when installing plugins.
     install = { colorscheme = { "habamax" } },
     -- automatically check for plugin updates
-    checker = { enabled = true },
+    checker = {
+        enabled = true,
+        frequency = 604800,  -- check for updates once a week
+    },
+    change_detection = {
+        -- Dont automatically check for config file changes and reload the ui, because it is very intrusive for every
+        -- opened nvim instance. The downside is that we need to restart nvim to apply changes.
+        enabled = false,
+        notify = false,  -- dont get a notification when changes are found
+    },
 })

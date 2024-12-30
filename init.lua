@@ -1,4 +1,3 @@
---
 -- ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
 -- ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
 -- ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
@@ -12,7 +11,7 @@ require("config.options")
 -- User functions
 require("config.utils")
 
--- Keymap
+-- Keymaps
 require("config.mappings")
 
 -- Autocommands

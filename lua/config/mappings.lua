@@ -82,16 +82,3 @@ vim.keymap.set('o', 'in@', ':<c-u>normal! f@viW<cr>', { desc = '[I]n [N]ext emai
 -- Lint and format
 vim.keymap.set('n', '<F3>', function() LintCurrentFile() end, { desc = 'Lint current file' })
 vim.keymap.set('n', '<LocalLeader>f', function() FormatCurrentFile() end, { desc = 'Format current file' })
-
--- FIXME should be natively included in later versions of neovim (already in the nightly realase)
-vim.keymap.set('n', 'grn', vim.lsp.buf.rename, { desc = 'Rename variable' })
-vim.keymap.set('n', 'gra', vim.lsp.buf.code_action, { desc = 'Code action' })
-vim.keymap.set('n', 'grr', vim.lsp.buf.references, { desc = 'Go to references' })
-vim.keymap.set('n', 'gri', vim.lsp.buf.implementation, { desc = 'Go to implementation' })
-vim.keymap.set('n', 'g0', vim.lsp.buf.document_symbol, { desc = 'Document symbol' })
-vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help, { desc = 'Signature help' })
-
--- Go to the source code of an underlying function
--- Use different mecanics but result is similar to <C-]> See :help ctrl-]
--- vim.lsp.buf.definition uses LSP functionnality whereas ctrl-] uses tags
-vim.keymap.set('n', 'grd', vim.lsp.buf.definition, { desc = 'Go to definition' })

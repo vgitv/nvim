@@ -36,3 +36,6 @@ require("lazy").setup({
         notify = false,  -- dont get a notification when changes are found
     },
 })
+
+-- update plugins
+vim.keymap.set('n', '<Leader>u', ':Lazy update<CR>', { desc = 'Update lazy plugins' })

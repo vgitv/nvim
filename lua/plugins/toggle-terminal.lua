@@ -1,10 +1,11 @@
 return {
     'vgitv/toggle-terminal.nvim',
     branch = 'feature/init',
-    cmd = 'Toggleterminal',
+    cmd = 'Terminal',
     keys = {
-        { '<Leader>k', ':Toggleterminal<CR>', desc = 'Toggle terminal (default height)', silent = true },
-        { '<Leader>f', ':Toggleterminal 0.8<CR>', desc = 'Toggle terminal (80% height)', silent = true },
+        { '<Leader>k', ':Terminal toggle_window<CR>', desc = 'Toggle terminal (default height)', silent = true },
+        { '<Leader>f', ':Terminal toggle_window 0.8<CR>', desc = 'Toggle terminal (80% height)', silent = true },
+        { '<Leader><space>', ':Terminal toggle_fullheight<CR>', desc = 'Toggle terminal height', silent = true },
     },
     opts = {
         bg_color = '#16161d',  -- main terminal background color

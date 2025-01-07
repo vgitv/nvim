@@ -48,9 +48,6 @@ vim.keymap.set('v', '<Leader>w', 'y<Esc>/<C-r>"<CR><CR>n', { desc = 'Search [W]o
 -- toggle wrap
 vim.keymap.set('n', '<Leader>z', ':set wrap!<CR>', { desc = 'Toggle line wrap' })
 
--- make file executable
-vim.keymap.set('n', '<Leader>x', function() vim.cmd('!chmod u+x %') end, { desc = 'Make file executable' })
-
 -- Escape in terminal
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 

@@ -4,8 +4,9 @@ return {
     cmd = 'Terminal',
     keys = {
         { '<Leader>k', ':Terminal toggle_window<CR>', desc = 'Toggle terminal (default height)', silent = true },
-        { '<Leader>f', ':Terminal toggle_window 0.8<CR>', desc = 'Toggle terminal (80% height)', silent = true },
+        { '<Leader>K', ':Terminal toggle_window 0.8<CR>', desc = 'Toggle terminal (80% height)', silent = true },
         { '<Leader><space>', ':Terminal toggle_fullheight<CR>', desc = 'Toggle terminal height', silent = true },
+        { '<Leader>x', ':Terminal send_current_line<CR>', desc = 'Send current line to terminal', silent = true },
     },
     opts = {
         bg_color = '#16161d',  -- main terminal background color

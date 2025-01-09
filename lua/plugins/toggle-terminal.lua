@@ -7,7 +7,10 @@ return {
         { '<Leader>K', ':Terminal toggle_window 0.8<CR>', desc = 'Toggle terminal (80% height)', silent = true },
         { '<Leader><space>', ':Terminal toggle_fullheight<CR>', desc = 'Toggle terminal height', silent = true },
         { '<Leader>x', ':Terminal send_current_line<CR>', desc = 'Send current line to terminal', silent = true },
-        { '<Leader>g', ':Terminal goto<CR>', desc = 'Jump to error line using stacktrace', silent = true },
+        { '<Leader>x', ':Terminal send_visual_lines<CR>', mode = 'v', desc = 'Send visual lines to terminal', silent = true },
+        { '<Leader>j', ':Terminal jump<CR>', desc = 'Jump to error line using stacktrace', silent = true },
+        { '<Leader>l', ':Terminal clear<CR>', desc = 'Clear terminal', silent = true },
+        { '<Leader>c', ':Terminal kill<CR>', desc = 'Kill terminal current running command', silent = true },
     },
     opts = {
         bg_color = '#16161d',  -- main terminal background color

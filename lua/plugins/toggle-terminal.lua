@@ -11,6 +11,8 @@ return {
         { '<Leader>j', ':Terminal jump<CR>', desc = 'Jump to error line using stacktrace', silent = true },
         { '<Leader>l', ':Terminal clear<CR>', desc = 'Clear terminal', silent = true },
         { '<Leader>c', ':Terminal kill<CR>', desc = 'Kill terminal current running command', silent = true },
+        { '<Leader>p', ':Terminal run_previous<CR>', desc = 'Run previous command', silent = true },
+        { '<Leader>d', ':Terminal exit<CR>', desc = 'Exit terminal', silent = true },
     },
     opts = {
         bg_color = '#16161d',  -- main terminal background color

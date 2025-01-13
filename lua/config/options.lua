@@ -60,7 +60,7 @@ vim.opt.cursorline = true
 vim.opt.background = 'dark'
 
 -- minimal number of screen lines to keep above and below the cursor
-vim.opt.scrolloff = 12
+vim.opt.scrolloff = 8
 
 -- when and how to draw the foldcolumn
 vim.opt.foldcolumn = 'auto'

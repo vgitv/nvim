@@ -15,7 +15,7 @@ return {
         { '<Leader>d', ':Oneterm exit<CR>', desc = 'Exit terminal', silent = true },
     },
     opts = {
-        bg_color = '#16161d',  -- main terminal background color
+        bg_color = nil,  -- main terminal background color
         startinsert = true,  -- start insert mode at term opening
         relative_height = 0.35,  -- relative height of the terminal window (beetween 0 and 1)
         local_options = {

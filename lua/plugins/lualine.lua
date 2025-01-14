@@ -5,7 +5,7 @@ return {
         "nvim-lualine/lualine.nvim",
         options = {
             icons_enabled = true,
-            theme = 'jellybeans',
+            theme = 'tokyonight',
             component_separators = { left = '', right = ''},
             section_separators = { left = '', right = ''},
             disabled_filetypes = {

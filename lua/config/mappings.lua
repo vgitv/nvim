@@ -5,8 +5,6 @@ vim.g.maplocalleader = "\\"
 -- Disable arrow keys in normal mode
 vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move left!"<CR>')
 vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move right!"<CR>')
-vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move up!"<CR>')
-vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move down!"<CR>')
 
 -- Run an external script to build current file.
 vim.keymap.set('n', '<F4>', function() vim.cmd('!xbuild %') end, { desc = 'Build current file using external script' })
@@ -40,10 +38,6 @@ vim.keymap.set('n', '<Leader>a', 'ggVG', { desc = 'Select all file' })
 
 -- edit $VIMRC
 vim.keymap.set('n', '<Leader>e', function() EditNvimInitFile() end, { desc = '[E]dit $VIMRC in a new tab' })
-
--- find word under cursor / selected
-vim.keymap.set('n', '<Leader>w', 'yiw/<C-r>"<CR><CR>n', { desc = 'Search [W]ord under cursor' })
-vim.keymap.set('v', '<Leader>w', 'y<Esc>/<C-r>"<CR><CR>n', { desc = 'Search [W]ord under cursor' })
 
 -- toggle wrap
 vim.keymap.set('n', '<Leader>z', ':set wrap!<CR>', { desc = 'Toggle line wrap' })

@@ -13,6 +13,8 @@ return {
         { '<Leader>c', ':Oneterm kill<CR>', desc = 'Kill terminal current running command', silent = true },
         { '<Leader>p', ':Oneterm run_previous<CR>', desc = 'Run previous command', silent = true },
         { '<Leader>d', ':Oneterm exit<CR>', desc = 'Exit terminal', silent = true },
+        { '<up>', ':Oneterm resize +2<CR>', desc = 'Increase terminal height', silent = true },
+        { '<down>', ':Oneterm resize -2<CR>', desc = 'Decrease terminal height', silent = true },
     },
     opts = {
         bg_color = nil,  -- main terminal background color

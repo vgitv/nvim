@@ -20,6 +20,7 @@ end
 FormatCommands = {
     python = '!black --line-length=120 "%"',
     json = "%!jq .",
+    lua = '!stylua "%"',
 }
 
 -- Format current file

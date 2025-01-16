@@ -1,8 +1,8 @@
 return {
-    'bullets-vim/bullets.vim',
+    "bullets-vim/bullets.vim",
     -- only load this plugin for markdown filetype
-    ft = 'markdown',
+    ft = "markdown",
     keys = {
-        { '<LocalLeader>\\', ':ToggleCheckbox<CR>', desc = 'Toggle check box' },
+        { "<LocalLeader>\\", ":ToggleCheckbox<CR>", desc = "Toggle check box" },
     },
 }

@@ -1,16 +1,16 @@
 return {
-    'folke/tokyonight.nvim',
+    "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
     opts = {
         on_highlights = function(hl, c)
             hl.CursorLine = {
-                bg = c.black
+                bg = c.black,
             }
-        end
+        end,
     },
     init = function()
         -- Note: on_highlights function is not apply when using config arg
-        vim.cmd.colorscheme('tokyonight')
-    end
+        vim.cmd.colorscheme "tokyonight"
+    end,
 }

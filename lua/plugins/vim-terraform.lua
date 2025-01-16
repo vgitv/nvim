@@ -1,4 +1,4 @@
 return {
-    'hashivim/vim-terraform',
-    ft = 'terraform',
+    "hashivim/vim-terraform",
+    ft = "terraform",
 }

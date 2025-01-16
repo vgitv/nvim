@@ -1,11 +1,11 @@
 return {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    main = 'nvim-treesitter.configs',
-    ft = { 'lua', 'python', 'sh', 'markdown' },
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    main = "nvim-treesitter.configs",
+    ft = { "lua", "python", "sh", "markdown" },
     opts = {
         -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-        ensure_installed = { 'lua', 'python', 'bash', 'markdown', 'markdown_inline' },
+        ensure_installed = { "lua", "python", "bash", "markdown", "markdown_inline" },
 
         -- Automatically install missing parsers when entering buffer
         -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
@@ -21,7 +21,7 @@ return {
             -- disable = { "c", "rust" },
             -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
             disable = function(lang, buf)
-                local max_filesize = 100 * 1024  -- 100 KB
+                local max_filesize = 100 * 1024 -- 100 KB
                 local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
                 if ok and stats and stats.size > max_filesize then
                     return true
@@ -38,5 +38,5 @@ return {
             -- neovim / treesitter.
             additional_vim_regex_highlighting = true,
         },
-    }
+    },
 }

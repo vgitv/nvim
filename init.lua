@@ -6,16 +6,16 @@
 -- ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
 
 -- Vim options
-require("config.options")
+require "config.options"
 
 -- User functions
-require("config.utils")
+require "config.utils"
 
 -- Keymaps
-require("config.mappings")
+require "config.mappings"
 
 -- Autocommands
-require("config.autocommands")
+require "config.autocommands"
 
 -- Lazy plugins
-require("config.lazy-setup")
+require "config.lazy-setup"

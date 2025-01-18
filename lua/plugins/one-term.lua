@@ -1,6 +1,5 @@
 return {
     "vgitv/one-term.nvim",
-    branch = "feature/init",
     cmd = "Oneterm",
     keys = {
         { "<Leader>k", ":Oneterm toggle_window<CR>", desc = "Toggle terminal (default height)", silent = true },

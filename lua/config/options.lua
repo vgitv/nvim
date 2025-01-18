@@ -6,7 +6,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- mouse in all modes - middle-click paste with mouse
-vim.opt.mouse = 'a'
+vim.opt.mouse = "a"
 
 -- highlight search results
 vim.opt.hlsearch = true
@@ -30,13 +30,13 @@ vim.opt.autoindent = true
 vim.opt.number = true
 
 -- get bash-like tab completions
-vim.opt.wildmode = {'longest:full', 'full'}
+vim.opt.wildmode = { "longest:full", "full" }
 
 -- 0 => dont break long line automatically
 vim.opt.textwidth = 0
 
 -- set a 120 column border for good coding style
-vim.opt.colorcolumn = {120}
+vim.opt.colorcolumn = { 120 }
 
 -- dont wrap long lines
 vim.opt.wrap = false
@@ -45,7 +45,9 @@ vim.opt.wrap = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
+vim.schedule(function()
+    vim.opt.clipboard = "unnamedplus"
+end)
 
 -- round indent to multiple of shiftwidth
 vim.opt.shiftround = true
@@ -57,16 +59,16 @@ vim.opt.termguicolors = true
 vim.opt.cursorline = true
 
 -- dark background
-vim.opt.background = 'dark'
+vim.opt.background = "dark"
 
 -- minimal number of screen lines to keep above and below the cursor
-vim.opt.scrolloff = 12
+vim.opt.scrolloff = 8
 
 -- when and how to draw the foldcolumn
-vim.opt.foldcolumn = 'auto'
+vim.opt.foldcolumn = "auto"
 
 -- displaying the diagnostics in the line number column will prevent the text to shift distractingly
-vim.opt.signcolumn = 'number'
+vim.opt.signcolumn = "number"
 
 -- 3 to have only one status line at the bottom of the screen (and not a status
 -- line for each window). This option will be potentially overriden by the
@@ -81,7 +83,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 -- Preview substitutions, shows partial off-screen results in a preview window
-vim.opt.inccommand = 'split'
+vim.opt.inccommand = "split"
 
 vim.g.have_nerd_font = 1
 vim.g.loaded_netrw = 1

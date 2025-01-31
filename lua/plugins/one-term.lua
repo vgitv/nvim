@@ -17,7 +17,7 @@ return {
         { "<down>", ":Oneterm resize -2<CR>", desc = "Decrease terminal height", silent = true },
     },
     opts = {
-        bg_color = nil, -- main terminal background color
+        bg_color_factor = 0.75, -- main terminal background color
         startinsert = true, -- start insert mode at term opening
         relative_height = 0.35, -- relative height of the terminal window (beetween 0 and 1)
         local_options = {

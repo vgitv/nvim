@@ -1,6 +1,7 @@
 return {
     "vgitv/one-term.nvim",
     cmd = "Oneterm",
+    branch = "feature/send-visual-selection",
     keys = {
         { "<Leader>k", ":Oneterm toggle_window<CR>", desc = "Toggle terminal (default height)", silent = true },
         { "<Leader>K", ":Oneterm toggle_window 0.8<CR>", desc = "Toggle terminal (80% height)", silent = true },

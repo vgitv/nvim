@@ -1,4 +1,4 @@
 return {
     "hashivim/vim-terraform",
-    ft = "terraform",
+    ft = { "terraform", "hcl" },
 }

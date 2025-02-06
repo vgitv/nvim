@@ -15,3 +15,10 @@ end, { desc = "Insert markdown tabular", buffer = true })
 
 -- open link in brave brower
 vim.keymap.set("n", "<LocalLeader>b", OpenLinkBrave, { desc = "Open URL in Brave browser" })
+
+-- This is for concealing mardown URL
+-- The text: "[text](url)" will render like this: "text"
+-- Conceallevel is require, it will hide url link.
+vim.opt_local.conceallevel = 2
+-- Hide even if the cursor hovers the url
+vim.opt_local.concealcursor = "nc"

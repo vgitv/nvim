@@ -27,3 +27,16 @@ FormatCommands = {
 function FormatCurrentFile()
     vim.cmd(FormatCommands[vim.bo.filetype] or 'echom "Format command not implement yet"')
 end
+
+local extract_url = function(text)
+    local pattern = "%[.*%]%(([^)]*)%)"
+    local url = string.match(text, pattern)
+    return url
+end
+
+function OpenLinkBrave()
+    local current_line = vim.api.nvim_get_current_line()
+    local url = extract_url(current_line)
+    print(url)
+    vim.system({ "brave-browser", url }, { text = true }):wait()
+end

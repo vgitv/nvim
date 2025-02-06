@@ -12,3 +12,6 @@ vim.keymap.set("i", "<LocalLeader>t", function()
     vim.cmd "normal i| <++> | <++> |"
     vim.cmd "normal 2k0"
 end, { desc = "Insert markdown tabular", buffer = true })
+
+-- open link in brave brower
+vim.keymap.set("n", "<LocalLeader>b", OpenLinkBrave, { desc = "Open URL in Brave browser" })

@@ -19,6 +19,7 @@ return {
         { "<leader>sf", ":Telescope find_files<CR>", desc = "[S]earch [H]elp" },
         { "<leader>sb", ":Telescope git_branches<CR>", desc = "[S]earch git [B]ranches" },
         { "<leader>sr", ":Telescope lsp_references<CR>", desc = "[S]earch LSP [R]eferences" },
+        { "<leader>sl", ":Telescope live_grep<CR>", desc = "[S]earch [L]ive_grep" },
         {
             "<leader>sc",
             function()

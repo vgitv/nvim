@@ -15,7 +15,7 @@ return {
             },
         },
     },
-    ft = { "lua", "python", "sh" },
+    ft = { "lua", "python", "sh", "toml" },
     config = function()
         -- See :help ins-completion for the defaults
         local cmp = require "cmp"
@@ -39,7 +39,7 @@ return {
         -- For instance install pyright for Python, lua_ls for lua etc.
         -- Exemple : sudo pacman -S pyright
         local lspconfig = require "lspconfig"
-        local servers = { "pyright", "lua_ls", "bashls" }
+        local servers = { "pyright", "lua_ls", "bashls", "taplo" }
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
         for _, lsp in ipairs(servers) do
             lspconfig[lsp].setup { capabilities = capabilities }

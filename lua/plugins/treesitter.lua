@@ -2,10 +2,10 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     main = "nvim-treesitter.configs",
-    ft = { "lua", "python", "sh", "markdown" },
+    ft = { "lua", "python", "sh", "markdown", "groovy" },
     opts = {
         -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-        ensure_installed = { "lua", "python", "bash", "markdown", "markdown_inline", "sql" },
+        ensure_installed = { "lua", "python", "bash", "markdown", "markdown_inline", "sql", "groovy" },
 
         -- Automatically install missing parsers when entering buffer
         -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally

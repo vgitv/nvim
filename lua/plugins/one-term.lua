@@ -15,6 +15,7 @@ return {
         { "<Leader>d", ":Oneterm exit<CR>", desc = "Exit terminal", silent = true },
         { "<up>", ":Oneterm resize +2<CR>", desc = "Increase terminal height", silent = true },
         { "<down>", ":Oneterm resize -2<CR>", desc = "Decrease terminal height", silent = true },
+        { "<F5>", ":Oneterm launch<CR>", desc = "Launch from default configuration", silent = true },
     },
     opts = {
         bg_color_factor = 0.75, -- main terminal background color

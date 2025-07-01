@@ -13,8 +13,8 @@ vim.keymap.set("i", "<LocalLeader>t", function()
     vim.cmd "normal 2k0"
 end, { desc = "Insert markdown tabular", buffer = true })
 
--- open link in brave brower
-vim.keymap.set("n", "<LocalLeader>b", OpenLinkBrave, { desc = "Open URL in Brave browser" })
+-- open link in brower
+vim.keymap.set("n", "<LocalLeader>b", OpenLinkBrowser, { desc = "Open URL in browser" })
 
 -- This is for concealing mardown URL
 -- The text: "[text](url)" will render like this: "text"

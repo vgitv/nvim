@@ -14,6 +14,9 @@ end, { desc = "Build current file using external script" })
 -- Set a mark, indent whole file and go back to the mark
 vim.keymap.set("n", "<F6>", "mzgg=G`zzz", { desc = "Indent all file" })
 
+-- Autocommit
+vim.keymap.set("n", "<F8>", ":!autocommit<CR>", { desc = "Autocommit current git repository" })
+
 -- Remove all carriage return from file
 vim.keymap.set("n", "<F12>", "mz:%s/\r//g<CR>`z", { desc = "Indent all file" })
 

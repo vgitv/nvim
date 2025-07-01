@@ -34,9 +34,9 @@ local extract_url = function(text)
     return url
 end
 
-function OpenLinkBrave()
+function OpenLinkBrowser()
     local current_line = vim.api.nvim_get_current_line()
     local url = extract_url(current_line)
     print(url)
-    vim.system({ "brave-browser", url }, { text = true }):wait()
+    vim.system({ vim.env.BROWSER, url }, { text = true }):wait()
 end

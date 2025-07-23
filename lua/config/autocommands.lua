@@ -177,3 +177,13 @@ vim.api.nvim_create_autocmd("TermOpen", {
         vim.opt_local.cursorline = false
     end,
 })
+
+-- Usually help will be displayed in a split window, so it's convenient not to
+-- have any scrolloff because it's no use seeing context around the help section
+-- we jump to
+vim.api.nvim_create_autocmd("filetype", {
+    desc = "No disturbing scrolloff in help windows",
+    group = init_group,
+    pattern = { "help" },
+    command = "setlocal scrolloff=0",
+})

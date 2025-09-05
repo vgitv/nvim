@@ -16,9 +16,17 @@ end, { desc = "Insert markdown tabular", buffer = true })
 -- open link in brower
 vim.keymap.set("n", "<LocalLeader>b", OpenLinkBrowser, { desc = "Open URL in browser" })
 
--- This is for concealing mardown URL
--- The text: "[text](url)" will render like this: "text"
--- Conceallevel is require, it will hide url link.
-vim.opt_local.conceallevel = 2
--- Hide even if the cursor hovers the url
-vim.opt_local.concealcursor = "nc"
+local toggle_conceal = function()
+    if vim.o.conceallevel == 3 then
+        print("one")
+        vim.opt_local.conceallevel = 0
+        vim.opt_local.concealcursor = ""
+    else
+        print("two")
+        vim.opt_local.conceallevel = 3
+        -- Hide even if the cursor hovers the url
+        vim.opt_local.concealcursor = "nc"
+    end
+end
+
+vim.keymap.set("n", "<LocalLeader>\\", toggle_conceal, { desc = "Toggle markdown concealment" })

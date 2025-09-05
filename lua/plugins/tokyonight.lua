@@ -7,6 +7,10 @@ return {
             hl.CursorLine = {
                 bg = c.black,
             }
+            hl.WinSeparator = {
+                fg = c.black,
+                bold = true,
+            }
         end,
     },
     init = function()

@@ -5,10 +5,12 @@ return {
     opts = {
         on_highlights = function(hl, c)
             hl.CursorLine = {
-                bg = c.black,
+                -- bg = c.black,
+                bg = "#14151d",
             }
             hl.WinSeparator = {
-                fg = c.black,
+                -- fg = c.black,
+                fg = "#14151d",
                 bold = true,
             }
         end,

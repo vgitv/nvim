@@ -113,6 +113,16 @@ vim.api.nvim_create_autocmd({
     command = "setlocal filetype=dircolors",
 })
 
+vim.api.nvim_create_autocmd({
+    "BufNewFile",
+    "BufRead",
+}, {
+    desc = "Set terraform filetype for terraform config files",
+    group = init_group,
+    pattern = "*.tfrc",
+    command = "setlocal filetype=terraform",
+})
+
 --  _            _                                       _
 -- | |_ _____  _| |_   _ __  _ __ ___   ___ ___  ___ ___(_)_ __   __ _
 -- | __/ _ \ \/ / __| | '_ \| '__/ _ \ / __/ _ \/ __/ __| | '_ \ / _` |
@@ -186,4 +196,12 @@ vim.api.nvim_create_autocmd("filetype", {
     group = init_group,
     pattern = { "help" },
     command = "setlocal scrolloff=0",
+})
+
+-- Auto format terraform
+vim.api.nvim_create_autocmd("BufWritePost", {
+    desc = "Format terraform file",
+    group = init_group,
+    pattern = { "*.tf", "*.tfvars", "*.tfrc" },
+    command = "silent !terraform fmt %",
 })

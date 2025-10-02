@@ -4,14 +4,20 @@ return {
     priority = 1000,
     opts = {
         on_highlights = function(hl, c)
+            -- more contrast than c.black
+            black = "#14151d"
+
             hl.CursorLine = {
-                -- bg = c.black,
-                bg = "#14151d",
+                bg = black,
             }
+
             hl.WinSeparator = {
-                -- fg = c.black,
-                fg = "#14151d",
+                fg = black,
                 bold = true,
+            }
+
+            hl.ColorColumn = {
+                bg = black,
             }
         end,
     },

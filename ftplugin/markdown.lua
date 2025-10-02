@@ -18,11 +18,9 @@ vim.keymap.set("n", "<LocalLeader>b", OpenLinkBrowser, { desc = "Open URL in bro
 
 local toggle_conceal = function()
     if vim.o.conceallevel == 3 then
-        print("one")
         vim.opt_local.conceallevel = 0
         vim.opt_local.concealcursor = ""
     else
-        print("two")
         vim.opt_local.conceallevel = 3
         -- Hide even if the cursor hovers the url
         vim.opt_local.concealcursor = "nc"

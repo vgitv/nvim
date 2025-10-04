@@ -3,6 +3,7 @@ local colors = {
     white = "#afb6d7",
     red = "#ff757f",
     green = "#c3e88d",
+    green1 = "4fd6be",
     blue = "#82aaff",
     purple = "#c099ff",
     yellow = "#ffc777",
@@ -36,6 +37,11 @@ return {
     command = {
         a = { bg = colors.yellow, fg = colors.black, gui = "bold" },
         b = { bg = colors.lightgray, fg = colors.yellow },
+        c = { bg = colors.darkgray, fg = colors.white },
+    },
+    terminal = {
+        a = { bg = colors.green1, fg = colors.black, gui = "bold" },
+        b = { bg = colors.lightgray, fg = colors.green1 },
         c = { bg = colors.darkgray, fg = colors.white },
     },
     inactive = {

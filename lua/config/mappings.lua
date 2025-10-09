@@ -59,9 +59,6 @@ vim.keymap.set("n", "<Leader>gt", 'V/=======<CR>"_d/>>>>>>><CR>"_dd', { desc = "
 
 vim.keymap.set("n", "<Leader>h", ":syntax sync fromstart<CR>", { desc = "Fix syntax problems" })
 
--- Toggle highlight search
-vim.keymap.set("n", "<Leader>ss", ":set hlsearch!<CR>:set hlsearch?<CR>", { desc = "Toggle hlsearch" })
-
 -- Insert a pair of {}
 vim.keymap.set("i", "<C-j>", "{<CR>}<Esc>O", { desc = "Insert a pair of {}" })
 

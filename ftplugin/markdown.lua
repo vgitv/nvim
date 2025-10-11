@@ -38,7 +38,7 @@ vim.keymap.set("n", "X", function()
     end
 end, { desc = "Toggle check mark", buffer = true })
 
-local bullets = { "^%s*%- %[.%] ", "^%s*%* ", "^%s*%- " }
+local bullets = { "^%s*%- %[.%] ", "^%s*%* ", "^%s*%- ", "^%s*%d+%. " }
 
 local match_one_of = function(str, patterns)
     for _, pattern in ipairs(patterns) do
@@ -64,6 +64,10 @@ local continue_bullet = function()
             vim.api.nvim_put({ "", "" }, "c", true, true)
         else
             -- automatically insert new bullet
+            num = string.match(match, "%d")
+            if num then
+                match = (num + 1) .. ". "
+            end
             vim.api.nvim_put({ "", match }, "c", true, true)
         end
     else

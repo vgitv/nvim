@@ -38,19 +38,36 @@ vim.keymap.set("n", "X", function()
     end
 end, { desc = "Toggle check mark", buffer = true })
 
+local bullets = { "^%s*%- %[.%] ", "^%s*%* ", "^%s*%- " }
+
+local match_one_of = function(str, patterns)
+    for _, pattern in ipairs(patterns) do
+        local match = string.match(str, pattern)
+        if match then
+            return match
+        end
+    end
+    return nil
+end
+
 local continue_bullet = function()
     vim.cmd "normal $"
     vim.cmd "startinsert"
-    local current_line = vim.api.nvim_get_current_line()
 
-    if string.match(current_line, "^- %[.%] $") or string.match(current_line, "^* $") then
-        vim.api.nvim_set_current_line ""
-        vim.api.nvim_put({ "", "" }, "c", true, true)
-    elseif string.match(current_line, "^- %[.%] .") then
-        vim.api.nvim_put({ "", "- [ ] " }, "c", true, true)
-    elseif string.match(current_line, "^%* .") then
-        vim.api.nvim_put({ "", "* " }, "c", true, true)
+    local current_line = vim.api.nvim_get_current_line()
+    local match = match_one_of(current_line, bullets)
+
+    if match then
+        if current_line == match then
+            -- current bullet item is empty, delete it
+            vim.api.nvim_set_current_line ""
+            vim.api.nvim_put({ "", "" }, "c", true, true)
+        else
+            -- automatically insert new bullet
+            vim.api.nvim_put({ "", match }, "c", true, true)
+        end
     else
+        -- insert empty line
         vim.api.nvim_put({ "", "" }, "c", true, true)
     end
 end

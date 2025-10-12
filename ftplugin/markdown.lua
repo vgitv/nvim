@@ -40,6 +40,10 @@ end, { desc = "Toggle check mark", buffer = true })
 
 local bullets = { "^%s*%- %[.%] ", "^%s*%* ", "^%s*%- ", "^%s*%d+%. " }
 
+---Does the string match one of the given patterns
+---@param str string
+---@param patterns table
+---@return string first match
 local match_one_of = function(str, patterns)
     for _, pattern in ipairs(patterns) do
         local match = string.match(str, pattern)
@@ -50,29 +54,38 @@ local match_one_of = function(str, patterns)
     return nil
 end
 
-local continue_bullet = function()
-    vim.cmd "normal $"
-    vim.cmd "startinsert"
+---Insert a new line and start insert mode at the end of it
+---@param lnum integer line number, zero-based
+---@param content string content to insert
+local insert_line = function(lnum, content)
+    -- Be carefull, indexing is zero based ...
+    vim.api.nvim_buf_set_lines(0, lnum, lnum, false, { content })
+    -- ... and here it starts at 1
+    vim.fn.setcharpos(".", { 0, lnum + 1, 1, 0 })
+    vim.cmd "startinsert!"
+end
 
+local continue_bullet = function()
     local current_line = vim.api.nvim_get_current_line()
     local match = match_one_of(current_line, bullets)
+    local lnum = vim.fn.getcharpos(".")[2]
 
     if match then
         if current_line == match then
             -- current bullet item is empty, delete it
             vim.api.nvim_set_current_line ""
-            vim.api.nvim_put({ "", "" }, "c", true, true)
+            insert_line(lnum, "")
         else
             -- automatically insert new bullet
             num = string.match(match, "%d")
             if num then
                 match = (num + 1) .. ". "
             end
-            vim.api.nvim_put({ "", match }, "c", true, true)
+            insert_line(lnum, match)
         end
     else
         -- insert empty line
-        vim.api.nvim_put({ "", "" }, "c", true, true)
+        insert_line(lnum, "")
     end
 end
 

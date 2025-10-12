@@ -54,15 +54,14 @@ local match_one_of = function(str, patterns)
     return nil
 end
 
----Insert a new line and start insert mode at the end of it
+---Insert a new line and put cursor at the end of it
 ---@param lnum integer line number, zero-based
 ---@param content string content to insert
 local insert_line = function(lnum, content)
     -- Be carefull, indexing is zero based ...
     vim.api.nvim_buf_set_lines(0, lnum, lnum, false, { content })
     -- ... and here it starts at 1
-    vim.fn.setcharpos(".", { 0, lnum + 1, 1, 0 })
-    vim.cmd "startinsert!"
+    vim.fn.setcharpos(".", { 0, lnum + 1, string.len(content), 0 })
 end
 
 local continue_bullet = function()
@@ -87,6 +86,7 @@ local continue_bullet = function()
         -- insert empty line
         insert_line(lnum, "")
     end
+    vim.cmd "startinsert!"
 end
 
 vim.keymap.set("i", "<CR>", continue_bullet, { desc = "TODO", buffer = true })

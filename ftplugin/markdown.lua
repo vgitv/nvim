@@ -64,6 +64,29 @@ local insert_line = function(lnum, content)
     vim.fn.setcharpos(".", { 0, lnum + 1, string.len(content), 0 })
 end
 
+Renumber = function()
+    local numbers = "^%s*%d+%. "
+    local lnum = vim.fn.getcharpos(".")[2]
+    local lines = vim.api.nvim_buf_get_lines(0, lnum, -1, false)
+    local current_line = vim.api.nvim_get_current_line()
+    local match = string.match(current_line, numbers)
+    local start_from = string.match(match, "%d+")
+    local new_lines = {}
+    for i, line in ipairs(lines) do
+        match = string.match(line, numbers)
+        if match then
+            match = match:gsub("%d+", start_from + i)
+            line = line:gsub(numbers, match)
+            table.insert(new_lines, line)
+        else
+            break
+        end
+    end
+    if #new_lines > 0 then
+        vim.api.nvim_buf_set_lines(0, lnum, lnum + #new_lines, false, new_lines)
+    end
+end
+
 local continue_bullet = function()
     local current_line = vim.api.nvim_get_current_line()
     local match = match_one_of(current_line, bullets)
@@ -76,11 +99,14 @@ local continue_bullet = function()
             insert_line(lnum, "")
         else
             -- automatically insert new bullet
-            num = string.match(match, "%d")
+            num = string.match(match, "%d+")
             if num then
                 match = (num + 1) .. ". "
+                insert_line(lnum, match)
+                Renumber()
+            else
+                insert_line(lnum, match)
             end
-            insert_line(lnum, match)
         end
     else
         -- insert empty line

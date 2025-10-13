@@ -108,12 +108,25 @@ local continue_bullet = function()
                 insert_line(lnum, match)
             end
         end
+        vim.cmd "startinsert!"
+        return true
     else
-        -- insert empty line
-        insert_line(lnum, "")
+        return false
     end
-    vim.cmd "startinsert!"
 end
 
-vim.keymap.set("i", "<CR>", continue_bullet, { desc = "TODO", buffer = true })
-vim.keymap.set("n", "o", continue_bullet, { desc = "TODO", buffer = true })
+vim.keymap.set("i", "<CR>", function()
+    if not continue_bullet() then
+        -- insert empty line
+        vim.api.nvim_put({ "", "" }, "c", false, true)
+        vim.cmd "startinsert"
+    end
+end, { desc = "TODO", buffer = true })
+
+vim.keymap.set("n", "o", function()
+    if not continue_bullet() then
+        -- "!" is very important here to avoid nested command call
+        vim.cmd "normal! o"
+        vim.cmd "startinsert"
+    end
+end, { desc = "TODO", buffer = true })

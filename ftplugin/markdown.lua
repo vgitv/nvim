@@ -87,48 +87,48 @@ Renumber = function()
     end
 end
 
-local continue_bullet = function()
-    local current_line = vim.api.nvim_get_current_line()
-    local match = match_one_of(current_line, bullets)
-    local lnum = vim.fn.getcharpos(".")[2]
+local insert_bullet = function(ref_line_num)
+    local ref_line = vim.api.nvim_buf_get_lines(0, ref_line_num - 1, ref_line_num, false)[1]
+    local match = match_one_of(ref_line, bullets)
 
     if match then
-        if current_line == match then
+        if ref_line == match then
             -- current bullet item is empty, delete it
-            vim.api.nvim_set_current_line ""
-            insert_line(lnum, "")
+            vim.api.nvim_buf_set_lines(0, ref_line_num - 1, ref_line_num, false, { "" })
         else
             -- automatically insert new bullet
             num = string.match(match, "%d+")
             if num then
-                match = (num + 1) .. ". "
-                insert_line(lnum, match)
+                num = num + 1
+                match = match:gsub("%d+", num)
+                vim.api.nvim_put({ match }, "c", false, true)
                 Renumber()
             else
-                insert_line(lnum, match)
+                vim.api.nvim_put({ match }, "c", false, true)
             end
         end
-        vim.cmd "startinsert!"
-        return true
-    else
-        return false
     end
 end
 
 vim.keymap.set("i", "<CR>", function()
-    if not continue_bullet() then
-        -- insert empty line
-        vim.api.nvim_put({ "", "" }, "c", false, true)
-        vim.cmd "startinsert"
-    end
+    local current_line_num = vim.fn.getcharpos(".")[2]
+    vim.api.nvim_put({ "", "" }, "c", false, true)
+    insert_bullet(current_line_num)
+    vim.cmd "startinsert"
 end, { desc = "TODO", buffer = true })
 
 vim.keymap.set("n", "o", function()
-    if not continue_bullet() then
-        -- "!" is very important here to avoid nested command call
-        vim.cmd "normal! o"
-        vim.cmd "startinsert"
-    end
+    local current_line_num = vim.fn.getcharpos(".")[2]
+    vim.cmd "normal! o"
+    insert_bullet(current_line_num)
+    vim.cmd "startinsert!"
+end, { desc = "TODO", buffer = true })
+
+vim.keymap.set("n", "O", function()
+    local current_line_num = vim.fn.getcharpos(".")[2]
+    vim.cmd "normal! O"
+    insert_bullet(current_line_num + 1)
+    vim.cmd "startinsert!"
 end, { desc = "TODO", buffer = true })
 
 vim.keymap.set("n", "dd", function()

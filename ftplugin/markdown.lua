@@ -130,3 +130,21 @@ vim.keymap.set("n", "o", function()
         vim.cmd "startinsert"
     end
 end, { desc = "TODO", buffer = true })
+
+vim.keymap.set("n", "dd", function()
+    local to_delete_line = vim.api.nvim_get_current_line()
+    -- FIXME multiple definition of numbers
+    local numbers = "^%s*%d+%. "
+    local to_delete_match = string.match(to_delete_line, numbers)
+    vim.cmd "normal! dd"
+    if to_delete_match then
+        local current_line = vim.api.nvim_get_current_line()
+        local match = string.match(current_line, numbers)
+        if match then
+            local num = string.match(match, "%d+")
+            local new_bullet = match:gsub("%d+", num - 1)
+            vim.api.nvim_set_current_line((current_line:gsub(numbers, new_bullet)))
+            Renumber()
+        end
+    end
+end, { desc = "TODO", buffer = true })

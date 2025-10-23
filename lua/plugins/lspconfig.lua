@@ -6,7 +6,6 @@ return {
         "saghen/blink.cmp",
         "nvim-telescope/telescope.nvim",
     },
-    ft = { "lua", "python", "sh" },
     config = function()
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),

@@ -43,7 +43,7 @@ local bullets = { "^%s*%- %[.%] ", "^%s*%* ", "^%s*%- ", "^%s*%d+%. " }
 ---Does the string match one of the given patterns
 ---@param str string
 ---@param patterns table
----@return string first match
+---@return string|nil first match
 local match_one_of = function(str, patterns)
     for _, pattern in ipairs(patterns) do
         local match = string.match(str, pattern)
@@ -97,13 +97,15 @@ local insert_bullet = function(ref_line_num)
             vim.api.nvim_buf_set_lines(0, ref_line_num - 1, ref_line_num, false, { "" })
         else
             -- automatically insert new bullet
-            num = string.match(match, "%d+")
+            local num = string.match(match, "%d+")
             if num then
                 num = num + 1
                 match = match:gsub("%d+", num)
                 vim.api.nvim_put({ match }, "c", false, true)
                 Renumber()
             else
+                -- uncheck box if insert after a checked item
+                match = match:gsub("x", " ")
                 vim.api.nvim_put({ match }, "c", false, true)
             end
         end

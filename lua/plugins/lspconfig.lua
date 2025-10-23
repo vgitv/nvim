@@ -94,20 +94,24 @@ return {
         --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
         local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-        local servers = { "lua_ls", "pyright", "bashls", "terraform-ls" }
-        for _, lsp in ipairs(servers) do
-            -- TODO verify that this is doing something: which capabilities are we adding?
-            if lsp == "terraform-ls" then
-                vim.lsp.config(lsp, {
+        -- We cant use the key as the LSP name because some LSPs have special char in their name (like terraform-ls)
+        local servers = {
+            lua_ls = { name = "lua_ls" },
+            pyright = { name = "pyright" },
+            bashls = { name = "bashls" },
+            terraform_ls = {
+                name = "terraform-ls",
+                config = {
                     filetypes = { "terraform", "terraform-vars" },
                     root_markers = { ".terraform", ".git" },
                     cmd = { "terraform-ls", "serve" },
-                    capabilities = capabilities,
-                })
-            else
-                vim.lsp.config(lsp, { capabilities = capabilities })
-            end
-            vim.lsp.enable(lsp)
+                },
+            },
+        }
+        for _, lsp in pairs(servers) do
+            -- TODO verify that setting capabilities is doing something: which capabilities are we adding?
+            vim.lsp.config(lsp.name, vim.tbl_deep_extend("force", lsp.config or {}, { capabilities = capabilities }))
+            vim.lsp.enable(lsp.name)
             -- FIXME Why vim.lsp.buf.format() fails on python but succeed on lua?
         end
     end,

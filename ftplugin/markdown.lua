@@ -38,7 +38,7 @@ vim.keymap.set("n", "X", function()
     end
 end, { desc = "Toggle check mark", buffer = true })
 
-local bullets = { "^%s*%- %[.%] ", "^%s*%* ", "^%s*%- ", "^%s*%d+%. " }
+local bullets = { "^%s*%- %[.%] ", "^%s*%* ", "^%s*%+ ", "^%s*%- ", "^%s*%d+%. " }
 
 ---Does the string match one of the given patterns
 ---@param str string

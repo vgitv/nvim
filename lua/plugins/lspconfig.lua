@@ -107,6 +107,7 @@ return {
                     cmd = { "terraform-ls", "serve" },
                 },
             },
+            ansiblels = { name = "ansiblels" },
         }
         for _, lsp in pairs(servers) do
             -- TODO verify that setting capabilities is doing something: which capabilities are we adding?

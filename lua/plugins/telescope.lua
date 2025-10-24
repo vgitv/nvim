@@ -14,6 +14,7 @@ return {
     end,
     cmd = "Telescope",
     keys = {
+        { "<Leader>b", ":Telescope buffers<CR>", desc = "[S]earch [B]uffers", silent = true },
         { "<Leader>ss", ":Telescope builtin<CR>", desc = "[S]earch builtin", silent = true },
         { "<Leader>sh", ":Telescope help_tags<CR>", desc = "[S]earch [H]elp", silent = true },
         { "<leader>sf", ":Telescope find_files<CR>", desc = "[S]earch [F]iles", silent = true },

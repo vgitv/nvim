@@ -13,9 +13,6 @@ vim.keymap.set("i", "<LocalLeader>t", function()
     vim.cmd "normal 2k0"
 end, { desc = "Insert markdown tabular", buffer = true })
 
--- open link in brower
-vim.keymap.set("n", "<LocalLeader>b", OpenLinkBrowser, { desc = "Open URL in browser", buffer = true })
-
 -- Toggle concealment
 vim.keymap.set("n", "<LocalLeader>\\", function()
     if vim.o.conceallevel == 3 then

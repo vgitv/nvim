@@ -18,13 +18,23 @@ function LintCurrentFile()
 end
 
 local format_commands = {
-    python = '!black --line-length=120 "%"',
-    json = "%!jq .",
-    lua = '!stylua -s "%"',
-    terraform = '!terraform fmt "%"',
+    python = 'python -m black --line-length=120 "%"',
+    json = 'python -m json.tool --indent __shiftwidth__ "%" "%"',
+    lua = 'stylua -s "%"',
+    terraform = 'terraform fmt "%"',
 }
 
 -- Format current file
 function FormatCurrentFile()
-    vim.cmd(format_commands[vim.bo.filetype] or 'echom "Format command not implement yet"')
+    local command = format_commands[vim.bo.filetype] or nil
+    if not command then
+        print "Formatting command not implemented yet for this filetype"
+        return
+    end
+
+    local shiftwidth = vim.api.nvim_get_option_value("shiftwidth", { scope = "local", buf = 0 })
+    command = command:gsub("__shiftwidth__", shiftwidth)
+    print "Formatting..."
+    vim.cmd("silent !" .. command)
+    print "Formatting done!"
 end

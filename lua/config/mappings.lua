@@ -70,12 +70,8 @@ vim.keymap.set("o", "il(", ":<C-U>normal! F)vi(<CR>", { desc = "[I]n [L]ast pare
 vim.keymap.set("o", "in@", ":<c-u>normal! f@viW<cr>", { desc = "[I]n [N]ext email address" })
 
 -- Lint and format
-vim.keymap.set("n", "<F3>", function()
-    LintCurrentFile()
-end, { desc = "Lint current file" })
-vim.keymap.set("n", "<LocalLeader>f", function()
-    FormatCurrentFile()
-end, { desc = "Format current file" })
+vim.keymap.set("n", "<F3>", LintCurrentFile, { desc = "Lint current file" })
+vim.keymap.set("n", "<Leader>f", FormatCurrentFile, { desc = "Format current file" })
 
 -- Disable highlight search. This do not change the hlsearch option value, will higlight on next search.
 vim.keymap.set("n", "<Esc>", ":silent nohlsearch<CR>", { desc = "Clear highlight search" })

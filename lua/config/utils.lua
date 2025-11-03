@@ -18,23 +18,41 @@ function LintCurrentFile()
 end
 
 local format_commands = {
-    python = 'python -m black --line-length=120 "%"',
-    json = 'python -m json.tool --indent __shiftwidth__ "%" "%"',
-    lua = 'stylua -s "%"',
-    terraform = 'terraform fmt "%"',
+    lua = function()
+        local filepath = vim.api.nvim_buf_get_name(0)
+        return { "stylua", "-s", filepath }
+    end,
+    python = function()
+        local filepath = vim.api.nvim_buf_get_name(0)
+        return { "python", "-m", "black", "--line-length=120", filepath }
+    end,
+    json = function()
+        local filepath = vim.api.nvim_buf_get_name(0)
+        local shiftwidth = vim.api.nvim_get_option_value("shiftwidth", { scope = "local", buf = 0 })
+        return { "python", "-m", "json.tool", "--indent", shiftwidth, filepath, filepath }
+    end,
+    terraform = function()
+        local filepath = vim.api.nvim_buf_get_name(0)
+        return { "terraform", "fmt", filepath }
+    end,
 }
 
 -- Format current file
 function FormatCurrentFile()
-    local command = format_commands[vim.bo.filetype] or nil
-    if not command then
+    local get_command = format_commands[vim.bo.filetype] or nil
+    if not get_command then
         print "Formatting command not implemented yet for this filetype"
         return
     end
 
-    local shiftwidth = vim.api.nvim_get_option_value("shiftwidth", { scope = "local", buf = 0 })
-    command = command:gsub("__shiftwidth__", shiftwidth)
     print "Formatting..."
-    vim.cmd("silent !" .. command)
-    print "Formatting done!"
+    local command = get_command()
+    local result = vim.system(command, { text = true }):wait()
+
+    if result.code == 0 then
+        vim.cmd "edit"
+        print "Formatting done!"
+    else
+        print("ERROR - something went wrong:\n" .. result.stderr)
+    end
 end

@@ -3,14 +3,15 @@
 -- Insert link
 vim.keymap.set("v", "<C-k>", "<Esc>`<i[<Esc>`>la]()<Esc>h", { desc = "Insert markdown link", buffer = true })
 
--- insert tabular
+-- insert tabular at cursor position
 vim.keymap.set("i", "<LocalLeader>t", function()
-    vim.cmd "normal i| <++> | <++> |"
-    vim.cmd "normal o"
-    vim.cmd "normal i|------|------|"
-    vim.cmd "normal o"
-    vim.cmd "normal i| <++> | <++> |"
-    vim.cmd "normal 2k0"
+    local lines = {
+        "| <++> | <++> |",
+        "|------|------|",
+        "| <++> | <++> |",
+    }
+    local lnum = vim.fn.getcharpos(".")[2]
+    vim.api.nvim_buf_set_lines(0, lnum - 1, lnum, true, lines)
 end, { desc = "Insert markdown tabular", buffer = true })
 
 -- Toggle concealment

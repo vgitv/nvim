@@ -3,9 +3,9 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-        on_highlights = function(hl, c)
+        on_highlights = function(hl, _)
             -- more contrast than c.black
-            black = "#14151d"
+            local black = "#14151d"
 
             hl.CursorLine = {
                 bg = black,

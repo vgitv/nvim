@@ -69,7 +69,7 @@ vim.api.nvim_create_autocmd({
 }, {
     desc = "Set yaml filetype for .yamllint file",
     group = init_group,
-    pattern = ".yamllint",
+    pattern = { ".yamllint", "*.yaml.j2", "*.yml.j2" },
     command = "setlocal filetype=yaml",
 })
 

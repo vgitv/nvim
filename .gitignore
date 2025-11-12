@@ -3,4 +3,3 @@ temp*.lua
 tmp*.vim
 tmp*.lua
 lazy-lock.json
-.envrc

@@ -1,5 +1,2 @@
 #!/usr/bin/zsh
-setopt nounset
-setopt pipefail
-setopt errexit
-setopt errreturn
+setopt no_unset pipe_fail err_exit warn_create_global

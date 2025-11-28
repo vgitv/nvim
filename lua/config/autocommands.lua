@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 })
 
 vim.api.nvim_create_autocmd("BufNewFile", {
-    desc = "Python template",
+    desc = "Zsh template",
     group = init_group,
     pattern = "*.zsh",
     command = [[0read ~/.config/nvim/templates/skeleton.zsh | norm G]],

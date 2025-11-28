@@ -1,5 +1,12 @@
 -- Buffer local keymaps
 
+-- vim.cmd "inoreabbrev <buffer> !note ><Space>[!NOTE]<CR>><Space>"
+vim.cmd "inoreabbrev <buffer> _note ><Space>[!NOTE]<CR>>"
+vim.cmd "inoreabbrev <buffer> _tip ><Space>[!TIP]<CR>>"
+vim.cmd "inoreabbrev <buffer> _important ><Space>[!IMPORTANT]<CR>>"
+vim.cmd "inoreabbrev <buffer> _warning ><Space>[!WARNING]<CR>>"
+vim.cmd "inoreabbrev <buffer> _caution ><Space>[!CAUTION]<CR>>"
+
 -- Insert link
 vim.keymap.set("v", "<C-k>", "<Esc>`<i[<Esc>`>la]()<Esc>h", { desc = "Insert markdown link", buffer = true })
 

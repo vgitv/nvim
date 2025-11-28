@@ -5,7 +5,7 @@ return {
         "nvim-lualine/lualine.nvim",
         options = {
             icons_enabled = true,
-            theme = "tokyonight",
+            theme = require "lualine_themes.tokyonight",
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
             disabled_filetypes = {
@@ -27,7 +27,7 @@ return {
             lualine_b = { "branch", "diff", "diagnostics" },
             lualine_c = { "filename" },
             lualine_x = { "encoding", "fileformat", "filetype" },
-            lualine_y = { "progress" },
+            lualine_y = { "searchcount", "progress" },
             lualine_z = { "location" },
         },
         inactive_sections = {

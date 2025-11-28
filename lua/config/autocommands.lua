@@ -46,6 +46,13 @@ vim.api.nvim_create_autocmd("BufNewFile", {
     command = [[1read ~/.config/nvim/templates/skeleton.py | 1delete]],
 })
 
+vim.api.nvim_create_autocmd("BufNewFile", {
+    desc = "Zsh template",
+    group = init_group,
+    pattern = "*.zsh",
+    command = [[0read ~/.config/nvim/templates/skeleton.zsh | norm G]],
+})
+
 --   __ _ _      _
 --  / _(_) | ___| |_ _   _ _ __   ___  ___
 -- | |_| | |/ _ \ __| | | | '_ \ / _ \/ __|
@@ -69,7 +76,7 @@ vim.api.nvim_create_autocmd({
 }, {
     desc = "Set yaml filetype for .yamllint file",
     group = init_group,
-    pattern = ".yamllint",
+    pattern = { ".yamllint", "*.yaml.j2", "*.yml.j2" },
     command = "setlocal filetype=yaml",
 })
 
@@ -111,6 +118,16 @@ vim.api.nvim_create_autocmd({
     group = init_group,
     pattern = { "dir_colors", ".dir_colors" },
     command = "setlocal filetype=dircolors",
+})
+
+vim.api.nvim_create_autocmd({
+    "BufNewFile",
+    "BufRead",
+}, {
+    desc = "Set terraform filetype for terraform config files",
+    group = init_group,
+    pattern = "*.tfrc",
+    command = "setlocal filetype=terraform",
 })
 
 --  _            _                                       _

@@ -14,6 +14,9 @@ end, { desc = "Build current file using external script" })
 -- Set a mark, indent whole file and go back to the mark
 vim.keymap.set("n", "<F6>", "mzgg=G`zzz", { desc = "Indent all file" })
 
+-- Autocommit
+vim.keymap.set("n", "<F8>", ":!autocommit<CR>", { desc = "Autocommit current git repository" })
+
 -- Remove all carriage return from file
 vim.keymap.set("n", "<F12>", "mz:%s/\r//g<CR>`z", { desc = "Indent all file" })
 
@@ -56,9 +59,6 @@ vim.keymap.set("n", "<Leader>gt", 'V/=======<CR>"_d/>>>>>>><CR>"_dd', { desc = "
 
 vim.keymap.set("n", "<Leader>h", ":syntax sync fromstart<CR>", { desc = "Fix syntax problems" })
 
--- Toggle highlight search
-vim.keymap.set("n", "<Leader>ss", ":set hlsearch!<CR>:set hlsearch?<CR>", { desc = "Toggle hlsearch" })
-
 -- Insert a pair of {}
 vim.keymap.set("i", "<C-j>", "{<CR>}<Esc>O", { desc = "Insert a pair of {}" })
 
@@ -70,9 +70,8 @@ vim.keymap.set("o", "il(", ":<C-U>normal! F)vi(<CR>", { desc = "[I]n [L]ast pare
 vim.keymap.set("o", "in@", ":<c-u>normal! f@viW<cr>", { desc = "[I]n [N]ext email address" })
 
 -- Lint and format
-vim.keymap.set("n", "<F3>", function()
-    LintCurrentFile()
-end, { desc = "Lint current file" })
-vim.keymap.set("n", "<LocalLeader>f", function()
-    FormatCurrentFile()
-end, { desc = "Format current file" })
+vim.keymap.set("n", "<F3>", LintCurrentFile, { desc = "Lint current file" })
+vim.keymap.set("n", "<Leader>f", FormatCurrentFile, { desc = "Format current file" })
+
+-- Disable highlight search. This do not change the hlsearch option value, will higlight on next search.
+vim.keymap.set("n", "<Esc>", ":silent nohlsearch<CR>", { desc = "Clear highlight search" })

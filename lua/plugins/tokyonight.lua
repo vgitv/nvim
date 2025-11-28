@@ -3,9 +3,21 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-        on_highlights = function(hl, c)
+        on_highlights = function(hl, _)
+            -- more contrast than c.black
+            local black = "#14151d"
+
             hl.CursorLine = {
-                bg = c.black,
+                bg = black,
+            }
+
+            hl.WinSeparator = {
+                fg = black,
+                bold = true,
+            }
+
+            hl.ColorColumn = {
+                bg = black,
             }
         end,
     },

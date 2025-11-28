@@ -1,11 +1,21 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
     main = "nvim-treesitter.configs",
-    ft = { "lua", "python", "sh", "markdown" },
+    lazy = false,
+    build = ":TSUpdate",
     opts = {
         -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-        ensure_installed = { "lua", "python", "bash", "markdown", "markdown_inline" },
+        ensure_installed = {
+            "lua",
+            "python",
+            "bash",
+            "markdown",
+            "markdown_inline",
+            "yaml",
+            "groovy",
+            "cpp",
+            "terraform",
+        },
 
         -- Automatically install missing parsers when entering buffer
         -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
@@ -33,10 +43,11 @@ return {
             -- Using this option may slow down your editor, and you may see some duplicate highlights.
             -- Instead of true it can also be a list of languages
             --
-            -- FIXME: Personnal note: in python if you have escape sequences like "\x1b[38;20m", the indentation will
-            -- break, for that reason set this variable to true. Ideally this will be solved by future versions of
-            -- neovim / treesitter.
-            additional_vim_regex_highlighting = true,
+            -- FIXME: Personnal note: in python if you have escape sequences
+            -- like "\x1b[38;20m", the indentation will break, for that reason
+            -- enable regex highlighting for this language. Ideally this will
+            -- be solved by future versions of neovim / treesitter.
+            additional_vim_regex_highlighting = { "python" },
         },
     },
 }

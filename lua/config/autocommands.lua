@@ -126,7 +126,7 @@ vim.api.nvim_create_autocmd({
 }, {
     desc = "Set terraform filetype for terraform config files",
     group = init_group,
-    pattern = "*.tfrc",
+    pattern = { "*.tfrc", "*.tftest.hcl" },
     command = "setlocal filetype=terraform",
 })
 

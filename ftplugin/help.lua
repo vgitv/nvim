@@ -6,7 +6,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     end,
 })
 
-
 -- Usually help will be displayed in a split window, so it's convenient not to
 -- have any scrolloff because it's no use seeing context around the help section
 -- we jump to

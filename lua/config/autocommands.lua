@@ -124,10 +124,21 @@ vim.api.nvim_create_autocmd({
     "BufNewFile",
     "BufRead",
 }, {
-    desc = "Set terraform filetype for terraform config files",
+    desc = "Set terraform filetype for terraform test files",
     group = init_group,
-    pattern = { "*.tfrc", "*.tftest.hcl" },
+    pattern = { "*.tftest.hcl" },
     command = "setlocal filetype=terraform",
+})
+
+-- Because I dont want the terraform-ls LSP to run on this file
+vim.api.nvim_create_autocmd({
+    "BufNewFile",
+    "BufRead",
+}, {
+    desc = "Set HCL filetype for terraform config file",
+    group = init_group,
+    pattern = { "*.tfrc" },
+    command = "setlocal filetype=hcl",
 })
 
 --  _            _                                       _

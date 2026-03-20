@@ -56,3 +56,15 @@ function FormatCurrentFile()
         print("ERROR - something went wrong:\n" .. result.stderr)
     end
 end
+
+-- Autocommit
+function Autocommit()
+    print "Autocommit..."
+    local result = vim.system({ "autocommit" }, { text = true }):wait()
+
+    if result.code == 0 then
+        print(result.stdout)
+    else
+        print("ERROR - something went wrong:\n" .. result.stdout .. "\n" .. result.stderr)
+    end
+end

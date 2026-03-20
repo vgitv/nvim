@@ -8,6 +8,9 @@ vim.opt.smartcase = true
 -- mouse in all modes - middle-click paste with mouse
 vim.opt.mouse = "a"
 
+-- mouse scroll
+vim.opt.mousescroll = "ver:1,hor:6"
+
 -- highlight search results
 vim.opt.hlsearch = true
 
@@ -84,6 +87,9 @@ vim.opt.splitbelow = true
 
 -- Preview substitutions, shows partial off-screen results in a preview window
 vim.opt.inccommand = "split"
+
+-- Fold by markers {{{ ... }}}
+vim.opt.foldmethod = "marker"
 
 vim.g.have_nerd_font = 1
 vim.g.loaded_netrw = 1

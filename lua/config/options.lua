@@ -8,9 +8,6 @@ vim.opt.smartcase = true
 -- mouse in all modes - middle-click paste with mouse
 vim.opt.mouse = "a"
 
--- mouse scroll
-vim.opt.mousescroll = "ver:1,hor:6"
-
 -- highlight search results
 vim.opt.hlsearch = true
 

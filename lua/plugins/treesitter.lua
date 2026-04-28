@@ -1,11 +1,11 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    main = "nvim-treesitter.configs",
+    -- Install tree-sitter cli first https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md
+    "neovim-treesitter/nvim-treesitter",
+    dependencies = { "neovim-treesitter/treesitter-parser-registry" },
     lazy = false,
     build = ":TSUpdate",
-    opts = {
-        -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-        ensure_installed = {
+    config = function()
+        require("nvim-treesitter").install {
             "lua",
             "python",
             "bash",
@@ -13,41 +13,33 @@ return {
             "markdown_inline",
             "yaml",
             "groovy",
+            "c",
             "cpp",
+            "hcl",
             "terraform",
-        },
+            "zsh",
+        }
 
-        -- Automatically install missing parsers when entering buffer
-        -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-        auto_install = false,
-
-        highlight = {
-            enable = true,
-
-            -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-            -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-            -- the name of the parser)
-            -- list of language that will be disabled
-            -- disable = { "c", "rust" },
-            -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-            disable = function(lang, buf)
-                local max_filesize = 100 * 1024 -- 100 KB
-                local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-                if ok and stats and stats.size > max_filesize then
-                    return true
-                end
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = {
+                "lua",
+                "python",
+                "bash",
+                "markdown",
+                "yaml",
+                "groovy",
+                "c",
+                "cpp",
+                "hcl",
+                "terraform",
+                "zsh",
+            },
+            callback = function()
+                vim.treesitter.start() -- highlighting
+                -- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- folds
+                -- vim.wo.foldmethod = "expr"
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" -- indentation
             end,
-
-            -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-            -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-            -- Using this option may slow down your editor, and you may see some duplicate highlights.
-            -- Instead of true it can also be a list of languages
-            --
-            -- FIXME: Personnal note: in python if you have escape sequences
-            -- like "\x1b[38;20m", the indentation will break, for that reason
-            -- enable regex highlighting for this language. Ideally this will
-            -- be solved by future versions of neovim / treesitter.
-            additional_vim_regex_highlighting = { "python" },
-        },
-    },
+        })
+    end,
 }

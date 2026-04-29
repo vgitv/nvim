@@ -53,6 +53,14 @@ vim.api.nvim_create_autocmd("BufNewFile", {
     command = [[0read ~/.config/nvim/templates/skeleton.zsh | norm G]],
 })
 
+vim.api.nvim_create_autocmd("BufNewFile", {
+    desc = "Python template",
+    group = init_group,
+    pattern = { "playbook*.yml", "playbook*.yaml" },
+    command = [[1read ~/.config/nvim/templates/playbook.yml | 1delete]],
+})
+
+
 --   __ _ _      _
 --  / _(_) | ___| |_ _   _ _ __   ___  ___
 -- | |_| | |/ _ \ __| | | | '_ \ / _ \/ __|

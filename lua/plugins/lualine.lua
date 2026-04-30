@@ -4,6 +4,7 @@ return {
     opts = {
         "nvim-lualine/lualine.nvim",
         options = {
+            path = 1,
             icons_enabled = true,
             theme = require "lualine_themes.tokyonight",
             component_separators = { left = "", right = "" },

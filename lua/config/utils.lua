@@ -45,6 +45,9 @@ function FormatCurrentFile()
         return
     end
 
+    -- Write before formatting file because we use an external command to modify the file.
+    vim.cmd "write"
+
     print "Formatting..."
     local command = get_command()
     local result = vim.system(command, { text = true }):wait()

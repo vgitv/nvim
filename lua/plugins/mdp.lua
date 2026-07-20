@@ -1,4 +1,5 @@
 return {
-    "vgitv/mdp.nvim",
+    -- "vgitv/mdp.nvim",
+    dir = "~/Modèles/mdp.nvim",
     opts = {},
 }

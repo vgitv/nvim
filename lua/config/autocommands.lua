@@ -149,6 +149,17 @@ vim.api.nvim_create_autocmd({
     command = "setlocal filetype=hcl",
 })
 
+-- HACK: filetype is not deduced from shebang, sor force bash for all .sh files
+vim.api.nvim_create_autocmd({
+    "BufNewFile",
+    "BufRead",
+}, {
+    desc = "Set bash filetype for all .sh files",
+    group = init_group,
+    pattern = { "*.sh" },
+    command = "setlocal filetype=bash",
+})
+
 --  _            _                                       _
 -- | |_ _____  _| |_   _ __  _ __ ___   ___ ___  ___ ___(_)_ __   __ _
 -- | __/ _ \ \/ / __| | '_ \| '__/ _ \ / __/ _ \/ __/ __| | '_ \ / _` |

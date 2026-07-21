@@ -8,6 +8,7 @@ end
 
 local lint_commands = {
     sh = '!shellcheck -x "%"',
+    bash = '!shellcheck -x "%"',
     python = '!flake8 --max-line-length=120 "%"',
     yaml = '!yamllint "%"',
 }

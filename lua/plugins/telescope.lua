@@ -1,17 +1,10 @@
 return {
     "nvim-telescope/telescope.nvim",
+    version = '*',
     dependencies = {
         "nvim-lua/plenary.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
-    opts = {
-        extensions = {
-            fzf = {},
-        },
-    },
-    config = function()
-        require("telescope").load_extension "fzf"
-    end,
     cmd = "Telescope",
     keys = {
         { "<Leader>b", ":Telescope buffers<CR>", desc = "[S]earch [B]uffers", silent = true },

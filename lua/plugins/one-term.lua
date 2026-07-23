@@ -1,7 +1,7 @@
 return {
     -- FIXME: do not merge local path to plugin
     -- "vgitv/one-term.nvim",
-    dir = "~/Modèles/one-term.nvim",
+    dir = "~/Code/vgitv/one-term.nvim",
     cmd = "Oneterm",
     branch = "main",
     keys = {

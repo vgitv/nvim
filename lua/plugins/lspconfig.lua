@@ -110,10 +110,10 @@ return {
             ansiblels = { name = "ansiblels" },
         }
         for _, lsp in pairs(servers) do
-            -- TODO verify that setting capabilities is doing something: which capabilities are we adding?
+            -- TODO: verify that setting capabilities is doing something: which capabilities are we adding?
             vim.lsp.config(lsp.name, vim.tbl_deep_extend("force", lsp.config or {}, { capabilities = capabilities }))
             vim.lsp.enable(lsp.name)
-            -- FIXME Why vim.lsp.buf.format() fails on python but succeed on lua?
+            -- FIXME: Why vim.lsp.buf.format() fails on python but succeed on lua?
         end
     end,
 }

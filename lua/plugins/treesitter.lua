@@ -1,7 +1,6 @@
 return {
     -- Install tree-sitter cli first https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md
-    "neovim-treesitter/nvim-treesitter",
-    dependencies = { "neovim-treesitter/treesitter-parser-registry" },
+    "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = ":TSUpdate",
     config = function()
